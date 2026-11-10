@@ -200,8 +200,9 @@ pub struct FocusPlan {
 }
 
 impl FocusPlan {
+    /// Its length in minutes, to the nearest one.
     pub fn minutes(&self) -> i64 {
-        (self.end - self.start) / 60
+        (self.end - self.start + 30) / 60
     }
 }
 
@@ -212,15 +213,16 @@ pub fn focus_plan(events: &[Event], now: i64, cfg: &Config, zone: Tz) -> Result<
     let f = &cfg.focus;
     let today = local_date(now, zone);
     let next = upcoming(events, now).filter(|n| local_date(n.start, zone) == today);
+    // On a whole minute, so the block ends when the clock turns: the
+    // length rounds up to it, a deadline before an event rounds down.
+    let up = |t: i64| (t + 59).div_euclid(60) * 60;
     let mut end = match next {
-        Some(n) => n.start - f.lead * 60,
-        None => now + f.minutes * 60,
+        Some(n) => (n.start - f.lead * 60).div_euclid(60) * 60,
+        None => up(now + f.minutes * 60),
     };
-    if f.max > 0 {
-        end = end.min(now + f.max * 60);
+    if f.max > 0 && end > now + f.max * 60 {
+        end = up(now + f.max * 60);
     }
-    // On a whole minute, so the block ends when the clock turns.
-    let end = end.div_euclid(60) * 60;
     if end - now < f.min * 60 {
         return Err(match next {
             Some(n) => format!(
@@ -499,6 +501,9 @@ mod tests {
         // Nothing left today: the default length.
         let p = focus_plan(&day(), at("17:10"), &cfg, Chicago).unwrap();
         assert_eq!(p.minutes(), 50);
+        // Started mid-minute, it still runs the whole length.
+        let p = focus_plan(&day(), at("17:10") + 40, &cfg, Chicago).unwrap();
+        assert_eq!((p.minutes(), p.end), (50, at("18:01")));
         // Too close to the next one.
         assert!(focus_plan(&day(), at("12:55"), &cfg, Chicago).is_err());
         let mut cfg = Config::default();
