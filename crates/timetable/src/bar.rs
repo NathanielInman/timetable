@@ -142,7 +142,7 @@ pub fn row(e: &Event, zone: Tz) -> String {
         .as_deref()
         .map(|k| format!(" \u{b7} {}", links::label(k)))
         .unwrap_or_default();
-    format!("{when:<7}{}{kind}", e.title_or_default())
+    format!("{when:<9}{}{kind}", e.title_or_default())
 }
 
 /// The zones, as `Chicago 12:50 CST · EET 20:50 · GMT 18:50`.
@@ -342,7 +342,7 @@ mod tests {
             .text
             .ends_with("<span color='#B48EAD'>Tue Nov 10  12:53</span>"));
         let t = tooltip(&snap(), &c, at("12:53"));
-        assert!(t.starts_with("Tue Nov 10 · 2 left today\n  13:00  Standup & sync · Google Meet\n  14:00  Sprint review"));
+        assert!(t.starts_with("Tue Nov 10 · 2 left today\n  13:00    Standup & sync · Google Meet\n  14:00    Sprint review"));
         assert!(t.contains("Chicago 12:53 CST · EET 20:53 · GMT 18:53"));
         assert!(t.ends_with("refreshed 5 min ago"));
     }
