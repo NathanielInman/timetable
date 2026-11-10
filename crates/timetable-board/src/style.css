@@ -1,0 +1,161 @@
+/* Timetable drawer default theme. With theme.from = "waybar" the bar's own
+   colors and font replace these tokens. Override anything in
+   ~/.config/timetable/style.css; redefining an @define-color token recolors
+   everything that uses it. */
+
+@define-color tt_panel rgba(30, 32, 36, 0.97);
+@define-color tt_well #15171a;
+@define-color tt_border #41464e;
+@define-color tt_fg #c5c8c6;
+@define-color tt_dim #7c838e;
+@define-color tt_tile rgba(255, 255, 255, 0.035);
+@define-color tt_tile_border rgba(255, 255, 255, 0.07);
+@define-color tt_tile_hover #33373d;
+@define-color tt_accent #88c0d0;
+@define-color tt_free #a3be8c;
+@define-color tt_soon #ebcb8b;
+@define-color tt_now #bf616a;
+@define-color tt_clock #b48ead;
+@define-color tt_idle #555b64;
+
+window.timetable {
+  background: transparent;
+  color: @tt_fg;
+  font-family: monospace;
+  font-size: 13px;
+}
+window.timetable * { font-family: inherit; }
+
+.panel {
+  background: @tt_panel;
+  border: 1px solid @tt_border;
+  border-radius: 16px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(0, 0, 0, 0.35);
+  padding: 14px;
+}
+
+.dim { color: @tt_dim; }
+
+/* ---- header ---- */
+.lamp { color: @tt_free; }
+.lamp.next, .lamp.in { color: @tt_accent; }
+.lamp.soon { color: @tt_soon; }
+.lamp.now { color: @tt_now; }
+.lamp.focus { color: @tt_free; }
+.lamp.offline { color: @tt_idle; }
+.brand { font-weight: bold; letter-spacing: 2px; font-size: 12px; }
+.sub { color: @tt_dim; font-size: 11px; }
+.chip {
+  font-size: 11px;
+  font-weight: bold;
+  padding: 2px 9px;
+  border-radius: 999px;
+  color: @tt_free;
+  background: alpha(@tt_free, 0.14);
+}
+.chip.next, .chip.in { color: @tt_accent; background: alpha(@tt_accent, 0.14); }
+.chip.soon { color: @tt_soon; background: alpha(@tt_soon, 0.15); }
+.chip.now { color: @tt_now; background: alpha(@tt_now, 0.18); }
+.chip.offline { color: @tt_dim; background: alpha(@tt_idle, 0.2); }
+
+.allday { color: @tt_clock; font-size: 11.5px; }
+.notice { color: @tt_soon; font-size: 11px; }
+
+/* ---- cards ---- */
+.card {
+  background: @tt_tile;
+  border: 1px solid @tt_tile_border;
+  border-radius: 10px;
+  padding: 9px 10px;
+}
+.t-label {
+  color: @tt_dim;
+  font-size: 10px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+.t-label.soon { color: @tt_soon; }
+.t-label.now { color: @tt_now; }
+
+/* ---- zones ---- */
+.zone { padding: 7px 10px; }
+.zone .big {
+  font-size: 20px;
+  font-weight: bold;
+  font-feature-settings: "tnum";
+}
+.zone.local .big { color: @tt_clock; }
+
+/* ---- next ---- */
+.card.soon { border-color: alpha(@tt_soon, 0.45); background: alpha(@tt_soon, 0.06); }
+.card.now { border-color: alpha(@tt_now, 0.5); background: alpha(@tt_now, 0.07); }
+.event-title { font-size: 15px; font-weight: bold; }
+.when { color: @tt_dim; font-size: 11.5px; }
+.then { color: @tt_dim; font-size: 11px; }
+
+.btns button {
+  background: @tt_tile;
+  border: 1px solid @tt_tile_border;
+  border-radius: 8px;
+  box-shadow: none;
+  color: @tt_fg;
+  min-height: 0;
+  min-width: 0;
+  padding: 4px 11px;
+  font-size: 12px;
+}
+.btns button:hover { background: @tt_tile_hover; }
+.btns button.primary {
+  background: @tt_accent;
+  border-color: @tt_accent;
+  color: @tt_well;
+  font-weight: bold;
+}
+.btns button.primary:hover { background: shade(@tt_accent, 1.08); }
+.btns button.danger {
+  background: @tt_now;
+  border-color: @tt_now;
+  color: @tt_well;
+  font-weight: bold;
+}
+
+/* ---- day strip ---- */
+.strip {
+  background: @tt_well;
+  border-radius: 8px;
+}
+.strip .ev {
+  background: alpha(@tt_accent, 0.32);
+  border-radius: 4px;
+  color: @tt_fg;
+  font-size: 9.5px;
+  padding: 0 4px;
+}
+.strip .ev.past { background: alpha(@tt_accent, 0.14); color: @tt_dim; }
+.strip .ev.next { background: @tt_soon; color: @tt_well; font-weight: bold; }
+.strip .ev.current { background: @tt_accent; color: @tt_well; font-weight: bold; }
+.strip .gap {
+  border: 1px dashed alpha(@tt_dim, 0.7);
+  border-radius: 4px;
+}
+.strip .gap.focus { border-color: @tt_free; background: alpha(@tt_free, 0.1); }
+.strip .nowline { background: @tt_now; }
+.strip .tick { color: @tt_dim; font-size: 9px; }
+
+/* ---- the rest of today ---- */
+.rows .time { color: @tt_dim; font-feature-settings: "tnum"; }
+.rows .past { color: @tt_idle; }
+.rows .current { color: @tt_accent; font-weight: bold; }
+.rows .kind { color: @tt_dim; font-size: 11px; }
+
+/* ---- focus ---- */
+.card.focus-on { border-color: alpha(@tt_free, 0.45); background: alpha(@tt_free, 0.06); }
+.card.focus-on .t-label.head { color: @tt_free; }
+.countdown {
+  font-size: 20px;
+  font-weight: bold;
+  color: @tt_free;
+  font-feature-settings: "tnum";
+}
+
+.foot { color: @tt_dim; font-size: 10.5px; }
