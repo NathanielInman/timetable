@@ -200,9 +200,9 @@ pub struct FocusPlan {
 }
 
 impl FocusPlan {
-    /// Its length in minutes, to the nearest one.
+    /// Its length in whole minutes.
     pub fn minutes(&self) -> i64 {
-        (self.end - self.start + 30) / 60
+        (self.end - self.start) / 60
     }
 }
 
