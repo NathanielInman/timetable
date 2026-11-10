@@ -6,6 +6,7 @@
 pub mod agenda;
 pub mod config;
 pub mod expand;
+pub mod fetch;
 pub mod ical;
 pub mod links;
 pub mod model;
