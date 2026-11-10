@@ -219,8 +219,8 @@ pub fn focus_plan(events: &[Event], now: i64, cfg: &Config, zone: Tz) -> Result<
     if f.max > 0 {
         end = end.min(now + f.max * 60);
     }
-    // Whole minutes, so the block ends on the clock's minute.
-    let end = now + (end - now).div_euclid(60) * 60;
+    // On a whole minute, so the block ends when the clock turns.
+    let end = end.div_euclid(60) * 60;
     if end - now < f.min * 60 {
         return Err(match next {
             Some(n) => format!(
