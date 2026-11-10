@@ -3,6 +3,7 @@
 //! agenda logic (states, gaps, focus blocks, reminders), fetching, the
 //! socket protocol and the waybar reader.
 
+pub mod agenda;
 pub mod config;
 pub mod expand;
 pub mod ical;
