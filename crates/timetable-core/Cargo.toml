@@ -1,0 +1,22 @@
+[package]
+name = "timetable-core"
+description = "Timetable model, iCal parsing and recurrence, agenda logic, config, protocol and waybar reader"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+
+[dependencies]
+bar-anchor = { path = "../bar-anchor" }
+serde.workspace = true
+serde_json.workspace = true
+toml.workspace = true
+anyhow.workspace = true
+chrono.workspace = true
+chrono-tz.workspace = true
+rrule = "0.14"
+ureq = { version = "3", default-features = false, features = ["rustls", "gzip"] }
+
+[target.'cfg(unix)'.dependencies]
+libc.workspace = true
