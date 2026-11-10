@@ -50,6 +50,8 @@ struct State {
     bar_line: String,
     pending: Option<BoardEvent>,
     board_started: Option<Instant>,
+    /// The drawer says it is on screen.
+    visible: bool,
 }
 
 pub struct Daemon {
@@ -505,6 +507,19 @@ fn do_join(d: &Shared, key: Option<&str>, dry_run: bool) -> Result<String, Strin
             e.link.as_deref().unwrap_or_default()
         ));
     }
+    // An open drawer holds the keyboard on its monitor, and Hyprland
+    // keeps that workspace focused while it does: close it first.
+    let open = {
+        let mut st = d.lock();
+        if st.visible {
+            st.pending = None;
+            broadcast(&mut st.boards, &event_line(&BoardEvent::Hide));
+        }
+        st.visible
+    };
+    if open {
+        std::thread::sleep(Duration::from_millis(450));
+    }
     crate::act::join(&cfg, &e).map_err(|e| format!("{e:#}"))
 }
 
@@ -630,7 +645,10 @@ fn handle(d: Shared, stream: Stream) {
                 broadcast(&mut st.boards, &event_line(&BoardEvent::Hide));
                 Reply::ok()
             }
-            Request::BoardVisible { .. } => Reply::ok(),
+            Request::BoardVisible { visible } => {
+                d.lock().visible = visible;
+                Reply::ok()
+            }
             Request::Join { key, dry_run } => match do_join(&d, key.as_deref(), dry_run) {
                 Ok(m) => Reply {
                     message: Some(m),
@@ -690,6 +708,7 @@ pub fn run() -> Result<i32> {
         bar_line: String::new(),
         pending: None,
         board_started: None,
+        visible: false,
     };
     if let (Some(c), true) = (cache, has_source) {
         st.events = c.events;
