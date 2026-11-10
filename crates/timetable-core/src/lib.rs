@@ -4,6 +4,7 @@
 //! socket protocol and the waybar reader.
 
 pub mod config;
+pub mod links;
 pub mod model;
 pub mod paths;
 pub mod protocol;
