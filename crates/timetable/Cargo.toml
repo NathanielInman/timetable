@@ -1,0 +1,22 @@
+[package]
+name = "timetable"
+description = "Timetable: the daemon, CLI and waybar module"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+
+[[bin]]
+name = "timetable"
+path = "src/main.rs"
+
+[dependencies]
+timetable-core = { path = "../timetable-core" }
+bar-anchor = { path = "../bar-anchor" }
+serde.workspace = true
+serde_json.workspace = true
+anyhow.workspace = true
+libc.workspace = true
+chrono.workspace = true
+chrono-tz.workspace = true

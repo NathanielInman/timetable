@@ -564,6 +564,20 @@ dependencies = [
 ]
 
 [[package]]
+name = "timetable"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "bar-anchor",
+ "chrono",
+ "chrono-tz",
+ "libc",
+ "serde",
+ "serde_json",
+ "timetable-core",
+]
+
+[[package]]
 name = "timetable-core"
 version = "0.1.0"
 dependencies = [
