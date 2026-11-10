@@ -121,13 +121,25 @@ fn command(req: Request) -> Result<i32> {
     Ok(0)
 }
 
+/// This binary's path. After an upgrade replaced the file under a running
+/// bar module, Linux reports it as `... (deleted)`; the new file is at the
+/// same path.
+pub fn exe() -> Result<std::path::PathBuf> {
+    let p = std::env::current_exe()?;
+    let s = p.to_string_lossy();
+    Ok(match s.strip_suffix(" (deleted)") {
+        Some(live) => std::path::PathBuf::from(live),
+        None => p,
+    })
+}
+
 /// Starts the daemon in the background when it is not running, and waits
 /// for its socket.
 fn ensure_daemon() -> Result<()> {
     if timetable_core::transport::daemon_alive() {
         return Ok(());
     }
-    let exe = std::env::current_exe()?;
+    let exe = exe()?;
     let log = paths::daemon_log();
     std::fs::create_dir_all(paths::state_dir())?;
     let out = std::fs::OpenOptions::new()

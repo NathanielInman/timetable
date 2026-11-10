@@ -424,7 +424,7 @@ fn ticker(d: Shared) {
 // ---- requests
 
 fn spawn_board() {
-    let exe = std::env::current_exe().ok();
+    let exe = crate::cli::exe().ok();
     let local = exe
         .as_ref()
         .and_then(|e| e.parent())
