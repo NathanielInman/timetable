@@ -1,4 +1,12 @@
+<p align="center">
+  <img src="docs/assets/mark.svg" width="34" alt="">
+</p>
+
 <h1 align="center">Timetable</h1>
+
+<p align="center">
+  <img src="docs/assets/hero.svg" width="100%" alt="A floating waybar whose purple clock says free until 15:00, then names the next meeting: Standup in 27m. A click opens the Timetable drawer out of the clock: Chicago, EET and GMT side by side, Standup next with Join on workspace 2 and Copy link, the day strip with its events, dashed free gaps and a red now line, and a focus block sized to the gap before Standup. Starting it turns the clock green, counting down from 25:00. Later the clock goes amber at Standup in 2m, then red with Standup · Join at 15:00, and a middle-click switches to the meeting on workspace 2.">
+</p>
 
 <p align="center">
   <b>The clock in your bar tells you what's next. "Standup in 7m", then a red Join at start time.</b><br>
@@ -8,9 +16,10 @@
 
 <p align="center">
   <a href="https://github.com/NathanielInman/timetable/actions/workflows/ci.yml"><img src="https://github.com/NathanielInman/timetable/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
+  <a href="https://github.com/NathanielInman/timetable/releases/latest"><img src="https://img.shields.io/github/v/release/NathanielInman/timetable?color=88c0d0&amp;label=release" alt="Latest release"></a>
   <img src="https://img.shields.io/badge/status-early%20(0.1)-ebcb8b" alt="Early, version 0.1">
   <img src="https://img.shields.io/badge/Arch%20%2B%20Hyprland%20first-Linux%20%C2%B7%20Wayland-a3be8c" alt="Arch and Hyprland first; Linux with Wayland">
-  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-88c0d0" alt="MIT license"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-b48ead" alt="MIT license"></a>
 </p>
 
 A timetable is the board on the platform that says what leaves next and
