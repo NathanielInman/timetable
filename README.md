@@ -82,11 +82,14 @@ enough to read every title. The **Timeline** / **Strip** button beside it
 switches, and the drawer remembers. **‹** and **›** step to other days for
 a look at tomorrow (the drawer opens on today again). Your own time is soft
 green; an invite you answered maybe is striped and one you haven't
-answered is outlined. The focus card says what a block would
+answered is outlined. Click any event to open it in Google Calendar,
+where you change it: Timetable only shows the calendar. The focus card
+says what a block would
 be right now ("Free until 16:30: 88 min of focus, warned at 16:28") or
 counts down the one that is running.
 
-<kbd>j</kbd> joins, <kbd>c</kbd> copies the link, <kbd>f</kbd> starts or
+<kbd>j</kbd> joins, <kbd>c</kbd> copies the link, <kbd>e</kbd> opens the
+card's event in Google Calendar, <kbd>f</kbd> starts or
 stops a focus block, <kbd>v</kbd> switches the day's view, <kbd>←</kbd>
 and <kbd>→</kbd> step through days and <kbd>t</kbd> comes back to today,
 <kbd>r</kbd>

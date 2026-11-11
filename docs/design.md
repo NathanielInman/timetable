@@ -232,9 +232,10 @@ joined (see the bar). `--dry-run` only reports the event and link.
 
 ## Editing in Google Calendar
 
-Timetable never changes the calendar; it gets you to where you can. The
-`open` request opens an event by key, and `timetable calendar` opens
-today. Only a Google calendar opens: one
+Timetable never changes the calendar; it gets you to where you can. A
+click on an event in the drawer (in the day, the rows under it, or the
+card's title) and `e` for the card's event ask the daemon to `open` it,
+and `timetable calendar` opens today. Only a Google calendar opens: one
 with any event whose UID is `<id>@google.com`.
 
 Google's page for an event is
@@ -318,6 +319,9 @@ events dim, the running one is the accent color and the next one amber.
 Own time is soft green and never amber or red; a `maybe` is striped and
 an `unanswered` one outlined with a dashed border, both in italics and
 otherwise colored as usual.
+
+Every event in the day, each row and the card's title opens the event in
+Google Calendar on a click (see Editing in Google Calendar).
 
 `‹` and `›` beside the day (and the arrow keys) step through the agenda's
 days, from `calendar.past_days` back to `calendar.future_days` ahead, and
@@ -439,6 +443,7 @@ The daemon rereads the config within 2 seconds of a change, and a change to
 |---|---|
 | <kbd>j</kbd> | Join the meeting on the card |
 | <kbd>c</kbd> | Copy its link |
+| <kbd>e</kbd> | Open its event in Google Calendar (so does a click on any event) |
 | <kbd>f</kbd> | Start or stop a focus block |
 | <kbd>r</kbd> | Read the calendar now |
 | <kbd>v</kbd> | Switch the day between the strip and the timeline |

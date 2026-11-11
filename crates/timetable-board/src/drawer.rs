@@ -128,11 +128,12 @@ impl Day<'_> {
             (false, None) => String::new(),
         };
         l.set_tooltip_text(Some(&format!(
-            "{} to {}  {}{note}",
+            "{} to {}  {}{note}\n{EDIT_TIP}",
             hhmm(e.start, self.zone),
             hhmm(e.end, self.zone),
             e.title_or_default()
         )));
+        editable(&l, e.key());
         l
     }
 
@@ -178,6 +179,24 @@ fn button(text: &str, tip: &str) -> gtk::Button {
     b.set_tooltip_text(Some(tip));
     b.set_focus_on_click(false);
     b
+}
+
+const EDIT_TIP: &str = "Click to open it in Google Calendar";
+
+/// A click opens the event in Google Calendar, where it is edited: the
+/// drawer only shows the calendar.
+fn editable(w: &impl IsA<gtk::Widget>, key: String) {
+    w.add_css_class("editable");
+    w.set_cursor_from_name(Some("pointer"));
+    let click = gtk::GestureClick::new();
+    click.connect_released(move |g, _, _, _| {
+        g.set_state(gtk::EventSequenceState::Claimed);
+        send_quiet(Request::Open {
+            key: Some(key.clone()),
+            dry_run: false,
+        });
+    });
+    w.add_controller(click);
 }
 
 fn send_quiet(req: Request) {
@@ -622,6 +641,19 @@ impl Drawer {
         };
         bind(&self.join_btn, Box::new(|d| d.join()));
         bind(&self.copy_btn, Box::new(|d| d.copy()));
+        {
+            let t = &self.next_title;
+            t.add_css_class("editable");
+            t.set_cursor_from_name(Some("pointer"));
+            let click = gtk::GestureClick::new();
+            let w = Rc::downgrade(self);
+            click.connect_released(move |_, _, _, _| {
+                if let Some(d) = w.upgrade() {
+                    d.edit();
+                }
+            });
+            t.add_controller(click);
+        }
         bind(&self.view_btn, Box::new(|d| d.toggle_view()));
         bind(&self.prev_btn, Box::new(|d| d.step_day(-1)));
         bind(&self.next_btn, Box::new(|d| d.step_day(1)));
@@ -696,6 +728,7 @@ impl Drawer {
             gdk::Key::Escape => self.hide(),
             gdk::Key::j => self.join(),
             gdk::Key::c => self.copy(),
+            gdk::Key::e => self.edit(),
             gdk::Key::f => send_quiet(Request::Focus {
                 action: FocusAction::Toggle,
             }),
@@ -760,6 +793,16 @@ impl Drawer {
         });
     }
 
+    /// Opens the card's event in Google Calendar.
+    fn edit(&self) {
+        if let Some(e) = self.next_event.borrow().as_ref() {
+            send_quiet(Request::Open {
+                key: Some(e.key()),
+                dry_run: false,
+            });
+        }
+    }
+
     fn copy(self: &Rc<Self>) {
         let Some(link) = self
             .next_event
@@ -806,7 +849,7 @@ impl Drawer {
         self.render_day(s, &cfg, zone, now);
         self.render_focus(s, &cfg, zone, now);
         self.foot.set_label(&format!(
-            "Esc close \u{b7} j join \u{b7} f focus \u{b7} v view \u{b7} \u{2190} \u{2192} days \u{b7} r refresh \u{b7} {}",
+            "Esc close \u{b7} j join \u{b7} e edit \u{b7} f focus \u{b7} v view \u{b7} \u{2190} \u{2192} days \u{b7} r refresh \u{b7} {}",
             cfg.drawer.calendar_hint
         ));
     }
@@ -975,7 +1018,8 @@ impl Drawer {
             None => kind,
         });
         self.next_title.set_label(e.title_or_default());
-        self.next_title.set_tooltip_text(Some(e.title_or_default()));
+        self.next_title
+            .set_tooltip_text(Some(&format!("{}\n{EDIT_TIP} (e)", e.title_or_default())));
         let same_day = local_date(e.start, zone) == local_date(now, zone);
         let range = format!("{} to {}", hhmm(e.start, zone), hhmm(e.end, zone));
         let when = if e.running(now) {
@@ -1167,6 +1211,8 @@ impl Drawer {
             row.append(&t);
             row.append(&title);
             row.append(&kind);
+            row.set_tooltip_text(Some(EDIT_TIP));
+            editable(&row, e.key());
             self.rows.append(&row);
         }
         if timed.is_empty() {
