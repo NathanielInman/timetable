@@ -240,7 +240,8 @@ impl Default for DayConfig {
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(default, deny_unknown_fields)]
 pub struct DrawerConfig {
-    /// Panel width in logical pixels.
+    /// Panel width: a fraction of the monitor when 1 or less, else logical
+    /// pixels.
     pub width: f64,
     /// Largest height as a fraction of the monitor.
     pub max_height: f64,
@@ -250,10 +251,20 @@ pub struct DrawerConfig {
     pub calendar_hint: String,
 }
 
+/// `drawer.width` in logical pixels on a monitor `monitor` wide: 1 or less
+/// is a fraction of it.
+pub fn panel_width(width: f64, monitor: f64) -> f64 {
+    if width <= 1.0 {
+        width * monitor
+    } else {
+        width
+    }
+}
+
 impl Default for DrawerConfig {
     fn default() -> Self {
         DrawerConfig {
-            width: 420.0,
+            width: 0.6,
             max_height: 0.85,
             gap: 8.0,
             calendar_hint: "right-click the clock for the calendar".into(),
@@ -320,6 +331,9 @@ impl Config {
             if hhmm(v).is_none() {
                 return Err(format!("{k}: `{v}` is not HH:MM"));
             }
+        }
+        if self.drawer.width <= 0.0 {
+            return Err("drawer.width must be above 0".into());
         }
         if self.day_span().0 >= self.day_span().1 {
             return Err("day.start must be before day.end".into());
@@ -421,6 +435,14 @@ mod tests {
         assert!(Config::parse("[clock]\nzones = [{ zone = \"Nowhere\" }]\n").is_err());
         assert!(Config::parse("[day]\nstart = \"9am\"\n").is_err());
         assert!(Config::parse("[day]\nstart = \"18:00\"\nend = \"08:00\"\n").is_err());
+        assert!(Config::parse("[drawer]\nwidth = 0\n").is_err());
+    }
+
+    #[test]
+    fn drawer_width_is_a_fraction_or_pixels() {
+        assert_eq!(panel_width(Config::default().drawer.width, 2560.0), 1536.0);
+        let c = Config::parse("[drawer]\nwidth = 420\n").unwrap();
+        assert_eq!(panel_width(c.drawer.width, 2560.0), 420.0);
     }
 
     #[test]

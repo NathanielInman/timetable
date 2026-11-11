@@ -1,8 +1,11 @@
 //! The drawer: the date and the state, three zone tiles, the next (or
-//! current) meeting with Join and Copy link, the day strip with its free
-//! gaps and a now line, the rest of today, and the focus card.
+//! current) meeting with Join and Copy link, the day with its free gaps and
+//! a now line, and the focus card. The day is a strip across the drawer
+//! with the rest of today listed under it, or a timeline beside the rest;
+//! a button and `v` switch between them.
 
 use crate::anim::{Motion, Spring};
+use crate::canvas::{Axis, Canvas, Place};
 use crate::stage::Stage;
 use bar_anchor::Anchor;
 use chrono::{DateTime, Utc};
@@ -17,7 +20,8 @@ use timetable_core::agenda::{self, State};
 use timetable_core::config::Config;
 use timetable_core::expand::local_date;
 use timetable_core::links;
-use timetable_core::model::{Event, Snapshot, Source};
+use timetable_core::model::{Event, Focus, Snapshot, Source};
+use timetable_core::paths;
 use timetable_core::protocol::{Event as BoardEvent, FocusAction, Request};
 use timetable_core::text::{ago, countdown, minutes};
 
@@ -27,9 +31,125 @@ pub enum Msg {
     Restyle,
 }
 
-const STRIP_H: i32 = 58;
-const EV_TOP: f64 = 6.0;
-const EV_H: i32 = 28;
+// The strip, top to bottom: the now tag, the event lanes, the hour ticks.
+const TAG_H: f64 = 15.0;
+const LANE_H: f64 = 24.0;
+const TICK_H: f64 = 14.0;
+// The timeline: its hour column, and the inset above and below the day.
+const HOURS_W: i32 = 40;
+const TL_PAD: f64 = 8.0;
+
+/// How the drawer shows the day.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+enum View {
+    /// A strip across the drawer, the rest of today listed under it.
+    Strip,
+    /// A timeline in its own column, beside the zones, Now and Focus.
+    Timeline,
+}
+
+impl View {
+    fn load() -> View {
+        match std::fs::read_to_string(paths::view_file()) {
+            Ok(s) if s.trim() == "timeline" => View::Timeline,
+            _ => View::Strip,
+        }
+    }
+
+    fn save(self) {
+        let _ = std::fs::create_dir_all(paths::state_dir());
+        let _ = std::fs::write(
+            paths::view_file(),
+            match self {
+                View::Strip => "strip\n",
+                View::Timeline => "timeline\n",
+            },
+        );
+    }
+
+    fn other(self) -> View {
+        match self {
+            View::Strip => View::Timeline,
+            View::Timeline => View::Strip,
+        }
+    }
+}
+
+/// Today as the strip and the timeline draw it.
+struct Day<'a> {
+    s0: i64,
+    s1: i64,
+    now: i64,
+    zone: Tz,
+    timed: &'a [&'a Event],
+    /// Each timed event's lane and its overlapping group's lane count.
+    lanes: Vec<(usize, usize)>,
+    /// Free gaps from now on.
+    gaps: Vec<(i64, i64)>,
+    next: Option<String>,
+    focus: Option<Focus>,
+}
+
+impl Day<'_> {
+    /// Where `t` falls in the day, 0 to 1.
+    fn f(&self, t: i64) -> f64 {
+        ((t - self.s0) as f64 / (self.s1 - self.s0) as f64).clamp(0.0, 1.0)
+    }
+
+    /// Whole hours in the day.
+    fn hours(&self) -> impl Iterator<Item = i64> + '_ {
+        let first = self.s0 + (3600 - self.s0.rem_euclid(3600)) % 3600;
+        (0..)
+            .map(move |i| first + i * 3600)
+            .take_while(move |t| *t <= self.s1)
+    }
+
+    fn event(&self, e: &Event, text: &str) -> gtk::Label {
+        let l = label(text, &["ev"]);
+        l.set_ellipsize(gtk::pango::EllipsizeMode::End);
+        if e.running(self.now) {
+            l.add_css_class("current");
+        } else if e.end <= self.now {
+            l.add_css_class("past");
+        } else if self.next.as_deref() == Some(&e.key()) {
+            l.add_css_class("next");
+        }
+        l.set_tooltip_text(Some(&format!(
+            "{} to {}  {}",
+            hhmm(e.start, self.zone),
+            hhmm(e.end, self.zone),
+            e.title_or_default()
+        )));
+        l
+    }
+
+    /// A dashed free gap saying how long it is.
+    fn gap(&self, a: i64, b: i64) -> gtk::Box {
+        let g = gtk::Box::new(gtk::Orientation::Horizontal, 0);
+        g.add_css_class("gap");
+        if self.focus.is_some_and(|f| f.start < b && f.end > a) {
+            g.add_css_class("focus");
+        }
+        let l = label(&format!("{} free", minutes((b - a) / 60)), &[]);
+        l.set_ellipsize(gtk::pango::EllipsizeMode::End);
+        l.set_hexpand(true);
+        g.append(&l);
+        g.set_tooltip_text(Some(&format!(
+            "Free {} to {} ({})",
+            hhmm(a, self.zone),
+            hhmm(b, self.zone),
+            minutes((b - a) / 60)
+        )));
+        g
+    }
+}
+
+fn rule(w: i32, h: i32, class: &str) -> gtk::Box {
+    let b = gtk::Box::new(gtk::Orientation::Horizontal, 0);
+    b.add_css_class(class);
+    b.set_size_request(w, h);
+    b
+}
 
 fn label(text: &str, classes: &[&str]) -> gtk::Label {
     let l = gtk::Label::new(Some(text));
@@ -138,8 +258,18 @@ pub struct Drawer {
     copy_btn: gtk::Button,
     next_event: RefCell<Option<Event>>,
 
+    view: Cell<View>,
+    body: gtk::Box,
+    cols: gtk::Box,
+    left: gtk::Box,
+    right: gtk::Box,
+    today: gtk::Box,
+    view_btn: gtk::Button,
     strip_aside: gtk::Label,
-    strip: gtk::Fixed,
+    strip: Canvas,
+    timeline: gtk::Box,
+    hours: Canvas,
+    lanes: Canvas,
     rows: gtk::Box,
     day_sig: RefCell<String>,
 
@@ -205,6 +335,7 @@ impl Drawer {
         let next_title = label("", &["event-title"]);
         next_title.set_ellipsize(gtk::pango::EllipsizeMode::End);
         let next_when = label("", &["when"]);
+        next_when.set_ellipsize(gtk::pango::EllipsizeMode::End);
         let next_then = label("", &["then"]);
         next_then.set_ellipsize(gtk::pango::EllipsizeMode::End);
         let join_btn = button(
@@ -229,16 +360,33 @@ impl Drawer {
         let tl = label("TODAY", &["t-label"]);
         tl.set_hexpand(true);
         let strip_aside = label("", &["t-label"]);
+        strip_aside.set_valign(gtk::Align::Center);
+        let view_btn = button("", "");
+        let vbox = gtk::Box::new(gtk::Orientation::Horizontal, 0);
+        vbox.add_css_class("btns");
+        vbox.add_css_class("view");
+        vbox.append(&view_btn);
+        tl.set_valign(gtk::Align::Center);
         trow.append(&tl);
         trow.append(&strip_aside);
-        let strip = gtk::Fixed::new();
+        trow.append(&vbox);
+        let strip = Canvas::new();
         strip.add_css_class("strip");
-        strip.set_overflow(gtk::Overflow::Hidden);
+        let hours = Canvas::new();
+        hours.set_size_request(HOURS_W, -1);
+        let lanes = Canvas::new();
+        lanes.set_hexpand(true);
+        let timeline = gtk::Box::new(gtk::Orientation::Horizontal, 0);
+        timeline.add_css_class("strip");
+        timeline.add_css_class("timeline");
+        timeline.append(&hours);
+        timeline.append(&lanes);
         let rows = gtk::Box::new(gtk::Orientation::Vertical, 2);
         rows.add_css_class("rows");
         let today = gtk::Box::new(gtk::Orientation::Vertical, 6);
         today.append(&trow);
         today.append(&strip);
+        today.append(&timeline);
         today.append(&rows);
 
         // ---- focus
@@ -265,15 +413,24 @@ impl Drawer {
         let foot = label("", &["foot"]);
         foot.set_wrap(true);
 
+        // The strip view stacks everything in `body`; the timeline view
+        // puts the day in the right column of `cols`. `apply_view` moves
+        // the parts between them.
+        let body = gtk::Box::new(gtk::Orientation::Vertical, 12);
+        let left = gtk::Box::new(gtk::Orientation::Vertical, 12);
+        let right = gtk::Box::new(gtk::Orientation::Vertical, 12);
+        let cols = gtk::Box::new(gtk::Orientation::Horizontal, 12);
+        cols.set_homogeneous(true);
+        cols.append(&left);
+        cols.append(&right);
+
         let panel = gtk::Box::new(gtk::Orientation::Vertical, 12);
         panel.add_css_class("panel");
         panel.append(&header);
         panel.append(&allday);
         panel.append(&notice);
-        panel.append(&zones);
-        panel.append(&next_card);
-        panel.append(&today);
-        panel.append(&focus_card);
+        panel.append(&body);
+        panel.append(&cols);
         panel.append(&foot);
 
         let spring = Spring::new(&panel, Motion::PANEL);
@@ -309,8 +466,18 @@ impl Drawer {
             join_btn,
             copy_btn,
             next_event: RefCell::new(None),
+            view: Cell::new(View::load()),
+            body,
+            cols,
+            left,
+            right,
+            today,
+            view_btn,
             strip_aside,
             strip,
+            timeline,
+            hours,
+            lanes,
             rows,
             day_sig: RefCell::new(String::new()),
             focus_card,
@@ -320,8 +487,62 @@ impl Drawer {
             focus_btn,
             foot,
         });
+        d.apply_view();
         d.connect();
         d
+    }
+
+    /// Puts the parts where the current view wants them.
+    fn apply_view(&self) {
+        let view = self.view.get();
+        let parts: [gtk::Widget; 4] = [
+            self.zones.clone().upcast(),
+            self.next_card.clone().upcast(),
+            self.today.clone().upcast(),
+            self.focus_card.clone().upcast(),
+        ];
+        for w in &parts {
+            if let Some(p) = w.parent().and_downcast::<gtk::Box>() {
+                p.remove(w);
+            }
+        }
+        let [zones, next, today, focus] = &parts;
+        match view {
+            View::Strip => {
+                for w in &parts {
+                    self.body.append(w);
+                }
+            }
+            View::Timeline => {
+                self.left.append(zones);
+                self.left.append(next);
+                self.left.append(focus);
+                self.right.append(today);
+            }
+        }
+        let strip = view == View::Strip;
+        self.body.set_visible(strip);
+        self.cols.set_visible(!strip);
+        self.strip.set_visible(strip);
+        self.rows.set_visible(strip);
+        self.timeline.set_visible(!strip);
+        let (text, tip) = match view {
+            View::Strip => ("Timeline", "Show the day as a timeline beside the rest (v)"),
+            View::Timeline => ("Strip", "Show the day as a strip across the drawer (v)"),
+        };
+        self.view_btn.set_label(text);
+        self.view_btn.set_tooltip_text(Some(tip));
+        self.day_sig.borrow_mut().clear();
+    }
+
+    fn toggle_view(&self) {
+        let view = self.view.get().other();
+        self.view.set(view);
+        view.save();
+        self.apply_view();
+        if self.visible.get() {
+            self.render();
+        }
     }
 
     fn connect(self: &Rc<Self>) {
@@ -345,6 +566,7 @@ impl Drawer {
         };
         bind(&self.join_btn, Box::new(|d| d.join()));
         bind(&self.copy_btn, Box::new(|d| d.copy()));
+        bind(&self.view_btn, Box::new(|d| d.toggle_view()));
         bind(
             &self.focus_btn,
             Box::new(|_| {
@@ -419,6 +641,7 @@ impl Drawer {
                 action: FocusAction::Toggle,
             }),
             gdk::Key::r => send_quiet(Request::Refresh),
+            gdk::Key::v => self.toggle_view(),
             _ => return glib::Propagation::Proceed,
         }
         glib::Propagation::Stop
@@ -518,7 +741,7 @@ impl Drawer {
         self.render_day(s, &cfg, zone, now);
         self.render_focus(s, &cfg, zone, now);
         self.foot.set_label(&format!(
-            "Esc close \u{b7} j join \u{b7} f focus \u{b7} r refresh \u{b7} {}",
+            "Esc close \u{b7} j join \u{b7} f focus \u{b7} v view \u{b7} r refresh \u{b7} {}",
             cfg.drawer.calendar_hint
         ));
     }
@@ -707,6 +930,7 @@ impl Drawer {
             format!("{when} \u{b7} {}", e.location)
         };
         self.next_when.set_label(&when);
+        self.next_when.set_tooltip_text(Some(&when));
         self.next_when.set_visible(true);
         let has_link = e.link.is_some();
         self.join_btn.set_visible(has_link);
@@ -747,101 +971,38 @@ impl Drawer {
         let midnight = timetable_core::expand::midnight(day, zone);
         s0 = s0.max(midnight);
         s1 = s1.min(midnight + 86400).max(s0 + 3600);
+        let view = self.view.get();
         let minute = now / 60;
-        let sig = format!("{minute}|{s0}|{s1}|{:?}|{}", s.focus, timed.len());
+        let sig = format!("{view:?}|{minute}|{s0}|{s1}|{:?}|{}", s.focus, timed.len());
         if *self.day_sig.borrow() == sig {
             return;
         }
         *self.day_sig.borrow_mut() = sig;
-        let free = agenda::gaps(&s.events, (s0, s1), cfg.day.min_gap)
-            .iter()
-            .map(|(a, b)| (b - a) / 60)
-            .sum::<i64>();
+        let gaps = agenda::gaps(&s.events, (now.max(s0), s1.max(now)), cfg.day.min_gap);
+        let free = gaps.iter().map(|(a, b)| (b - a) / 60).sum::<i64>();
         self.strip_aside.set_label(&format!(
-            "{} TO {} \u{b7} {} FREE",
+            "{} TO {} \u{b7} {} FREE LEFT",
             hhmm(s0, zone),
             hhmm(s1, zone),
             minutes(free).to_uppercase()
         ));
-
-        // ---- the strip
-        while let Some(c) = self.strip.first_child() {
-            self.strip.remove(&c);
-        }
-        let w = (cfg.drawer.width - 30.0).max(200.0);
-        self.strip.set_size_request(w as i32, STRIP_H);
-        let x = |t: i64| ((t - s0) as f64 / (s1 - s0) as f64 * w).clamp(0.0, w);
-        let next = agenda::upcoming(&s.events, now).map(|e| e.key());
-        for (a, b) in agenda::gaps(&s.events, (s0, s1), cfg.day.min_gap) {
-            let g = gtk::Box::new(gtk::Orientation::Horizontal, 0);
-            g.add_css_class("gap");
-            if s.focus
-                .is_some_and(|f| f.running(now) && f.start < b && f.end > a)
-            {
-                g.add_css_class("focus");
+        let d = Day {
+            s0,
+            s1,
+            now,
+            zone,
+            timed: &timed,
+            lanes: agenda::lanes(&timed),
+            gaps,
+            next: agenda::upcoming(&s.events, now).map(|e| e.key()),
+            focus: s.focus.filter(|f| f.running(now)),
+        };
+        match view {
+            View::Strip => self.render_strip(&d),
+            View::Timeline => {
+                self.render_timeline(&d);
+                return;
             }
-            let gw = (x(b) - x(a) - 2.0).max(2.0);
-            g.set_size_request(gw as i32, EV_H);
-            g.set_tooltip_text(Some(&format!(
-                "Free {} to {} ({})",
-                hhmm(a, zone),
-                hhmm(b, zone),
-                minutes((b - a) / 60)
-            )));
-            self.strip.put(&g, x(a) + 1.0, EV_TOP);
-        }
-        for e in &timed {
-            let (a, b) = (e.start.max(s0), e.end.min(s1));
-            if b <= a {
-                continue;
-            }
-            let ew = (x(b) - x(a) - 1.0).max(3.0);
-            let chars = ((ew - 8.0) / 6.0).floor() as i32;
-            let l = label(if chars >= 2 { e.title_or_default() } else { "" }, &["ev"]);
-            l.set_ellipsize(gtk::pango::EllipsizeMode::End);
-            l.set_max_width_chars(chars.max(0));
-            l.set_width_chars(0);
-            l.set_size_request(ew as i32, EV_H);
-            if e.running(now) {
-                l.add_css_class("current");
-            } else if e.end <= now {
-                l.add_css_class("past");
-            } else if next.as_deref() == Some(&e.key()) {
-                l.add_css_class("next");
-            }
-            l.set_tooltip_text(Some(&format!(
-                "{} to {}  {}",
-                hhmm(e.start, zone),
-                hhmm(e.end, zone),
-                e.title_or_default()
-            )));
-            self.strip.put(&l, x(a), EV_TOP);
-        }
-        if now > s0 && now < s1 {
-            let n = gtk::Box::new(gtk::Orientation::Horizontal, 0);
-            n.add_css_class("nowline");
-            n.set_size_request(2, EV_H + 8);
-            self.strip.put(&n, x(now) - 1.0, EV_TOP - 4.0);
-        }
-        let first_hour = s0 + (3600 - s0.rem_euclid(3600)) % 3600;
-        let span_h = (s1 - s0) / 3600;
-        let step = if span_h > 12 { 3 } else { 2 } * 3600;
-        let mut t = first_hour;
-        while t <= s1 {
-            let h = local(t, zone).format("%-H").to_string();
-            if local(t, zone)
-                .format("%H")
-                .to_string()
-                .parse::<i64>()
-                .unwrap_or(0)
-                % (step / 3600)
-                == 0
-            {
-                let l = label(&h, &["tick"]);
-                let lx = (x(t) - 3.0).clamp(1.0, w - 12.0);
-                self.strip.put(&l, lx, (EV_TOP as i32 + EV_H + 6) as f64);
-            }
-            t += 3600;
         }
 
         // ---- the rows
@@ -881,6 +1042,197 @@ impl Drawer {
         } else if first == timed.len() {
             self.rows
                 .append(&label("That was the last one today.", &["dim"]));
+        }
+    }
+
+    /// The day across the drawer: overlapping events in lanes, every hour
+    /// ruled, each free gap saying how long it is, the time on the now line.
+    fn render_strip(&self, d: &Day) {
+        let c = &self.strip;
+        c.clear();
+        let n = d.lanes.iter().map(|l| l.1).max().unwrap_or(1) as f64;
+        let band = n * LANE_H;
+        c.set_size_request(-1, (TAG_H + band + 4.0 + TICK_H) as i32);
+        let step = if (d.s1 - d.s0) / 3600 > 14 { 2 } else { 1 };
+        for t in d.hours() {
+            c.put(
+                &rule(1, -1, "grid"),
+                Place {
+                    x: Axis::centered(d.f(t)),
+                    y: Axis::Px {
+                        pos: TAG_H - 2.0,
+                        size: band + 4.0,
+                    },
+                },
+            );
+            let h = local(t, d.zone).format("%-H").to_string();
+            if h.parse::<i64>().unwrap_or(0) % step == 0 {
+                c.put(
+                    &label(&h, &["tick"]),
+                    Place {
+                        x: Axis::centered(d.f(t)),
+                        y: Axis::Px {
+                            pos: TAG_H + band + 3.0,
+                            size: TICK_H,
+                        },
+                    },
+                );
+            }
+        }
+        for &(a, b) in &d.gaps {
+            c.put(
+                &d.gap(a, b),
+                Place {
+                    x: Axis::span(d.f(a), d.f(b), 1.0),
+                    y: Axis::Px {
+                        pos: TAG_H,
+                        size: band,
+                    },
+                },
+            );
+        }
+        for (e, &(lane, group)) in d.timed.iter().zip(&d.lanes) {
+            let (a, b) = (e.start.max(d.s0), e.end.min(d.s1));
+            if b <= a {
+                continue;
+            }
+            let h = band / group as f64;
+            c.put(
+                &d.event(e, e.title_or_default()),
+                Place {
+                    x: Axis::Span {
+                        from: d.f(a),
+                        to: d.f(b),
+                        inset: (0.0, 1.0),
+                    },
+                    y: Axis::Px {
+                        pos: TAG_H + lane as f64 * h,
+                        size: if group > 1 { h - 2.0 } else { h },
+                    },
+                },
+            );
+        }
+        if d.now > d.s0 && d.now < d.s1 {
+            c.put(
+                &rule(2, -1, "nowline"),
+                Place {
+                    x: Axis::centered(d.f(d.now)),
+                    y: Axis::Px {
+                        pos: TAG_H - 3.0,
+                        size: band + 6.0,
+                    },
+                },
+            );
+            c.put(
+                &label(&hhmm(d.now, d.zone), &["nowtag"]),
+                Place {
+                    x: Axis::centered(d.f(d.now)),
+                    y: Axis::Px {
+                        pos: 0.0,
+                        size: TAG_H - 2.0,
+                    },
+                },
+            );
+        }
+    }
+
+    /// The day top to bottom: tall enough to read whole titles, overlapping
+    /// events side by side.
+    fn render_timeline(&self, d: &Day) {
+        let span_h = (d.s1 - d.s0) as f64 / 3600.0;
+        let per_hour = (560.0 / span_h).clamp(24.0, 48.0);
+        let height = span_h * per_hour + 2.0 * TL_PAD;
+        let y = |t: i64| (TL_PAD + d.f(t) * span_h * per_hour) / height;
+        let (hc, lc) = (&self.hours, &self.lanes);
+        hc.clear();
+        lc.clear();
+        hc.set_size_request(HOURS_W, height as i32);
+        lc.set_size_request(-1, height as i32);
+        for t in d.hours() {
+            let h = label(&local(t, d.zone).format("%-H").to_string(), &["tick"]);
+            h.set_xalign(1.0);
+            hc.put(
+                &h,
+                Place {
+                    x: Axis::Span {
+                        from: 0.0,
+                        to: 1.0,
+                        inset: (0.0, 8.0),
+                    },
+                    y: Axis::centered(y(t)),
+                },
+            );
+            lc.put(
+                &rule(-1, 1, "grid"),
+                Place {
+                    x: Axis::span(0.0, 1.0, 0.0),
+                    y: Axis::centered(y(t)),
+                },
+            );
+        }
+        for &(a, b) in &d.gaps {
+            let g = d.gap(a, b);
+            if let Some(l) = g.first_child() {
+                l.set_valign(gtk::Align::Start);
+            }
+            lc.put(
+                &g,
+                Place {
+                    x: Axis::Span {
+                        from: 0.0,
+                        to: 1.0,
+                        inset: (2.0, 6.0),
+                    },
+                    y: Axis::span(y(a), y(b), 1.0),
+                },
+            );
+        }
+        for (e, &(lane, group)) in d.timed.iter().zip(&d.lanes) {
+            let (a, b) = (e.start.max(d.s0), e.end.min(d.s1));
+            if b <= a {
+                continue;
+            }
+            let px = (b - a) as f64 / 3600.0 * per_hour;
+            let l = d.event(
+                e,
+                &format!("{}  {}", hhmm(e.start, d.zone), e.title_or_default()),
+            );
+            l.set_wrap(true);
+            l.set_wrap_mode(gtk::pango::WrapMode::WordChar);
+            l.set_lines((((px - 4.0) / 13.0).floor() as i32).max(1));
+            l.set_yalign(0.0);
+            let lanes = group as f64;
+            lc.put(
+                &l,
+                Place {
+                    x: Axis::Span {
+                        from: lane as f64 / lanes,
+                        to: (lane + 1) as f64 / lanes,
+                        inset: (2.0, 6.0),
+                    },
+                    y: Axis::span(y(a), y(b), 1.0),
+                },
+            );
+        }
+        if d.now > d.s0 && d.now < d.s1 {
+            lc.put(
+                &rule(-1, 2, "nowline"),
+                Place {
+                    x: Axis::span(0.0, 1.0, 0.0),
+                    y: Axis::centered(y(d.now)),
+                },
+            );
+            hc.put(
+                &label(&hhmm(d.now, d.zone), &["nowtag"]),
+                Place {
+                    x: Axis::At {
+                        at: 1.0,
+                        px: -3.0,
+                        align: 1.0,
+                    },
+                    y: Axis::centered(y(d.now)),
+                },
+            );
         }
     }
 

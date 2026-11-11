@@ -55,6 +55,7 @@ flowchart LR
 | User stylesheet | `~/.config/timetable/style.css` | `TIMETABLE_CONFIG_DIR` |
 | Running focus block | `$XDG_STATE_HOME/timetable/focus.json` | `TIMETABLE_STATE_DIR` |
 | Reminders sent | `$XDG_STATE_HOME/timetable/reminded.json` | `TIMETABLE_STATE_DIR` |
+| Drawer's day view | `$XDG_STATE_HOME/timetable/view` (`strip` or `timeline`) | `TIMETABLE_STATE_DIR` |
 | Logs | `$XDG_STATE_HOME/timetable/daemon.log`, `board.log` | `TIMETABLE_STATE_DIR` |
 | Last good agenda | `$XDG_CACHE_HOME/timetable/agenda.json` | `TIMETABLE_CACHE_DIR` |
 | Socket | `$XDG_RUNTIME_DIR/timetable/timetable.sock` | `TIMETABLE_RUNTIME_DIR` |
@@ -255,12 +256,31 @@ next to the bar centered on the click (`bar_anchor::place`), and scales it
 open from the click point. A click outside the panel or `Esc` closes it.
 Without Hyprland, or with `--center`, it opens centered.
 
-The drawer redraws every second while open. The day strip runs from
-`day.start` to `day.end`, widened to whole hours that fit today's timed
-events; free gaps of at least `day.min_gap` minutes are dashed, a running
-focus block highlights its gap, past events dim, the running one is the
-accent color and the next one amber. Copy link uses the Wayland clipboard;
-the drawer stays resident, so the copy survives it closing.
+The panel is `drawer.width` wide: a fraction of the monitor when 1 or
+less (0.6 by default), else logical pixels. Long text ellipsizes and
+never widens it.
+
+The drawer redraws every second while open. The day runs from `day.start`
+to `day.end`, widened to whole hours that fit today's timed events, and is
+shown one of two ways; a button beside it and `v` switch, and the choice
+is kept in the state directory:
+
+- **Strip** (the default): a band across the drawer with the rest of
+  today listed under it. Every hour is ruled and labeled, the now line
+  carries the time, and overlapping events split the band into lanes
+  (`agenda::lanes`).
+- **Timeline**: the zones, the next meeting and focus in the left column,
+  the day top to bottom in the right one at 24 to 48 pixels an hour, with
+  each event's start and title wrapped to fit and overlapping events side
+  by side.
+
+In both, free gaps of at least `day.min_gap` minutes from now on are
+dashed and say how long they are, the header says how much free time is
+left, a running focus block highlights its gap, past events dim, the
+running one is the accent color and the next one amber. Children are
+placed at fractions of the space they get (`canvas.rs`), so the day fills
+any width. Copy link uses the Wayland clipboard; the drawer stays
+resident, so the copy survives it closing.
 
 ## Theme
 
@@ -348,7 +368,7 @@ Unix seconds. It never contains the address.
 | `day.start` | `"08:00"` | Day strip and gaps start |
 | `day.end` | `"18:00"` | Day strip and gaps end |
 | `day.min_gap` | `15` | Shortest gap drawn as free |
-| `drawer.width` | `420` | Panel width in logical pixels |
+| `drawer.width` | `0.6` | Panel width: a fraction of the monitor when 1 or less, else logical pixels |
 | `drawer.max_height` | `0.85` | Largest height as a fraction of the monitor |
 | `drawer.gap` | `8` | Gap between the bar and the panel |
 | `drawer.calendar_hint` | `"right-click the clock for the calendar"` | The footer's last words |
@@ -369,4 +389,5 @@ The daemon rereads the config within 2 seconds of a change, and a change to
 | <kbd>c</kbd> | Copy its link |
 | <kbd>f</kbd> | Start or stop a focus block |
 | <kbd>r</kbd> | Read the calendar now |
+| <kbd>v</kbd> | Switch the day between the strip and the timeline |
 | <kbd>Esc</kbd> | Close |

@@ -114,6 +114,11 @@ pub fn reminded_file() -> PathBuf {
     state_dir().join("reminded.json")
 }
 
+/// The drawer's day view (`strip` or `timeline`), as last toggled.
+pub fn view_file() -> PathBuf {
+    state_dir().join("view")
+}
+
 /// The expanded agenda from the last good fetch (never the address).
 pub fn agenda_cache() -> PathBuf {
     cache_dir().join("agenda.json")

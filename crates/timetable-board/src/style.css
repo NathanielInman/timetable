@@ -128,8 +128,8 @@ window.timetable * { font-family: inherit; }
   background: alpha(@tt_accent, 0.32);
   border-radius: 4px;
   color: @tt_fg;
-  font-size: 9.5px;
-  padding: 0 4px;
+  font-size: 10px;
+  padding: 0 5px;
 }
 .strip .ev.past { background: alpha(@tt_accent, 0.14); color: @tt_dim; }
 .strip .ev.next { background: @tt_soon; color: @tt_well; font-weight: bold; }
@@ -139,8 +139,25 @@ window.timetable * { font-family: inherit; }
   border-radius: 4px;
 }
 .strip .gap.focus { border-color: @tt_free; background: alpha(@tt_free, 0.1); }
+.strip .gap label { color: alpha(@tt_free, 0.85); font-size: 9.5px; padding: 0 4px; }
+.strip .grid { background: alpha(@tt_dim, 0.14); }
 .strip .nowline { background: @tt_now; }
+.strip .nowtag {
+  background: @tt_now;
+  border-radius: 3px;
+  color: @tt_well;
+  font-size: 9px;
+  font-weight: bold;
+  font-feature-settings: "tnum";
+  padding: 0 3px;
+}
 .strip .tick { color: @tt_dim; font-size: 9px; }
+
+/* The timeline view: the same day, top to bottom. */
+.timeline .ev { font-size: 10.5px; padding: 2px 6px; }
+.timeline .gap label { padding: 3px 6px; }
+
+.btns.view button { padding: 1px 9px; font-size: 10.5px; }
 
 /* ---- the rest of today ---- */
 .rows .time { color: @tt_dim; font-feature-settings: "tnum"; }

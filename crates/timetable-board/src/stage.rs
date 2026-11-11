@@ -71,7 +71,8 @@ mod imp {
             };
             let (sw, sh) = (width as f64, height as f64);
             let gap = self.gap.get();
-            let want_w = self.panel_width.get().min(sw - 2.0 * SIDE_MARGIN);
+            let want_w = timetable_core::config::panel_width(self.panel_width.get(), sw)
+                .min(sw - 2.0 * SIDE_MARGIN);
             let (min_w, _, _, _) = child.measure(gtk::Orientation::Horizontal, -1);
             let pw = want_w.max(min_w as f64);
             let (min_h, nat_h, _, _) = child.measure(gtk::Orientation::Vertical, pw as i32);

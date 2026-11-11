@@ -68,15 +68,18 @@ minute late. Timetable replaces both scripts and makes that hunt one click.
 The date, how many events today, when the calendar was last read and a
 state chip. All-day events under that. A tile per zone with its time and
 offset. The next meeting (or the one you're in) with its time, where it is,
-**Join on workspace 2** and **Copy link**. The day strip from 08:00 to 18:00
-(wider when your day is), with events, a red now line and the free gaps
-drawn dashed, and the rest of today as a list. The focus card says what a
-block would be right now ("Free until 16:30: 88 min of focus, warned at
-16:28") or counts down the one that is running.
+**Join on workspace 2** and **Copy link**. The day from 08:00 to 18:00
+(wider when your day is), with a red now line and each free gap saying how
+long it is, two ways: a strip across the drawer with every hour marked and
+the rest of today listed under it, or a timeline beside the rest, tall
+enough to read every title. The **Timeline** / **Strip** button beside it
+switches, and the drawer remembers. The focus card says what a block would
+be right now ("Free until 16:30: 88 min of focus, warned at 16:28") or
+counts down the one that is running.
 
 <kbd>j</kbd> joins, <kbd>c</kbd> copies the link, <kbd>f</kbd> starts or
-stops a focus block, <kbd>r</kbd> reads the calendar again, and
-<kbd>Esc</kbd> or a click outside closes it.
+stops a focus block, <kbd>v</kbd> switches the day's view, <kbd>r</kbd>
+reads the calendar again, and <kbd>Esc</kbd> or a click outside closes it.
 
 `timetable agenda` prints today in a terminal (`--days 3`, `--json`).
 
@@ -282,7 +285,7 @@ end = "18:00"
 min_gap = 15           # shortest gap drawn as free, in minutes
 
 [drawer]
-width = 420
+width = 0.6            # of the monitor; above 1 it is pixels (420)
 max_height = 0.85
 gap = 8
 calendar_hint = "right-click the clock for the calendar"   # the footer's last words
