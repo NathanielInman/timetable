@@ -263,6 +263,9 @@ namespace = "waybar"   # the bar's layer-shell namespace, for anchoring
 workspace = "2"        # Hyprland workspace to switch to; "" stays put
 dispatch = "hl.dsp.focus({ workspace = {workspace} })"   # the Lua dispatcher
 opener = "xdg-open"    # gets the link as its last argument
+# Chrome opens links in the profile used last; to pin the one your calendar
+# signs in to: opener = 'google-chrome-stable --profile-directory="Profile 1"'
+# (chrome://version shows a profile's directory under "Profile Path")
 
 [reminders]
 minutes = [5, 1]       # [] for none
