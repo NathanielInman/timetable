@@ -79,6 +79,7 @@ window.timetable * { font-family: inherit; }
 .t-label.soon { color: @tt_soon; }
 .t-label.now { color: @tt_now; }
 .t-label.own { color: alpha(@tt_free, 0.85); }
+.t-label.day-name { min-width: 92px; }
 
 /* ---- zones ---- */
 .zone { padding: 7px 10px; }

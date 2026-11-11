@@ -293,7 +293,14 @@ left (own time counts), a running focus block highlights its gap, past
 events dim, the running one is the accent color and the next one amber.
 Own time is soft green and never amber or red; a `maybe` is striped and
 an `unanswered` one outlined with a dashed border, both in italics and
-otherwise colored as usual. Children are
+otherwise colored as usual.
+
+`‹` and `›` beside the day (and the arrow keys) step through the agenda's
+days, from `calendar.past_days` back to `calendar.future_days` ahead, and
+**Today** (and `t`) comes back. Another day lists all of its events, its
+all-day ones first; tomorrow's header says how much is free and a past
+day's does not. The next meeting and focus cards stay about now, and the
+drawer opens on today again after it closes. Children are
 placed at fractions of the space they get (`canvas.rs`), so the day fills
 any width. Copy link uses the Wayland clipboard; the drawer stays
 resident, so the copy survives it closing.
@@ -409,4 +416,6 @@ The daemon rereads the config within 2 seconds of a change, and a change to
 | <kbd>f</kbd> | Start or stop a focus block |
 | <kbd>r</kbd> | Read the calendar now |
 | <kbd>v</kbd> | Switch the day between the strip and the timeline |
+| <kbd>←</kbd> <kbd>→</kbd> | The day before, the day after |
+| <kbd>t</kbd> | Back to today |
 | <kbd>Esc</kbd> | Close |

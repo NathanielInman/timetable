@@ -274,6 +274,13 @@ pub struct Drawer {
     next_event: RefCell<Option<Event>>,
 
     view: Cell<View>,
+    /// Days from today the day view shows; back to 0 when the drawer
+    /// closes.
+    offset: Cell<i64>,
+    day_name: gtk::Label,
+    prev_btn: gtk::Button,
+    next_btn: gtk::Button,
+    today_btn: gtk::Button,
     body: gtk::Box,
     cols: gtk::Box,
     left: gtk::Box,
@@ -372,8 +379,20 @@ impl Drawer {
 
         // ---- today
         let trow = gtk::Box::new(gtk::Orientation::Horizontal, 6);
-        let tl = label("TODAY", &["t-label"]);
+        let prev_btn = button("\u{2039}", "The day before (\u{2190})");
+        let next_btn = button("\u{203a}", "The day after (\u{2192})");
+        let today_btn = button("Today", "Back to today (t)");
+        let nav = gtk::Box::new(gtk::Orientation::Horizontal, 4);
+        nav.add_css_class("btns");
+        nav.add_css_class("view");
+        nav.append(&prev_btn);
+        nav.append(&next_btn);
+        let tl = label("TODAY", &["t-label", "day-name"]);
         tl.set_hexpand(true);
+        let back = gtk::Box::new(gtk::Orientation::Horizontal, 0);
+        back.add_css_class("btns");
+        back.add_css_class("view");
+        back.append(&today_btn);
         let strip_aside = label("", &["t-label"]);
         strip_aside.set_valign(gtk::Align::Center);
         let view_btn = button("", "");
@@ -382,7 +401,9 @@ impl Drawer {
         vbox.add_css_class("view");
         vbox.append(&view_btn);
         tl.set_valign(gtk::Align::Center);
+        trow.append(&nav);
         trow.append(&tl);
+        trow.append(&back);
         trow.append(&strip_aside);
         trow.append(&vbox);
         let strip = Canvas::new();
@@ -482,6 +503,11 @@ impl Drawer {
             copy_btn,
             next_event: RefCell::new(None),
             view: Cell::new(View::load()),
+            offset: Cell::new(0),
+            day_name: tl,
+            prev_btn,
+            next_btn,
+            today_btn,
             body,
             cols,
             left,
@@ -550,6 +576,21 @@ impl Drawer {
         self.day_sig.borrow_mut().clear();
     }
 
+    /// Moves the day view by `by` days, within the agenda's window.
+    fn step_day(&self, by: i64) {
+        let cal = &self.cfg.borrow().calendar;
+        let (lo, hi) = (-(cal.past_days as i64), cal.future_days as i64 - 1);
+        let to = (self.offset.get() + by).clamp(lo, hi);
+        if to == self.offset.get() {
+            return;
+        }
+        self.offset.set(to);
+        self.day_sig.borrow_mut().clear();
+        if self.visible.get() {
+            self.render();
+        }
+    }
+
     fn toggle_view(&self) {
         let view = self.view.get().other();
         self.view.set(view);
@@ -582,6 +623,9 @@ impl Drawer {
         bind(&self.join_btn, Box::new(|d| d.join()));
         bind(&self.copy_btn, Box::new(|d| d.copy()));
         bind(&self.view_btn, Box::new(|d| d.toggle_view()));
+        bind(&self.prev_btn, Box::new(|d| d.step_day(-1)));
+        bind(&self.next_btn, Box::new(|d| d.step_day(1)));
+        bind(&self.today_btn, Box::new(|d| d.step_day(-d.offset.get())));
         bind(
             &self.focus_btn,
             Box::new(|_| {
@@ -657,6 +701,9 @@ impl Drawer {
             }),
             gdk::Key::r => send_quiet(Request::Refresh),
             gdk::Key::v => self.toggle_view(),
+            gdk::Key::Left => self.step_day(-1),
+            gdk::Key::Right => self.step_day(1),
+            gdk::Key::t => self.step_day(-self.offset.get()),
             _ => return glib::Propagation::Proceed,
         }
         glib::Propagation::Stop
@@ -683,6 +730,9 @@ impl Drawer {
         if !self.visible.replace(false) {
             return;
         }
+        // A look at another day is brief: the next open is today again.
+        self.offset.set(0);
+        self.day_sig.borrow_mut().clear();
         let w = Rc::downgrade(self);
         self.spring.play_out(move || {
             if let Some(d) = w.upgrade() {
@@ -756,7 +806,7 @@ impl Drawer {
         self.render_day(s, &cfg, zone, now);
         self.render_focus(s, &cfg, zone, now);
         self.foot.set_label(&format!(
-            "Esc close \u{b7} j join \u{b7} f focus \u{b7} v view \u{b7} r refresh \u{b7} {}",
+            "Esc close \u{b7} j join \u{b7} f focus \u{b7} v view \u{b7} \u{2190} \u{2192} days \u{b7} r refresh \u{b7} {}",
             cfg.drawer.calendar_hint
         ));
     }
@@ -979,9 +1029,18 @@ impl Drawer {
     }
 
     fn render_day(&self, s: &Snapshot, cfg: &Config, zone: Tz, now: i64) {
-        let day = local_date(now, zone);
-        let today = agenda::on_day(&s.events, day, zone);
-        let timed: Vec<&Event> = today.into_iter().filter(|e| !e.all_day).collect();
+        let offset = self.offset.get();
+        let today = local_date(now, zone);
+        let day = today
+            .checked_add_signed(chrono::Duration::days(offset))
+            .unwrap_or(today);
+        let on_day = agenda::on_day(&s.events, day, zone);
+        let all_day: Vec<&str> = on_day
+            .iter()
+            .filter(|e| e.all_day)
+            .map(|e| e.title_or_default())
+            .collect();
+        let timed: Vec<&Event> = on_day.into_iter().filter(|e| !e.all_day).collect();
         // The configured span, widened to fit today's events.
         let (mut s0, mut s1) = agenda::day_span(day, cfg, zone);
         for e in &timed {
@@ -993,23 +1052,42 @@ impl Drawer {
         s1 = s1.min(midnight + 86400).max(s0 + 3600);
         let view = self.view.get();
         let minute = now / 60;
-        let sig = format!("{view:?}|{minute}|{s0}|{s1}|{:?}|{}", s.focus, timed.len());
+        let sig = format!(
+            "{view:?}|{offset}|{minute}|{s0}|{s1}|{:?}|{}",
+            s.focus,
+            timed.len()
+        );
         if *self.day_sig.borrow() == sig {
             return;
         }
         *self.day_sig.borrow_mut() = sig;
-        // Free time from now on: your own time counts.
+        let cal = &cfg.calendar;
+        self.prev_btn
+            .set_sensitive(offset > -(cal.past_days as i64));
+        self.next_btn
+            .set_sensitive(offset < cal.future_days as i64 - 1);
+        self.today_btn
+            .parent()
+            .inspect(|p| p.set_visible(offset != 0));
+        self.day_name.set_label(&match offset {
+            0 => "TODAY".to_string(),
+            1 => "TOMORROW".into(),
+            -1 => "YESTERDAY".into(),
+            _ => day.format("%a %b %-d").to_string().to_uppercase(),
+        });
+        // Free time from now on: your own time counts, and a day gone by
+        // has none left.
         let ahead = (now.max(s0), s1.max(now));
         let free = agenda::gaps(&s.events, ahead, cfg.day.min_gap)
             .iter()
             .map(|(a, b)| (b - a) / 60)
             .sum::<i64>();
-        self.strip_aside.set_label(&format!(
-            "{} TO {} \u{b7} {} FREE LEFT",
-            hhmm(s0, zone),
-            hhmm(s1, zone),
-            minutes(free).to_uppercase()
-        ));
+        let span = format!("{} TO {}", hhmm(s0, zone), hhmm(s1, zone));
+        self.strip_aside.set_label(&match offset.signum() {
+            0 => format!("{span} \u{b7} {} FREE LEFT", minutes(free).to_uppercase()),
+            1 => format!("{span} \u{b7} {} FREE", minutes(free).to_uppercase()),
+            _ => span,
+        });
         let d = Day {
             s0,
             s1,
@@ -1033,13 +1111,27 @@ impl Drawer {
         while let Some(c) = self.rows.first_child() {
             self.rows.remove(&c);
         }
-        // What is left today, plus the one just finished.
-        let first = timed
-            .iter()
-            .position(|e| e.end > now)
-            .unwrap_or(timed.len());
+        // Today: what is left, plus the one just finished. Another day:
+        // all of it, its all-day events first.
+        if offset != 0 && !all_day.is_empty() {
+            self.rows.append(&label(
+                &format!("All day: {}", all_day.join(" \u{b7} ")),
+                &["dim"],
+            ));
+        }
+        let first = match offset {
+            0 => timed
+                .iter()
+                .position(|e| e.end > now)
+                .unwrap_or(timed.len()),
+            _ => 0,
+        };
         let from = first.saturating_sub(1);
-        for e in timed.iter().skip(from).take(7) {
+        for e in timed
+            .iter()
+            .skip(from)
+            .take(if offset == 0 { 7 } else { 12 })
+        {
             let row = gtk::Box::new(gtk::Orientation::Horizontal, 10);
             let t = label(
                 &format!("{} to {}", hhmm(e.start, zone), hhmm(e.end, zone)),
@@ -1078,9 +1170,17 @@ impl Drawer {
             self.rows.append(&row);
         }
         if timed.is_empty() {
-            self.rows
-                .append(&label("Nothing on the calendar today.", &["dim"]));
-        } else if first == timed.len() {
+            let when = match offset {
+                0 => "today".to_string(),
+                1 => "tomorrow".into(),
+                -1 => "yesterday".into(),
+                _ => day.format("on %A").to_string(),
+            };
+            self.rows.append(&label(
+                &format!("Nothing on the calendar {when}."),
+                &["dim"],
+            ));
+        } else if offset == 0 && first == timed.len() {
             self.rows
                 .append(&label("That was the last one today.", &["dim"]));
         }
