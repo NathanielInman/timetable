@@ -109,7 +109,9 @@ fn google_feed_agenda() {
         &cfg,
         Chicago,
     );
-    assert_eq!(s.state, agenda::State::In);
+    // A daily hold with no guests and no link: your own time, not a
+    // meeting.
+    assert_eq!(s.state, agenda::State::Own);
     assert_eq!(s.event.unwrap().title, "Event 009");
     let s = agenda::status(
         &ev,
@@ -121,8 +123,9 @@ fn google_feed_agenda() {
         &cfg,
         Chicago,
     );
-    assert_eq!(s.state, agenda::State::Soon);
-    assert_eq!(s.event.unwrap().title, "Event 011");
+    // Event 011 at 12:30 is a guestless hold too, so nothing turns amber.
+    assert_eq!(s.state, agenda::State::Own);
+    assert_eq!(s.event.unwrap().title, "Event 009");
 }
 
 #[test]
@@ -135,6 +138,10 @@ fn edge_cases() {
             "Tue 11-10 00:00 1440m - Out of office",
             "Tue 11-10 09:30 15m zoom Standup",
             "Tue 11-10 14:00 60m teams Sprint review",
+            "Wed 11-11 11:30 60m - Lunch",
+            "Wed 11-11 13:00 60m - Design crit",
+            "Wed 11-11 14:00 30m meet Planning",
+            "Wed 11-11 15:00 30m - Coffee walk",
             "Wed 11-11 16:00 60m - Dentist",
             "Thu 11-12 11:30 15m zoom Standup (later today)",
             "Thu 11-12 14:00 30m meet Vendor call",
@@ -156,6 +163,56 @@ fn edge_cases() {
         .as_deref()
         .unwrap()
         .starts_with("https://teams.microsoft.com/l/meetup-join/"));
+}
+
+#[test]
+fn own_time_and_answers() {
+    use timetable_core::model::Answer;
+    let ev = agenda_of(EDGES, "2026-11-10 12:00");
+    let get = |t: &str| ev.iter().find(|e| e.title == t).unwrap();
+    // Only the owner and a room: own time. Marked free: own time. No
+    // guests and no link: own time.
+    assert!(get("Lunch").own);
+    assert!(get("Coffee walk").own);
+    assert!(get("Dentist").own);
+    // Someone else is invited, or there is a link: a meeting.
+    assert!(!get("Design crit").own);
+    assert!(!get("Planning").own);
+    assert!(!get("Sprint review").own);
+    assert_eq!(get("Design crit").answer, Answer::Maybe);
+    assert_eq!(get("Planning").answer, Answer::Unanswered);
+    assert_eq!(get("Lunch").answer, Answer::Yes);
+    // Own time is free: the 12:00 focus block runs to the crit at 13:00.
+    let cfg = Config::default();
+    let p = agenda::focus_plan(&ev, at("2026-11-11 11:40"), &cfg, Chicago).unwrap();
+    assert_eq!(p.before.unwrap().title, "Design crit");
+    let s = agenda::status(
+        &ev,
+        at("2026-11-11 11:40"),
+        None,
+        &[],
+        true,
+        true,
+        &cfg,
+        Chicago,
+    );
+    assert_eq!(s.state, agenda::State::Own);
+    // Its start never turns the bar amber or red.
+    let s = agenda::status(
+        &ev,
+        at("2026-11-11 11:25"),
+        None,
+        &[],
+        true,
+        true,
+        &cfg,
+        Chicago,
+    );
+    assert_eq!(s.state, agenda::State::Free);
+    assert_eq!(s.free_until, Some(at("2026-11-11 13:00")));
+    // And it gets no reminders.
+    let sent = std::collections::HashSet::new();
+    assert!(agenda::due_reminders(&ev, at("2026-11-11 11:25"), &[5], &sent, &[]).is_empty());
 }
 
 #[test]

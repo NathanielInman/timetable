@@ -360,7 +360,12 @@ fn agenda_cmd(days: u32, json: bool) -> Result<i32> {
                 .as_deref()
                 .map(|k| format!("  [{}]", links::label(k)))
                 .unwrap_or_default();
-            println!("{mark} {when}  {}{kind}", e.title_or_default());
+            let note = match (e.own && !e.all_day, e.answer.label()) {
+                (true, _) => "  (own time)".to_string(),
+                (false, Some(a)) => format!("  ({a})"),
+                (false, None) => String::new(),
+            };
+            println!("{mark} {when}  {}{kind}{note}", e.title_or_default());
         }
     }
     println!("\n{}", crate::bar::freshness(&s, &cfg, n));

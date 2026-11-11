@@ -10,6 +10,7 @@
 //! searched for a meeting link and then dropped.
 
 use crate::links;
+use crate::model::Answer;
 use chrono::{NaiveDate, NaiveDateTime, NaiveTime};
 use chrono_tz::Tz;
 
@@ -59,6 +60,12 @@ pub struct RawEvent {
     pub recurrence_id: Option<When>,
     /// The owner's attendee entry says `PARTSTAT=DECLINED`.
     pub declined: bool,
+    /// The owner's attendee entry says `TENTATIVE` or `NEEDS-ACTION`.
+    pub answer: Answer,
+    /// Attendees besides the owner, rooms and other resources left out.
+    pub others: usize,
+    /// `TRANSP:TRANSPARENT`: shown as free.
+    pub transparent: bool,
     /// The meeting link and its kind (`zoom`, `meet`, ...).
     pub link: Option<String>,
     pub kind: Option<String>,
@@ -405,6 +412,7 @@ pub fn parse(text: &str, owner: Option<&str>) -> Feed {
             "LOCATION" => e.location = unescape(p.value).trim().to_string(),
             "DESCRIPTION" => description = unescape(p.value),
             "STATUS" => e.status = p.value.trim().to_ascii_uppercase(),
+            "TRANSP" => e.transparent = p.value.trim().eq_ignore_ascii_case("TRANSPARENT"),
             "DTSTART" => e.dtstart = when(p.value, p.param("TZID"), is_date, &mut unknown),
             "DTEND" => e.dtend = when(p.value, p.param("TZID"), is_date, &mut unknown),
             "DURATION" => e.duration = duration(p.value),
@@ -424,13 +432,22 @@ pub fn parse(text: &str, owner: Option<&str>) -> Feed {
                         .filter(|c| c.contains('@'))
                         .map(|c| c.trim().to_ascii_lowercase());
                 }
-                if let Some(o) = owner.as_deref() {
-                    if address(p.value) == o
-                        && p.param("PARTSTAT")
-                            .is_some_and(|s| s.eq_ignore_ascii_case("DECLINED"))
+                let resource = p.param("CUTYPE").is_some_and(|c| {
+                    c.eq_ignore_ascii_case("RESOURCE") || c.eq_ignore_ascii_case("ROOM")
+                });
+                if owner.as_deref().is_some_and(|o| address(p.value) == o) {
+                    match p
+                        .param("PARTSTAT")
+                        .map(|s| s.to_ascii_uppercase())
+                        .as_deref()
                     {
-                        e.declined = true;
+                        Some("DECLINED") => e.declined = true,
+                        Some("TENTATIVE") => e.answer = Answer::Maybe,
+                        Some("NEEDS-ACTION") => e.answer = Answer::Unanswered,
+                        _ => {}
                     }
+                } else if !resource {
+                    e.others += 1;
                 }
             }
             _ => {}

@@ -193,6 +193,12 @@ fn occurrence(
         (None, Some(m)) => (m.link.clone(), m.kind.clone()),
         (None, None) => (None, None),
     };
+    // A moved instance without its own guest list keeps the series'.
+    let others = match (e.others, fallback) {
+        (0, Some(m)) => m.others,
+        (n, _) => n,
+    };
+    let own = e.transparent || (others == 0 && link.is_none());
     Event {
         uid: if e.uid.is_empty() {
             format!("{}-{}", e.summary, start)
@@ -206,6 +212,8 @@ fn occurrence(
         location: pick(&e.location, fallback.map(|m| m.location.as_str())),
         link,
         kind,
+        own,
+        answer: e.answer,
     }
 }
 

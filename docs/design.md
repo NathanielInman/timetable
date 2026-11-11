@@ -133,6 +133,17 @@ back to `calendar.future_days` ahead, local midnights):
   feed's `X-WR-CALNAME` when it contains `@`.
 - Length: `DTEND` minus `DTSTART`, else `DURATION`, else zero; all-day
   events in whole days (at least one), so a DST change does not shift them.
+- **Answer:** the owner's `PARTSTAT=TENTATIVE` is `maybe` and
+  `NEEDS-ACTION` is `unanswered`; both still show.
+- **Own time:** `TRANSP:TRANSPARENT`, or no attendee besides the owner
+  (rooms and other `CUTYPE=RESOURCE` entries do not count; a moved
+  instance without a guest list keeps the series') and no meeting link.
+  The daemon adds titles containing a `calendar.own_time` entry (any case).
+
+Own time is yours, not a meeting: it is never next, never `soon`, `now`
+or `in`, gets no reminders and counts as free for gaps, "free until" and
+focus blocks, so a focus block can run through a Focus time hold to the
+next real meeting.
 
 Only occurrences overlapping the window are kept, sorted by start. A
 12 MB feed with about 3,000 events parses in about 25 ms and expands in a
@@ -169,7 +180,8 @@ The daemon's ticker wakes at the next minute boundary, or the next second
 while a focus block runs, and at least every 2 seconds to check the config.
 Each wake recomputes the line from memory and sends it only if it changed.
 
-The state is `agenda::status`, first match wins:
+The state is `agenda::status`, first match wins. "Event" means a timed
+event that is not your own time:
 
 | State | When | Text |
 |---|---|---|
@@ -178,6 +190,7 @@ The state is `agenda::status`, first match wins:
 | `offline` | A calendar is set but has never been read | the clock with a dim `icon_offline` |
 | `soon` | The next timed event starts within `bar.soon_minutes` (10) | `icon_event Standup in 7m` |
 | `in` | A timed event is running | `icon_in Standup · 9m left` |
+| `own` | Your own time is running and nothing above is | `icon_own Focus time · until 16:30` |
 | `next` | The next timed event starts within `bar.next_minutes` (60) | `icon_event Standup in 34m` |
 | `free` | Otherwise | `free until 14:00` when an event is left today and `bar.free_until`, else the clock alone |
 
@@ -244,7 +257,7 @@ button when the event has a link. Sent keys (`uid@start#minutes`) go to
 repeats one. A reminder missed by more than 90 seconds (the machine slept
 or the daemon was down) is skipped, not sent late. Urgency stays normal so
 swaync's do not disturb applies. A meeting already joined gets no more
-reminders.
+reminders, and your own time gets none.
 
 ## Anchoring and the drawer
 
@@ -274,10 +287,13 @@ is kept in the state directory:
   each event's start and title wrapped to fit and overlapping events side
   by side.
 
-In both, free gaps of at least `day.min_gap` minutes from now on are
+In both, empty gaps of at least `day.min_gap` minutes from now on are
 dashed and say how long they are, the header says how much free time is
-left, a running focus block highlights its gap, past events dim, the
-running one is the accent color and the next one amber. Children are
+left (own time counts), a running focus block highlights its gap, past
+events dim, the running one is the accent color and the next one amber.
+Own time is soft green and never amber or red; a `maybe` is striped and
+an `unanswered` one outlined with a dashed border, both in italics and
+otherwise colored as usual. Children are
 placed at fractions of the space they get (`canvas.rs`), so the day fills
 any width. Copy link uses the Wayland clipboard; the drawer stays
 resident, so the copy survives it closing.
@@ -324,7 +340,8 @@ the show until it subscribes.
 
 The snapshot (`timetable status --json`) is `version`, `now`, `source`
 (`none`, `url_command`, `url`, `file`), `events` (each `uid`, `title`,
-`start`, `end`, `all_day`, `location`, `link`, `kind`), `fetched_at`,
+`start`, `end`, `all_day`, `location`, `link`, `kind`, `own` and `answer`
+(`maybe` or `unanswered`; both left out when not set)), `fetched_at`,
 `attempted_at`, `error`, `cached`, `focus`, `joined` (the keys of events
 Join opened, left out when empty) and `config_error`. Times are
 Unix seconds. It never contains the address.
@@ -341,6 +358,7 @@ Unix seconds. It never contains the address.
 | `calendar.timeout` | `60` | Seconds one read may take |
 | `calendar.past_days` | `1` | Days back in the agenda |
 | `calendar.future_days` | `14` | Days ahead in the agenda |
+| `calendar.own_time` | `[]` | Titles that are your own time even with guests (`["Lunch"]`), any case, anywhere in the title |
 | `clock.format` | `"%a %b %-d  %H:%M"` | The bar clock, chrono strftime |
 | `clock.zone` | `""` | Your IANA zone; empty reads `TZ`, then `/etc/localtime` |
 | `clock.zones` | Chicago, EET, GMT | `[{ zone, label }]` for the drawer and tooltip |
@@ -355,6 +373,7 @@ Unix seconds. It never contains the address.
 | `bar.icon_now` | `"\U000F0567"` | Before `now` text |
 | `bar.icon_in` | `"\U000F0849"` | Before `in` text |
 | `bar.icon_focus` | `"\U000F051B"` | Before the focus countdown |
+| `bar.icon_own` | `"\U000F032A"` | Before `own` text |
 | `bar.icon_offline` | `"\U000F0164"` | Dim, before the clock when offline or stale |
 | `bar.namespace` | `"waybar"` | The bar's layer-shell namespace |
 | `join.workspace` | `"2"` | Workspace to switch to; empty stays put |

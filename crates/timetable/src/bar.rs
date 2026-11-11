@@ -87,6 +87,10 @@ pub fn line(s: &Snapshot, cfg: &Config, now: i64) -> BarLine {
                 minutes(agenda::minutes_until(e.end, now))
             ),
         ),
+        (State::Own, Some(e)) => with_icon(
+            &b.icon_own,
+            &format!("{} \u{b7} until {}", title(e, cfg), hhmm(e.end, zone)),
+        ),
         (State::Focus, _) => with_icon(
             &b.icon_focus,
             &format!(
@@ -239,6 +243,7 @@ mod tests {
         c.bar.icon_now = String::new();
         c.bar.icon_in = String::new();
         c.bar.icon_focus = String::new();
+        c.bar.icon_own = String::new();
         c
     }
 
@@ -287,6 +292,26 @@ mod tests {
         let l = fresh(&snap(), &c, at("13:06"));
         assert_eq!(l.text, "Standup &amp; sync · 9m left  Tue Nov 10  13:06");
         assert_eq!(l.class, vec!["in"]);
+    }
+
+    #[test]
+    fn own_time_is_relaxed() {
+        let c = cfg();
+        let mut s = snap();
+        s.events.push(Event {
+            uid: "f".into(),
+            title: "Focus time".into(),
+            start: at("15:00"),
+            end: at("16:30"),
+            own: true,
+            ..Default::default()
+        });
+        // Never "next": the clock stays free until the review ends.
+        let l = fresh(&s, &c, at("14:55"));
+        assert_eq!(l.class, vec!["in"]);
+        let l = fresh(&s, &c, at("15:00"));
+        assert_eq!(l.text, "Focus time · until 16:30  Tue Nov 10  15:00");
+        assert_eq!(l.class, vec!["own"]);
     }
 
     #[test]

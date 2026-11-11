@@ -43,6 +43,9 @@ pub struct CalendarConfig {
     pub past_days: u32,
     /// Days ahead expanded.
     pub future_days: u32,
+    /// Titles that are your own time even with others invited (`Lunch`),
+    /// matched case-insensitively anywhere in the title.
+    pub own_time: Vec<String>,
 }
 
 impl Default for CalendarConfig {
@@ -56,6 +59,7 @@ impl Default for CalendarConfig {
             timeout: 60,
             past_days: 1,
             future_days: 14,
+            own_time: vec![],
         }
     }
 }
@@ -128,6 +132,7 @@ pub struct BarConfig {
     pub icon_now: String,
     pub icon_in: String,
     pub icon_focus: String,
+    pub icon_own: String,
     /// Shown before the clock when the calendar cannot be reached.
     pub icon_offline: String,
     /// The bar's layer-shell namespace, for anchoring the drawer.
@@ -148,6 +153,7 @@ impl Default for BarConfig {
             icon_now: "\u{f0567}".into(),
             icon_in: "\u{f0849}".into(),
             icon_focus: "\u{f051b}".into(),
+            icon_own: "\u{f032a}".into(),
             icon_offline: "\u{f0164}".into(),
             namespace: "waybar".into(),
         }

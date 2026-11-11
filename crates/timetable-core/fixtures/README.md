@@ -11,6 +11,8 @@
   once: a cancelled series and a cancelled instance, an event the owner
   declined, all-day and floating times, a Windows zone name, `DURATION`,
   `RDATE`, a comma-separated `EXDATE`, an alarm with its own description,
-  and Zoom, Meet, Teams and Slack huddle links.
+  Zoom, Meet, Teams and Slack huddle links, own time (owner and a room
+  only, `TRANSP:TRANSPARENT`, no guests and no link) and `TENTATIVE` and
+  `NEEDS-ACTION` answers. Checked against `recurring_ical_events` too.
 - `waybar-platform.css`: the floating "Platform" bar's stylesheet, whose
   window background is transparent.

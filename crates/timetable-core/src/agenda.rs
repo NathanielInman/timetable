@@ -23,6 +23,8 @@ pub enum State {
     Now,
     /// During an event.
     In,
+    /// During your own time (`Event::own`) and nothing else: relaxed.
+    Own,
     /// A focus block is running.
     Focus,
     /// A calendar is set but has never been read.
@@ -37,6 +39,7 @@ impl State {
             State::Soon => "soon",
             State::Now => "now",
             State::In => "in",
+            State::Own => "own",
             State::Focus => "focus",
             State::Offline => "offline",
         }
@@ -63,12 +66,31 @@ pub fn current(events: &[Event], now: i64) -> Vec<&Event> {
     v
 }
 
-/// The first timed event starting after `now`.
+/// The first meeting starting after `now`: your own time is never next.
 pub fn upcoming(events: &[Event], now: i64) -> Option<&Event> {
     events
         .iter()
-        .filter(|e| e.timed() && e.start > now)
+        .filter(|e| e.meeting() && e.start > now)
         .min_by_key(|e| e.start)
+}
+
+/// Marks events whose title contains one of `titles` (any case) as your
+/// own time, on top of what the feed says.
+pub fn mark_own(events: &mut [Event], titles: &[String]) {
+    let titles: Vec<String> = titles
+        .iter()
+        .map(|t| t.trim().to_lowercase())
+        .filter(|t| !t.is_empty())
+        .collect();
+    if titles.is_empty() {
+        return;
+    }
+    for e in events.iter_mut() {
+        let t = e.title.to_lowercase();
+        if titles.iter().any(|p| t.contains(p.as_str())) {
+            e.own = true;
+        }
+    }
 }
 
 /// Events overlapping a local date, all-day ones first.
@@ -95,7 +117,9 @@ pub fn remaining_today(events: &[Event], now: i64, zone: Tz) -> Vec<&Event> {
 }
 
 /// What the bar shows. `joined` holds the keys of events Join opened: they
-/// are never `soon` or `now`, since the meeting is already open.
+/// are never `soon` or `now`, since the meeting is already open. Your own
+/// time is never `soon`, `now`, `in` or `next`; it is `own` when nothing
+/// else is going on.
 #[allow(clippy::too_many_arguments)]
 pub fn status(
     events: &[Event],
@@ -108,7 +132,8 @@ pub fn status(
     zone: Tz,
 ) -> Status {
     let b = &cfg.bar;
-    let cur = current(events, now);
+    let all = current(events, now);
+    let cur: Vec<&Event> = all.iter().copied().filter(|e| !e.own).collect();
     let next = upcoming(events, now);
     let make = |state, event: Option<&Event>| Status {
         state,
@@ -133,6 +158,9 @@ pub fn status(
     }
     if let Some(c) = cur.first() {
         return make(State::In, Some(c));
+    }
+    if let Some(c) = all.iter().find(|e| e.own) {
+        return make(State::Own, Some(c));
     }
     if let Some(n) = next.filter(|n| n.start - now <= b.next_minutes * 60) {
         return make(State::Next, Some(n));
@@ -202,11 +230,16 @@ pub fn day_span(day: NaiveDate, cfg: &Config, zone: Tz) -> Span {
     )
 }
 
-/// Busy time in a span: timed events merged where they overlap.
+/// Busy time in a span: meetings merged where they overlap. Your own time
+/// is free.
 pub fn busy(events: &[Event], span: Span) -> Vec<Span> {
+    busy_where(events, span, Event::meeting)
+}
+
+fn busy_where(events: &[Event], span: Span, counts: impl Fn(&Event) -> bool) -> Vec<Span> {
     let mut v: Vec<Span> = events
         .iter()
-        .filter(|e| e.timed() && e.end > span.0 && e.start < span.1)
+        .filter(|e| counts(e) && e.end > span.0 && e.start < span.1)
         .map(|e| (e.start.max(span.0), e.end.min(span.1)))
         .collect();
     v.sort_unstable();
@@ -220,11 +253,22 @@ pub fn busy(events: &[Event], span: Span) -> Vec<Span> {
     out
 }
 
-/// Free gaps in a span at least `min_gap` minutes long.
+/// Free gaps in a span at least `min_gap` minutes long. Your own time
+/// counts as free.
 pub fn gaps(events: &[Event], span: Span, min_gap: i64) -> Vec<Span> {
+    gaps_in(busy(events, span), span, min_gap)
+}
+
+/// Gaps between all timed events, your own time included: where the day
+/// strip draws nothing.
+pub fn empty_gaps(events: &[Event], span: Span, min_gap: i64) -> Vec<Span> {
+    gaps_in(busy_where(events, span, Event::timed), span, min_gap)
+}
+
+fn gaps_in(busy: Vec<Span>, span: Span, min_gap: i64) -> Vec<Span> {
     let mut out = vec![];
     let mut at = span.0;
-    for (s, e) in busy(events, span) {
+    for (s, e) in busy {
         if s - at >= min_gap * 60 {
             out.push((at, s));
         }
@@ -291,7 +335,7 @@ pub fn clamp_focus(focus: Focus, events: &[Event], now: i64, cfg: &Config) -> Fo
     let lead = cfg.focus.lead * 60;
     let end = events
         .iter()
-        .filter(|e| e.timed() && e.start > focus.start + lead && e.start - lead < focus.end)
+        .filter(|e| e.meeting() && e.start > focus.start + lead && e.start - lead < focus.end)
         .map(|e| e.start - lead)
         .min()
         .map(|t| t.max(now.min(focus.end)))
@@ -335,7 +379,7 @@ pub struct Reminder {
 
 /// Reminders whose time has come in the last 90 seconds and that were not
 /// sent yet. Late ones (the machine was asleep) are skipped, not sent late,
-/// and so are those for a meeting already joined.
+/// and so are those for a meeting already joined and for your own time.
 pub fn due_reminders(
     events: &[Event],
     now: i64,
@@ -346,7 +390,7 @@ pub fn due_reminders(
     let mut out = vec![];
     for e in events
         .iter()
-        .filter(|e| e.timed() && !joined.contains(&e.key()))
+        .filter(|e| e.meeting() && !joined.contains(&e.key()))
     {
         for &m in minutes {
             let at = e.start - m * 60;

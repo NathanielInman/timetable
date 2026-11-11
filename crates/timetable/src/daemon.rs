@@ -252,7 +252,8 @@ fn fetch_once(d: &Shared) {
             let n = now_secs();
             let (from, to) =
                 expand::window(n, zone, cfg.calendar.past_days, cfg.calendar.future_days);
-            let x = expand::expand(&feed, zone, from, to);
+            let mut x = expand::expand(&feed, zone, from, to);
+            agenda::mark_own(&mut x.events, &cfg.calendar.own_time);
             eprintln!(
                 "timetable: read {} events, {} in the window, in {:.1} s{}",
                 feed.events.len(),

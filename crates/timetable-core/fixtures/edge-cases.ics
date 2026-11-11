@@ -93,4 +93,40 @@ RRULE:FREQ=WEEKLY;COUNT=2
 RDATE;TZID=Europe/Kiev:20261119T180000
 LOCATION:Slack huddle https://app.slack.com/huddle/T00000000/C00000000
 END:VEVENT
+BEGIN:VEVENT
+UID:lunch@example.com
+SUMMARY:Lunch
+DTSTART;TZID=America/Chicago:20261111T113000
+DTEND;TZID=America/Chicago:20261111T123000
+ATTENDEE;CN=owner@example.com;PARTSTAT=ACCEPTED:mailto:owner@example.com
+ATTENDEE;CUTYPE=RESOURCE;CN=Room 4;PARTSTAT=ACCEPTED:mailto:room4@resource.example.com
+END:VEVENT
+BEGIN:VEVENT
+UID:crit@example.com
+SUMMARY:Design crit
+DTSTART;TZID=America/Chicago:20261111T130000
+DTEND;TZID=America/Chicago:20261111T140000
+ORGANIZER;CN=Organizer:mailto:organizer@example.com
+ATTENDEE;CN=Organizer;PARTSTAT=ACCEPTED:mailto:organizer@example.com
+ATTENDEE;CN=owner@example.com;PARTSTAT=TENTATIVE:mailto:owner@example.com
+END:VEVENT
+BEGIN:VEVENT
+UID:planning@example.com
+SUMMARY:Planning
+DTSTART;TZID=America/Chicago:20261111T140000
+DTEND;TZID=America/Chicago:20261111T143000
+ORGANIZER;CN=Organizer:mailto:organizer@example.com
+ATTENDEE;CN=Organizer;PARTSTAT=ACCEPTED:mailto:organizer@example.com
+ATTENDEE;CN=owner@example.com;PARTSTAT=NEEDS-ACTION:mailto:owner@example.com
+X-GOOGLE-CONFERENCE:https://meet.google.com/ddd-eeee-fff
+END:VEVENT
+BEGIN:VEVENT
+UID:coffee@example.com
+SUMMARY:Coffee walk
+DTSTART;TZID=America/Chicago:20261111T150000
+DTEND;TZID=America/Chicago:20261111T153000
+TRANSP:TRANSPARENT
+ATTENDEE;CN=Guest;PARTSTAT=ACCEPTED:mailto:guest@example.com
+ATTENDEE;CN=owner@example.com;PARTSTAT=ACCEPTED:mailto:owner@example.com
+END:VEVENT
 END:VCALENDAR

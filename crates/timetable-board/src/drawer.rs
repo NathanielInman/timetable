@@ -20,7 +20,7 @@ use timetable_core::agenda::{self, State};
 use timetable_core::config::Config;
 use timetable_core::expand::local_date;
 use timetable_core::links;
-use timetable_core::model::{Event, Focus, Snapshot, Source};
+use timetable_core::model::{Answer, Event, Focus, Snapshot, Source};
 use timetable_core::paths;
 use timetable_core::protocol::{Event as BoardEvent, FocusAction, Request};
 use timetable_core::text::{ago, countdown, minutes};
@@ -84,7 +84,7 @@ struct Day<'a> {
     timed: &'a [&'a Event],
     /// Each timed event's lane and its overlapping group's lane count.
     lanes: Vec<(usize, usize)>,
-    /// Free gaps from now on.
+    /// Where nothing is on from now on, drawn dashed.
     gaps: Vec<(i64, i64)>,
     next: Option<String>,
     focus: Option<Focus>,
@@ -114,8 +114,21 @@ impl Day<'_> {
         } else if self.next.as_deref() == Some(&e.key()) {
             l.add_css_class("next");
         }
+        if e.own {
+            l.add_css_class("own");
+        }
+        match e.answer {
+            Answer::Yes => {}
+            Answer::Maybe => l.add_css_class("maybe"),
+            Answer::Unanswered => l.add_css_class("unanswered"),
+        }
+        let note = match (e.own, e.answer.label()) {
+            (true, _) => " (own time)".to_string(),
+            (false, Some(a)) => format!(" ({a})"),
+            (false, None) => String::new(),
+        };
         l.set_tooltip_text(Some(&format!(
-            "{} to {}  {}",
+            "{} to {}  {}{note}",
             hhmm(e.start, self.zone),
             hhmm(e.end, self.zone),
             e.title_or_default()
@@ -182,7 +195,9 @@ fn find_monitor(name: &str) -> Option<gdk::Monitor> {
 }
 
 fn set_state_class(w: &impl IsA<gtk::Widget>, state: &str) {
-    for c in ["free", "next", "soon", "now", "in", "focus", "offline"] {
+    for c in [
+        "free", "next", "soon", "now", "in", "own", "focus", "offline",
+    ] {
         w.remove_css_class(c);
     }
     w.add_css_class(state);
@@ -776,6 +791,7 @@ impl Drawer {
             State::Next | State::Soon => format!("next {}", until(&st.event)),
             State::Now => "starting".into(),
             State::In => "in a meeting".into(),
+            State::Own => "own time".into(),
             State::Focus => "focus".into(),
             State::Offline => "offline".into(),
         });
@@ -864,15 +880,12 @@ impl Drawer {
             return;
         }
         card.set_visible(true);
-        let current = agenda::current(&s.events, now)
-            .first()
-            .map(|e| (*e).clone());
         let upcoming = agenda::upcoming(&s.events, now).cloned();
         let (head, ev) = match st.state {
-            State::Now | State::In => ("NOW", current.clone()),
+            State::Now | State::In | State::Own => ("NOW", st.event.clone()),
             _ => ("NEXT", upcoming.clone()),
         };
-        for c in ["soon", "now"] {
+        for c in ["soon", "now", "own"] {
             card.remove_css_class(c);
             self.next_head.remove_css_class(c);
         }
@@ -884,6 +897,10 @@ impl Drawer {
             State::Now => {
                 card.add_css_class("now");
                 self.next_head.add_css_class("now");
+            }
+            State::Own => {
+                card.add_css_class("own");
+                self.next_head.add_css_class("own");
             }
             _ => {}
         }
@@ -898,12 +915,15 @@ impl Drawer {
             *self.next_event.borrow_mut() = None;
             return;
         };
-        self.next_kind.set_label(
-            &e.kind
-                .as_deref()
-                .map(|k| links::label(k).to_uppercase())
-                .unwrap_or_else(|| "NO LINK".into()),
-        );
+        let kind = match &e.kind {
+            Some(k) => links::label(k).to_uppercase(),
+            None if e.own => "OWN TIME".into(),
+            None => "NO LINK".into(),
+        };
+        self.next_kind.set_label(&match e.answer.label() {
+            Some(a) => format!("{} \u{b7} {kind}", a.to_uppercase()),
+            None => kind,
+        });
         self.next_title.set_label(e.title_or_default());
         self.next_title.set_tooltip_text(Some(e.title_or_default()));
         let same_day = local_date(e.start, zone) == local_date(now, zone);
@@ -978,8 +998,12 @@ impl Drawer {
             return;
         }
         *self.day_sig.borrow_mut() = sig;
-        let gaps = agenda::gaps(&s.events, (now.max(s0), s1.max(now)), cfg.day.min_gap);
-        let free = gaps.iter().map(|(a, b)| (b - a) / 60).sum::<i64>();
+        // Free time from now on: your own time counts.
+        let ahead = (now.max(s0), s1.max(now));
+        let free = agenda::gaps(&s.events, ahead, cfg.day.min_gap)
+            .iter()
+            .map(|(a, b)| (b - a) / 60)
+            .sum::<i64>();
         self.strip_aside.set_label(&format!(
             "{} TO {} \u{b7} {} FREE LEFT",
             hhmm(s0, zone),
@@ -993,7 +1017,7 @@ impl Drawer {
             zone,
             timed: &timed,
             lanes: agenda::lanes(&timed),
-            gaps,
+            gaps: agenda::empty_gaps(&s.events, ahead, cfg.day.min_gap),
             next: agenda::upcoming(&s.events, now).map(|e| e.key()),
             focus: s.focus.filter(|f| f.running(now)),
         };
@@ -1024,12 +1048,29 @@ impl Drawer {
             let title = label(e.title_or_default(), &[]);
             title.set_hexpand(true);
             title.set_ellipsize(gtk::pango::EllipsizeMode::End);
-            let kind = label(e.kind.as_deref().map(links::label).unwrap_or(""), &["kind"]);
+            let kind = e.kind.as_deref().map(links::label).unwrap_or("");
+            let note = match (e.own, e.answer.label()) {
+                (true, _) => "own time".to_string(),
+                (false, Some(a)) if kind.is_empty() => a.to_string(),
+                (false, Some(a)) => format!("{a} \u{b7} {kind}"),
+                (false, None) => kind.to_string(),
+            };
+            let kind = label(&note, &["kind"]);
             if e.end <= now {
                 t.add_css_class("past");
                 title.add_css_class("past");
             } else if e.running(now) {
                 title.add_css_class("current");
+            }
+            for c in [
+                e.own.then_some("own"),
+                (e.answer == Answer::Maybe).then_some("maybe"),
+                (e.answer == Answer::Unanswered).then_some("unanswered"),
+            ]
+            .into_iter()
+            .flatten()
+            {
+                title.add_css_class(c);
             }
             row.append(&t);
             row.append(&title);

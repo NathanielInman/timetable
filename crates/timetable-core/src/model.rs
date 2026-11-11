@@ -19,6 +19,42 @@ pub struct Event {
     /// `zoom`, `meet`, `teams`, `slack`, `webex`, `whereby` or `link`.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub kind: Option<String>,
+    /// Your own time, not a meeting: marked free, nobody else invited and
+    /// no meeting link, or a title in `calendar.own_time`. It never calls
+    /// for you and counts as free.
+    #[serde(default, skip_serializing_if = "std::ops::Not::not")]
+    pub own: bool,
+    /// What you answered the invitation.
+    #[serde(default, skip_serializing_if = "Answer::is_yes")]
+    pub answer: Answer,
+}
+
+/// Your reply to an invitation.
+#[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq, Eq, Default)]
+#[serde(rename_all = "snake_case")]
+pub enum Answer {
+    /// Accepted, or not an invitation at all.
+    #[default]
+    Yes,
+    /// `PARTSTAT=TENTATIVE`.
+    Maybe,
+    /// `PARTSTAT=NEEDS-ACTION`.
+    Unanswered,
+}
+
+impl Answer {
+    pub fn is_yes(&self) -> bool {
+        *self == Answer::Yes
+    }
+
+    /// How the drawer says it: `maybe`, `not answered`, or nothing.
+    pub fn label(self) -> Option<&'static str> {
+        match self {
+            Answer::Yes => None,
+            Answer::Maybe => Some("maybe"),
+            Answer::Unanswered => Some("not answered"),
+        }
+    }
 }
 
 impl Event {
@@ -38,6 +74,12 @@ impl Event {
 
     pub fn timed(&self) -> bool {
         !self.all_day
+    }
+
+    /// A timed event that is not your own time: it can be next, call for
+    /// you and make you busy.
+    pub fn meeting(&self) -> bool {
+        self.timed() && !self.own
     }
 
     pub fn running(&self, now: i64) -> bool {

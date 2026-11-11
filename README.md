@@ -44,6 +44,12 @@ minute late. Timetable replaces both scripts and makes that hunt one click.
   amber at 10 minutes, red and pulsing from its start for 5 minutes
   ("Standup · Join"), then "9m left" while it runs. Once you join, the
   amber and red stop. All-day events never count as next.
+- **Your own time stays quiet.** An event nobody else is invited to with
+  no meeting link (Focus time, a workout), one marked free, or a title you
+  list (`own_time = ["Lunch"]`) never turns the clock amber or red and
+  gets no reminders. While it runs the clock relaxes into "Focus time ·
+  until 16:30", and a focus block runs right through it to your next real
+  meeting.
 - **Join from wherever your eyes are.** Middle-click the clock, or Join in
   the drawer, and Hyprland switches to your meeting workspace and the Zoom,
   Meet, Teams or Slack huddle link opens. Timetable finds the link in
@@ -73,7 +79,9 @@ offset. The next meeting (or the one you're in) with its time, where it is,
 long it is, two ways: a strip across the drawer with every hour marked and
 the rest of today listed under it, or a timeline beside the rest, tall
 enough to read every title. The **Timeline** / **Strip** button beside it
-switches, and the drawer remembers. The focus card says what a block would
+switches, and the drawer remembers. Your own time is soft
+green; an invite you answered maybe is striped and one you haven't
+answered is outlined. The focus card says what a block would
 be right now ("Free until 16:30: 88 min of focus, warned at 16:28") or
 counts down the one that is running.
 
@@ -174,7 +182,8 @@ The bar prints a line when something changes and once a minute for the
 clock. It only ticks every second while a focus block counts down.
 
 The module's first class is the state: `free`, `next`, `soon`, `now`,
-`in`, `focus` or `offline` (a calendar is set but has never been read).
+`in`, `own` (your own time), `focus` or `offline` (a calendar is set but
+has never been read).
 `now` also gets `pulse`, and an agenda that hasn't refreshed in a while gets
 `stale`:
 
@@ -187,6 +196,7 @@ The module's first class is the state: `free`, `next`, `soon`, `now`,
   color: #bf616a;
   animation: timetable-pulse 1s ease-in-out infinite alternate;
 }
+#custom-timetable.own { color: rgba(163, 190, 140, 0.75); }
 #custom-timetable.focus { color: #a3be8c; }
 #custom-timetable.offline { color: #616e88; }
 @keyframes timetable-pulse { to { color: #6e3b40; } }
@@ -237,6 +247,7 @@ refresh = 5            # minutes between reads
 timeout = 60           # seconds one read may take
 past_days = 1          # the agenda runs from this many days back
 future_days = 14       # to this many days ahead
+own_time = []          # titles that are your own time even with guests, e.g. ["Lunch"]
 
 [clock]
 format = "%a %b %-d  %H:%M"   # chrono strftime
@@ -259,6 +270,7 @@ icon_event = "\U000F00ED"    # md-calendar
 icon_now = "\U000F0567"      # md-video
 icon_in = "\U000F0849"       # md-account-group
 icon_focus = "\U000F051B"    # md-timer-outline
+icon_own = "\U000F032A"      # md-leaf
 icon_offline = "\U000F0164"  # dim, before the clock when the calendar is unreachable
 namespace = "waybar"   # the bar's layer-shell namespace, for anchoring
 
