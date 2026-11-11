@@ -40,6 +40,8 @@ struct State {
     focus: Option<Focus>,
     /// Reminders already sent: `uid@start#minutes`.
     reminded: HashSet<String>,
+    /// Events Join opened (`uid@start`), sorted. Memory only.
+    joined: Vec<String>,
     /// A fetch was asked for (start, `timetable refresh`, a config change).
     fetch_now: bool,
     snap: Snapshot,
@@ -170,6 +172,7 @@ fn snapshot(st: &State) -> Snapshot {
         error: st.error.clone(),
         cached: st.cached,
         focus: st.focus.filter(|f| f.running(n)),
+        joined: st.joined.clone(),
         config_error: st.cfg_error.clone(),
     }
 }
@@ -347,7 +350,13 @@ fn housekeeping(d: &Shared, st: &mut State) {
         }
     }
     // Reminders.
-    let due = agenda::due_reminders(&st.events, n, &st.cfg.reminders.minutes, &st.reminded);
+    let due = agenda::due_reminders(
+        &st.events,
+        n,
+        &st.cfg.reminders.minutes,
+        &st.reminded,
+        &st.joined,
+    );
     if !due.is_empty() {
         for r in &due {
             st.reminded.insert(r.key.clone());
@@ -520,7 +529,24 @@ fn do_join(d: &Shared, key: Option<&str>, dry_run: bool) -> Result<String, Strin
     if open {
         std::thread::sleep(Duration::from_millis(450));
     }
-    crate::act::join(&cfg, &e).map_err(|e| format!("{e:#}"))
+    let done = crate::act::join(&cfg, &e).map_err(|e| format!("{e:#}"))?;
+    let mut st = d.lock();
+    mark_joined(&mut st.joined, e.key(), now_secs());
+    refresh(&mut st);
+    Ok(done)
+}
+
+/// Adds a joined event's key and forgets those that started over a day ago.
+fn mark_joined(joined: &mut Vec<String>, key: String, now: i64) {
+    joined.retain(|k| {
+        k.rsplit_once('@')
+            .and_then(|(_, s)| s.parse::<i64>().ok())
+            .is_some_and(|s| s > now - 86400)
+    });
+    if !joined.contains(&key) {
+        joined.push(key);
+        joined.sort();
+    }
 }
 
 fn focus(d: &Shared, action: FocusAction) -> Reply {
@@ -700,6 +726,7 @@ pub fn run() -> Result<i32> {
         location: None,
         focus,
         reminded: load_reminded(),
+        joined: vec![],
         fetch_now: false,
         snap: Snapshot::default(),
         board_sig: String::new(),
@@ -752,5 +779,14 @@ mod tests {
     fn reminder_keys() {
         assert_eq!(key_start("abc@google.com@1794333600#5"), Some(1794333600));
         assert_eq!(key_start("bad"), None);
+    }
+
+    #[test]
+    fn joined_keys_are_kept_a_day() {
+        let mut j = vec!["old@google.com@1000".to_string()];
+        mark_joined(&mut j, "b@200000".into(), 100_000);
+        mark_joined(&mut j, "a@200000".into(), 100_000);
+        mark_joined(&mut j, "a@200000".into(), 100_000);
+        assert_eq!(j, vec!["a@200000", "b@200000"]);
     }
 }

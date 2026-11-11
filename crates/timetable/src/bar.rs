@@ -50,6 +50,7 @@ pub fn status(s: &Snapshot, cfg: &Config, now: i64) -> agenda::Status {
         &s.events,
         now,
         s.focus.as_ref(),
+        &s.joined,
         s.has_calendar(),
         s.source != Source::None,
         cfg,

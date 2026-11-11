@@ -185,6 +185,11 @@ wrapped in `<span color>` when `bar.clock_color` is set). Minutes round up:
 at 12:53:00 a 13:00 start is "in 7m". Titles are cut to `bar.max_chars` at
 a word boundary. All-day events never set a state.
 
+A meeting Join opened is never `soon` or `now`: joined early it counts
+down calmly as `next`, and from its start it is `in`. The daemon keeps the
+joined keys (`uid@start`) in memory, pruned a day after the start, so a
+restart forgets them.
+
 The class is a list: the state, `pulse` with `now`, and `stale` when the
 agenda is older than three refresh intervals (at least 15 minutes), which
 also puts the dim `icon_offline` before the clock. `alt` is the state. The
@@ -208,8 +213,8 @@ and Hyprland's socket exists, it writes `dispatch <join.dispatch>` to
 Hyprland's IPC socket, with `{workspace}` replaced by the workspace (bare
 when it is a number, a quoted Lua string otherwise); the default is the
 Lua config's `hl.dsp.focus({ workspace = 2 })`. Last it runs
-`sh -c '<join.opener> "$1"' timetable <link>` detached. `--dry-run` only
-reports the event and link.
+`sh -c '<join.opener> "$1"' timetable <link>` detached and marks the event
+joined (see the bar). `--dry-run` only reports the event and link.
 
 ## Focus blocks
 
@@ -237,7 +242,8 @@ button when the event has a link. Sent keys (`uid@start#minutes`) go to
 `reminded.json` and are pruned a day after the event, so a restart never
 repeats one. A reminder missed by more than 90 seconds (the machine slept
 or the daemon was down) is skipped, not sent late. Urgency stays normal so
-swaync's do not disturb applies.
+swaync's do not disturb applies. A meeting already joined gets no more
+reminders.
 
 ## Anchoring and the drawer
 
@@ -299,7 +305,8 @@ the show until it subscribes.
 The snapshot (`timetable status --json`) is `version`, `now`, `source`
 (`none`, `url_command`, `url`, `file`), `events` (each `uid`, `title`,
 `start`, `end`, `all_day`, `location`, `link`, `kind`), `fetched_at`,
-`attempted_at`, `error`, `cached`, `focus` and `config_error`. Times are
+`attempted_at`, `error`, `cached`, `focus`, `joined` (the keys of events
+Join opened, left out when empty) and `config_error`. Times are
 Unix seconds. It never contains the address.
 
 ## Config keys

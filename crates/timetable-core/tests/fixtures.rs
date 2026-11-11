@@ -99,10 +99,28 @@ fn google_feed_expands_like_the_reference() {
 fn google_feed_agenda() {
     let ev = agenda_of(GOOGLE, "2026-11-10 12:00");
     let cfg = Config::default();
-    let s = agenda::status(&ev, at("2026-11-10 12:00"), None, true, true, &cfg, Chicago);
+    let s = agenda::status(
+        &ev,
+        at("2026-11-10 12:00"),
+        None,
+        &[],
+        true,
+        true,
+        &cfg,
+        Chicago,
+    );
     assert_eq!(s.state, agenda::State::In);
     assert_eq!(s.event.unwrap().title, "Event 009");
-    let s = agenda::status(&ev, at("2026-11-10 12:25"), None, true, true, &cfg, Chicago);
+    let s = agenda::status(
+        &ev,
+        at("2026-11-10 12:25"),
+        None,
+        &[],
+        true,
+        true,
+        &cfg,
+        Chicago,
+    );
     assert_eq!(s.state, agenda::State::Soon);
     assert_eq!(s.event.unwrap().title, "Event 011");
 }
@@ -148,7 +166,16 @@ fn edge_case_day() {
     let t: Vec<&str> = today.iter().map(|e| e.title.as_str()).collect();
     assert_eq!(t, vec!["Out of office", "Sprint review"]);
     // The all-day event is never "next".
-    let s = agenda::status(&ev, at("2026-11-10 12:00"), None, true, true, &cfg, Chicago);
+    let s = agenda::status(
+        &ev,
+        at("2026-11-10 12:00"),
+        None,
+        &[],
+        true,
+        true,
+        &cfg,
+        Chicago,
+    );
     assert_eq!(s.state, agenda::State::Free);
     assert_eq!(s.free_until, Some(at("2026-11-10 14:00")));
     let j = agenda::join_target(&ev, at("2026-11-10 13:55"), &cfg, Chicago).unwrap();

@@ -507,6 +507,7 @@ impl Drawer {
             &s.events,
             now,
             s.focus.as_ref(),
+            &s.joined,
             s.has_calendar(),
             s.source != Source::None,
             &cfg,

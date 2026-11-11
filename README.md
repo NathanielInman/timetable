@@ -42,8 +42,8 @@ minute late. Timetable replaces both scripts and makes that hunt one click.
 - **The next thing, in the clock.** Calm while the next event is over an
   hour away ("free until 14:00"), named within the hour ("Standup in 34m"),
   amber at 10 minutes, red and pulsing from its start for 5 minutes
-  ("Standup · Join"), then "9m left" while it runs. All-day events never
-  count as next.
+  ("Standup · Join"), then "9m left" while it runs. Once you join, the
+  amber and red stop. All-day events never count as next.
 - **Join from wherever your eyes are.** Middle-click the clock, or Join in
   the drawer, and Hyprland switches to your meeting workspace and the Zoom,
   Meet, Teams or Slack huddle link opens. Timetable finds the link in

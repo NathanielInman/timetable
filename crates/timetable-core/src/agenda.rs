@@ -94,10 +94,14 @@ pub fn remaining_today(events: &[Event], now: i64, zone: Tz) -> Vec<&Event> {
         .collect()
 }
 
+/// What the bar shows. `joined` holds the keys of events Join opened: they
+/// are never `soon` or `now`, since the meeting is already open.
+#[allow(clippy::too_many_arguments)]
 pub fn status(
     events: &[Event],
     now: i64,
     focus: Option<&Focus>,
+    joined: &[String],
     has_data: bool,
     configured: bool,
     cfg: &Config,
@@ -111,7 +115,11 @@ pub fn status(
         event: event.cloned(),
         free_until: None,
     };
-    if let Some(c) = cur.iter().find(|e| now < e.start + b.now_minutes * 60) {
+    let open = |e: &Event| joined.contains(&e.key());
+    if let Some(c) = cur
+        .iter()
+        .find(|e| now < e.start + b.now_minutes * 60 && !open(e))
+    {
         return make(State::Now, Some(c));
     }
     if focus.is_some_and(|f| f.running(now)) {
@@ -120,7 +128,7 @@ pub fn status(
     if configured && !has_data {
         return make(State::Offline, None);
     }
-    if let Some(n) = next.filter(|n| n.start - now <= b.soon_minutes * 60) {
+    if let Some(n) = next.filter(|n| n.start - now <= b.soon_minutes * 60 && !open(n)) {
         return make(State::Soon, Some(n));
     }
     if let Some(c) = cur.first() {
@@ -288,15 +296,20 @@ pub struct Reminder {
 }
 
 /// Reminders whose time has come in the last 90 seconds and that were not
-/// sent yet. Late ones (the machine was asleep) are skipped, not sent late.
+/// sent yet. Late ones (the machine was asleep) are skipped, not sent late,
+/// and so are those for a meeting already joined.
 pub fn due_reminders(
     events: &[Event],
     now: i64,
     minutes: &[i64],
     sent: &HashSet<String>,
+    joined: &[String],
 ) -> Vec<Reminder> {
     let mut out = vec![];
-    for e in events.iter().filter(|e| e.timed()) {
+    for e in events
+        .iter()
+        .filter(|e| e.timed() && !joined.contains(&e.key()))
+    {
         for &m in minutes {
             let at = e.start - m * 60;
             let key = format!("{}#{m}", e.key());
@@ -359,6 +372,7 @@ mod tests {
             &day(),
             at(now),
             None,
+            &[],
             true,
             true,
             &Config::default(),
@@ -381,11 +395,41 @@ mod tests {
     }
 
     #[test]
+    fn a_joined_meeting_stops_calling() {
+        let d = day();
+        let standup = vec![format!("standup@{}", at("13:00"))];
+        let st = |now: &str| {
+            let s = status(
+                &d,
+                at(now),
+                None,
+                &standup,
+                true,
+                true,
+                &Config::default(),
+                Chicago,
+            );
+            (s.state, s.event.map(|e| e.title))
+        };
+        // Joined early: a calm countdown, not amber.
+        assert_eq!(st("12:57"), (State::Next, Some("Standup".into())));
+        // Never red: running, with the time left.
+        assert_eq!(st("13:00"), (State::In, Some("Standup".into())));
+        assert_eq!(st("13:04"), (State::In, Some("Standup".into())));
+        // The next meeting still calls.
+        assert_eq!(st("13:55"), (State::Soon, Some("Sprint review".into())));
+        assert_eq!(st("14:00"), (State::Now, Some("Sprint review".into())));
+        // And no reminder for the one already open.
+        assert!(due_reminders(&d, at("12:59"), &[5, 1], &HashSet::new(), &standup).is_empty());
+    }
+
+    #[test]
     fn free_until_and_all_day_never_next() {
         let s = status(
             &day(),
             at("10:30"),
             None,
+            &[],
             true,
             true,
             &Config::default(),
@@ -397,6 +441,7 @@ mod tests {
             &day(),
             at("17:30"),
             None,
+            &[],
             true,
             true,
             &Config::default(),
@@ -416,6 +461,7 @@ mod tests {
             &day(),
             at("12:55"),
             Some(&f),
+            &[],
             true,
             true,
             &Config::default(),
@@ -431,6 +477,7 @@ mod tests {
             &day(),
             at("13:01"),
             Some(&f),
+            &[],
             true,
             true,
             &Config::default(),
@@ -441,6 +488,7 @@ mod tests {
             &[],
             at("12:00"),
             None,
+            &[],
             false,
             true,
             &Config::default(),
@@ -451,6 +499,7 @@ mod tests {
             &[],
             at("12:00"),
             None,
+            &[],
             false,
             false,
             &Config::default(),
@@ -544,14 +593,17 @@ mod tests {
     fn reminders_once_and_never_late() {
         let d = day();
         let mut sent = HashSet::new();
-        let r = due_reminders(&d, at("12:55"), &[5, 1], &sent);
+        let r = due_reminders(&d, at("12:55"), &[5, 1], &sent, &[]);
         assert_eq!(r.len(), 1);
         assert_eq!(r[0].minutes, 5);
         assert_eq!(r[0].event.title, "Standup");
         sent.insert(r[0].key.clone());
-        assert!(due_reminders(&d, at("12:55") + 30, &[5, 1], &sent).is_empty());
-        assert_eq!(due_reminders(&d, at("12:59"), &[5, 1], &sent)[0].minutes, 1);
+        assert!(due_reminders(&d, at("12:55") + 30, &[5, 1], &sent, &[]).is_empty());
+        assert_eq!(
+            due_reminders(&d, at("12:59"), &[5, 1], &sent, &[])[0].minutes,
+            1
+        );
         // Woken at 12:57: the five-minute one is not sent late.
-        assert!(due_reminders(&d, at("12:57"), &[5, 1], &HashSet::new()).is_empty());
+        assert!(due_reminders(&d, at("12:57"), &[5, 1], &HashSet::new(), &[]).is_empty());
     }
 }

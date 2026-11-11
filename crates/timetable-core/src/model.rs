@@ -99,6 +99,10 @@ pub struct Snapshot {
     #[serde(default)]
     pub cached: bool,
     pub focus: Option<Focus>,
+    /// Keys (`uid@start`) of events Join opened, so the bar stops calling
+    /// for them.
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub joined: Vec<String>,
     pub config_error: Option<String>,
 }
 
