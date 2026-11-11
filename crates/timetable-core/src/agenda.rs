@@ -147,6 +147,44 @@ pub fn status(
     }
 }
 
+/// Side-by-side lanes for overlapping events, given sorted by start: for
+/// each event its lane and how many lanes its overlapping group needs. An
+/// event that overlaps nothing is lane 0 of 1.
+pub fn lanes(events: &[&Event]) -> Vec<(usize, usize)> {
+    let mut out: Vec<(usize, usize)> = Vec::with_capacity(events.len());
+    let mut ends: Vec<i64> = vec![];
+    let mut group_from = 0;
+    let mut group_end = i64::MIN;
+    for (i, e) in events.iter().enumerate() {
+        let end = e.end.max(e.start + 1);
+        if e.start >= group_end {
+            let n = ends.len().max(1);
+            for o in &mut out[group_from..i] {
+                o.1 = n;
+            }
+            ends.clear();
+            group_from = i;
+        }
+        let lane = match ends.iter().position(|&x| x <= e.start) {
+            Some(l) => {
+                ends[l] = end;
+                l
+            }
+            None => {
+                ends.push(end);
+                ends.len() - 1
+            }
+        };
+        group_end = group_end.max(end);
+        out.push((lane, 0));
+    }
+    let n = ends.len().max(1);
+    for o in &mut out[group_from..] {
+        o.1 = n;
+    }
+    out
+}
+
 /// Whole minutes until `t`, rounded up: at 12:53:00 a 13:00 start is 7.
 pub fn minutes_until(t: i64, now: i64) -> i64 {
     ((t - now).max(0) + 59) / 60
@@ -506,6 +544,25 @@ mod tests {
             Chicago,
         );
         assert_eq!(s.state, State::Free);
+    }
+
+    #[test]
+    fn overlapping_events_share_lanes() {
+        let d = [
+            ev("All hands", "08:00", "09:00", true),
+            ev("Stand-up", "08:30", "09:00", true),
+            ev("Sprint", "09:00", "10:00", true),
+            ev("A", "11:00", "12:00", false),
+            ev("B", "11:15", "11:30", false),
+            ev("C", "11:30", "11:45", false),
+            ev("D", "11:40", "12:30", false),
+        ];
+        let refs: Vec<&Event> = d.iter().collect();
+        assert_eq!(
+            lanes(&refs),
+            vec![(0, 2), (1, 2), (0, 1), (0, 3), (1, 3), (1, 3), (2, 3)]
+        );
+        assert!(lanes(&[]).is_empty());
     }
 
     #[test]
