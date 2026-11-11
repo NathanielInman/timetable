@@ -172,6 +172,7 @@ fn occurrence(
     len: &Length,
     local: Tz,
     fallback: Option<&RawEvent>,
+    recur: Option<i64>,
 ) -> Event {
     let (start, end, all_day) = match *len {
         Length::Days(n) => {
@@ -214,6 +215,7 @@ fn occurrence(
         kind,
         own,
         answer: e.answer,
+        recur,
     }
 }
 
@@ -261,6 +263,7 @@ pub fn expand(feed: &Feed, local: Tz, from: i64, to: i64) -> Expanded {
                 &len,
                 local,
                 masters.get(e.uid.as_str()).copied(),
+                e.recurrence_id.as_ref().map(|r| instant(r, local)),
             );
             if overlaps(&ev, from, to) {
                 out.events.push(ev);
@@ -296,6 +299,7 @@ pub fn expand(feed: &Feed, local: Tz, from: i64, to: i64) -> Expanded {
             })
             .collect();
         let moved = overridden.get(e.uid.as_str());
+        let recurring = e.rrule.is_some() || !e.rdates.is_empty();
         starts.sort_unstable();
         starts.dedup();
         for s in starts {
@@ -305,7 +309,7 @@ pub fn expand(feed: &Feed, local: Tz, from: i64, to: i64) -> Expanded {
             if moved.is_some_and(|m| m.contains(&s)) {
                 continue;
             }
-            let ev = occurrence(e, s, &len, local, None);
+            let ev = occurrence(e, s, &len, local, None, recurring.then_some(s));
             if overlaps(&ev, from, to) {
                 out.events.push(ev);
             }
@@ -373,6 +377,10 @@ mod tests {
             ]
         );
         assert_eq!(x.events[0].end - x.events[0].start, 15 * 60);
+        // Each occurrence knows its original start; the moved one keeps
+        // the time it was moved from.
+        assert_eq!(x.events[0].recur, Some(at("2026-11-10 09:30")));
+        assert_eq!(x.events[1].recur, Some(at("2026-11-12 09:30")));
     }
 
     #[test]
@@ -411,6 +419,8 @@ mod tests {
         assert!(x.events[0].all_day);
         assert_eq!(x.events[0].end, at("2026-11-12 00:00"));
         assert_eq!(x.events[1].end - x.events[1].start, 45 * 60);
+        // Single events are not occurrences of anything.
+        assert!(x.events.iter().all(|e| e.recur.is_none()));
     }
 
     #[test]

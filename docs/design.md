@@ -230,6 +230,30 @@ Lua config's `hl.dsp.focus({ workspace = 2 })`. Last it runs
 `sh -c '<join.opener> "$1"' timetable <link>` detached and marks the event
 joined (see the bar). `--dry-run` only reports the event and link.
 
+## Editing in Google Calendar
+
+Timetable never changes the calendar; it gets you to where you can. The
+`open` request opens an event by key, and `timetable calendar` opens
+today. Only a Google calendar opens: one
+with any event whose UID is `<id>@google.com`.
+
+Google's page for an event is
+`https://calendar.google.com/calendar/event?eid=<eid>`, with `eid` the
+URL-safe base64 (unpadded) of `<event id> <calendar id>`. The event id is
+the UID without `@google.com`; an occurrence of a recurring event adds
+`_` and its original start (`recur`, the `RECURRENCE-ID` when it moved)
+in UTC as `20261111T153000Z`, or as the local date `20261111` when it is
+all day. The calendar id is the owner the reader settled on (see iCal
+handling), known after the first read of a session. An event Google did
+not create (an invitation from another calendar keeps its sender's UID)
+or one read before the calendar id opens on its day,
+`https://calendar.google.com/calendar/r/day/2026/11/11`.
+
+The daemon closes the drawer as Join does and runs
+`sh -c '<join.opener> "$1"' timetable <page>`: the profile meetings open
+in is the one signed in to the calendar. `--dry-run` only says what it
+would open.
+
 ## Focus blocks
 
 `timetable focus start|stop|toggle` (and the drawer's button and `f`).
@@ -332,6 +356,7 @@ request. Shapes follow Roundhouse's, Switchyard's and Tannoy's.
 {"cmd":"hide"}
 {"cmd":"board_visible","visible":true}
 {"cmd":"join","key":null,"dry_run":false}
+{"cmd":"open","key":"<uid>@1794411000","dry_run":false}
 {"cmd":"refresh"}
 {"cmd":"focus","action":"start"}
 ```
@@ -347,8 +372,9 @@ the show until it subscribes.
 
 The snapshot (`timetable status --json`) is `version`, `now`, `source`
 (`none`, `url_command`, `url`, `file`), `events` (each `uid`, `title`,
-`start`, `end`, `all_day`, `location`, `link`, `kind`, `own` and `answer`
-(`maybe` or `unanswered`; both left out when not set)), `fetched_at`,
+`start`, `end`, `all_day`, `location`, `link`, `kind`, `own`, `answer`
+(`maybe` or `unanswered`) and `recur` (an occurrence's original start);
+the last three left out when not set), `fetched_at`,
 `attempted_at`, `error`, `cached`, `focus`, `joined` (the keys of events
 Join opened, left out when empty) and `config_error`. Times are
 Unix seconds. It never contains the address.
@@ -385,7 +411,7 @@ Unix seconds. It never contains the address.
 | `bar.namespace` | `"waybar"` | The bar's layer-shell namespace |
 | `join.workspace` | `"2"` | Workspace to switch to; empty stays put |
 | `join.dispatch` | `"hl.dsp.focus({ workspace = {workspace} })"` | Hyprland dispatch |
-| `join.opener` | `"xdg-open"` | Opens the link, its last argument |
+| `join.opener` | `"xdg-open"` | Opens the link, its last argument; also opens events in Google Calendar |
 | `reminders.minutes` | `[5, 1]` | Minutes before each timed event |
 | `focus.minutes` | `50` | Block length on a free day |
 | `focus.lead` | `2` | End this long before the next event |

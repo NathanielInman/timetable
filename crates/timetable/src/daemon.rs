@@ -42,6 +42,9 @@ struct State {
     reminded: HashSet<String>,
     /// Events Join opened (`uid@start`), sorted. Memory only.
     joined: Vec<String>,
+    /// The calendar's id (for Google, the owner's address), from the last
+    /// read: event pages in Google Calendar name it.
+    calendar: Option<String>,
     /// A fetch was asked for (start, `timetable refresh`, a config change).
     fetch_now: bool,
     snap: Snapshot,
@@ -269,6 +272,7 @@ fn fetch_once(d: &Shared) {
             save_cache(at, &x.events);
             let mut st = d.lock();
             st.events = x.events;
+            st.calendar = feed.owner;
             st.fetched_at = Some(at);
             st.error = None;
             st.cached = false;
@@ -517,8 +521,57 @@ fn do_join(d: &Shared, key: Option<&str>, dry_run: bool) -> Result<String, Strin
             e.link.as_deref().unwrap_or_default()
         ));
     }
-    // An open drawer holds the keyboard on its monitor, and Hyprland
-    // keeps that workspace focused while it does: close it first.
+    close_drawer(d);
+    let done = crate::act::join(&cfg, &e).map_err(|e| format!("{e:#}"))?;
+    let mut st = d.lock();
+    mark_joined(&mut st.joined, e.key(), now_secs());
+    refresh(&mut st);
+    Ok(done)
+}
+
+/// Opens the event with `key` (or today) in Google Calendar, closing the
+/// drawer first as Join does.
+fn do_open(d: &Shared, key: Option<&str>, dry_run: bool) -> Result<String, String> {
+    let (cfg, link, what) = {
+        let st = d.lock();
+        let zone = st.cfg.local_zone();
+        if !st
+            .events
+            .iter()
+            .any(|e| timetable_core::links::google_id(&e.uid).is_some())
+        {
+            return Err("only a Google calendar opens in the browser".into());
+        }
+        let (link, what) = match key {
+            Some(k) => {
+                let e = st
+                    .events
+                    .iter()
+                    .find(|e| e.key() == k)
+                    .ok_or("that event is no longer in the agenda")?;
+                (
+                    timetable_core::links::google_page(e, st.calendar.as_deref(), zone),
+                    e.title_or_default().to_string(),
+                )
+            }
+            None => (
+                timetable_core::links::google_day(now_secs(), zone),
+                "today".to_string(),
+            ),
+        };
+        (st.cfg.clone(), link, what)
+    };
+    if dry_run {
+        return Ok(format!("Would open {what} at {link}"));
+    }
+    close_drawer(d);
+    crate::act::open(&cfg, &link).map_err(|e| format!("{e:#}"))?;
+    Ok(format!("Opened {what} in Google Calendar"))
+}
+
+/// An open drawer holds the keyboard on its monitor, and Hyprland keeps
+/// that workspace focused while it does: closes it and waits for it to go.
+fn close_drawer(d: &Shared) {
     let open = {
         let mut st = d.lock();
         if st.visible {
@@ -530,11 +583,6 @@ fn do_join(d: &Shared, key: Option<&str>, dry_run: bool) -> Result<String, Strin
     if open {
         std::thread::sleep(Duration::from_millis(450));
     }
-    let done = crate::act::join(&cfg, &e).map_err(|e| format!("{e:#}"))?;
-    let mut st = d.lock();
-    mark_joined(&mut st.joined, e.key(), now_secs());
-    refresh(&mut st);
-    Ok(done)
 }
 
 /// Adds a joined event's key and forgets those that started over a day ago.
@@ -683,6 +731,13 @@ fn handle(d: Shared, stream: Stream) {
                 },
                 Err(e) => Reply::err(e),
             },
+            Request::Open { key, dry_run } => match do_open(&d, key.as_deref(), dry_run) {
+                Ok(m) => Reply {
+                    message: Some(m),
+                    ..Reply::ok()
+                },
+                Err(e) => Reply::err(e),
+            },
             Request::Refresh => {
                 let mut st = d.lock();
                 st.fetch_now = true;
@@ -728,6 +783,7 @@ pub fn run() -> Result<i32> {
         focus,
         reminded: load_reminded(),
         joined: vec![],
+        calendar: None,
         fetch_now: false,
         snap: Snapshot::default(),
         board_sig: String::new(),

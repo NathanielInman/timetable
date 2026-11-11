@@ -18,6 +18,7 @@ Usage:
   timetable show [--center] | hide  open or close the drawer
   timetable join [--dry-run]        switch to the meeting workspace and open the
                                     current or next meeting's link
+  timetable calendar [--dry-run]    open today in Google Calendar
   timetable focus start|stop|toggle a focus block until just before the next event
   timetable focus status            the running block
   timetable agenda [--days N] [--json]
@@ -63,6 +64,10 @@ pub fn run(args: &[String]) -> Result<i32> {
             Ok(0)
         }
         Some("join") => command(Request::Join {
+            key: value(rest, "--key").map(String::from),
+            dry_run: flag(rest, "--dry-run"),
+        }),
+        Some("calendar") => command(Request::Open {
             key: value(rest, "--key").map(String::from),
             dry_run: flag(rest, "--dry-run"),
         }),

@@ -77,6 +77,10 @@ pub struct Feed {
     pub events: Vec<RawEvent>,
     /// `X-WR-CALNAME`: for a Google primary calendar, the owner's address.
     pub calname: Option<String>,
+    /// The owner's address as the reader settled it: the one passed in,
+    /// else `X-WR-CALNAME` when it is an address. For Google, the
+    /// calendar's id.
+    pub owner: Option<String>,
     /// `X-WR-TIMEZONE`: the calendar's own zone.
     pub timezone: Option<String>,
     /// TZIDs that are not IANA names and were read as local time.
@@ -454,6 +458,12 @@ pub fn parse(text: &str, owner: Option<&str>) -> Feed {
         }
     }
     feed.unknown_zones = unknown;
+    feed.owner = owner.or_else(|| {
+        feed.calname
+            .as_deref()
+            .filter(|c| c.contains('@'))
+            .map(|c| c.trim().to_ascii_lowercase())
+    });
     feed
 }
 
@@ -553,9 +563,21 @@ mod tests {
         let f = parse(t, None);
         assert!(!f.events[0].declined);
         assert!(f.events[1].declined);
+        assert_eq!(f.owner.as_deref(), Some("owner@example.com"));
         // An explicit owner wins over the calendar name.
         let f = parse(t, Some("other@example.com"));
         assert!(f.events[0].declined);
         assert!(!f.events[1].declined);
+        assert_eq!(f.owner.as_deref(), Some("other@example.com"));
+        // Without attendees the calendar name still names the owner.
+        let f = parse(
+            "BEGIN:VCALENDAR\nX-WR-CALNAME:Owner@Example.com\nEND:VCALENDAR\n",
+            None,
+        );
+        assert_eq!(f.owner.as_deref(), Some("owner@example.com"));
+        assert_eq!(
+            parse("BEGIN:VCALENDAR\nX-WR-CALNAME:Team\nEND:VCALENDAR\n", None).owner,
+            None
+        );
     }
 }

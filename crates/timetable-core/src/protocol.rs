@@ -57,6 +57,14 @@ pub enum Request {
         #[serde(default)]
         dry_run: bool,
     },
+    /// Opens the event with this key on its page in Google Calendar, or
+    /// today when there is no key. `dry_run` only says what it would open.
+    Open {
+        #[serde(default)]
+        key: Option<String>,
+        #[serde(default)]
+        dry_run: bool,
+    },
     /// Reads the calendar again now.
     Refresh,
     Focus {

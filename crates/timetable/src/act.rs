@@ -54,18 +54,24 @@ pub fn join(cfg: &Config, e: &Event) -> Result<String> {
             Err(e) => eprintln!("timetable: workspace switch: {e:#}"),
         }
     }
+    open(cfg, link)?;
+    Ok(format!(
+        "Joining {} ({}){switched}",
+        e.title_or_default(),
+        links::label(e.kind.as_deref().unwrap_or("link"))
+    ))
+}
+
+/// Opens a link with `join.opener`, the browser (and profile) meetings
+/// open in.
+pub fn open(cfg: &Config, link: &str) -> Result<()> {
     let opener = timetable_core::paths::expand_command(&cfg.join.opener);
     let mut cmd = Command::new("sh");
     cmd.arg("-c")
         .arg(format!("{opener} \"$1\""))
         .arg("timetable")
         .arg(link);
-    spawn_detached(cmd)?;
-    Ok(format!(
-        "Joining {} ({}){switched}",
-        e.title_or_default(),
-        links::label(e.kind.as_deref().unwrap_or("link"))
-    ))
+    spawn_detached(cmd)
 }
 
 /// Called when a notification's button is pressed.

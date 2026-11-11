@@ -223,6 +223,7 @@ hl.bind(mod .. " + SHIFT + F", hl.dsp.exec_cmd("~/.local/bin/timetable focus tog
 | `timetable bar` | The waybar module |
 | `timetable toggle`, `show`, `hide` | The drawer, from the clicked clock (`--center` to center it) |
 | `timetable join [--dry-run]` | Switch to `join.workspace` and open the current or next meeting's link; `--dry-run` only says which |
+| `timetable calendar [--dry-run]` | Open today in Google Calendar |
 | `timetable focus start`, `stop`, `toggle` | A focus block until just before the next event |
 | `timetable focus status` | The running block, or what one would be |
 | `timetable agenda [--days N] [--json]` | Today (and more days) as text |
@@ -280,7 +281,8 @@ namespace = "waybar"   # the bar's layer-shell namespace, for anchoring
 [join]
 workspace = "2"        # Hyprland workspace to switch to; "" stays put
 dispatch = "hl.dsp.focus({ workspace = {workspace} })"   # the Lua dispatcher
-opener = "xdg-open"    # gets the link as its last argument
+opener = "xdg-open"    # gets the link as its last argument, and the
+                       # events Timetable opens in Google Calendar
 # Chrome opens links in the profile used last; to pin the one your calendar
 # signs in to: opener = 'google-chrome-stable --profile-directory="Profile 1"'
 # (chrome://version shows a profile's directory under "Profile Path")
@@ -335,7 +337,8 @@ during a focus block, and every 5 minutes to read the calendar on a
 separate thread. Reading and expanding a 12 MB feed takes about 30 ms of
 CPU after the download. Nothing in the bar's path starts a process or
 touches the network; `notify-send`, the opener and `url_command` run only
-when a reminder is due, you join, or the address is needed.
+when a reminder is due, you join or open an event, or the address is
+needed.
 
 ## Development
 

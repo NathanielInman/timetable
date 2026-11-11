@@ -27,6 +27,11 @@ pub struct Event {
     /// What you answered the invitation.
     #[serde(default, skip_serializing_if = "Answer::is_yes")]
     pub answer: Answer,
+    /// For an occurrence of a recurring event, its original start (the
+    /// `RECURRENCE-ID` when it was moved): Google names the occurrence by
+    /// it.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub recur: Option<i64>,
 }
 
 /// Your reply to an invitation.

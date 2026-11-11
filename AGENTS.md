@@ -9,10 +9,10 @@ for whatever you change.
   Tannoy's (from Roundhouse); its `Anchor` JSON must stay identical to
   Roundhouse's, Switchyard's and Tannoy's.
 - `timetable-core`: the model, the iCal reader (`ical.rs`), recurrence and
-  placing events in time (`expand.rs`), meeting links (`links.rs`), the
-  agenda logic (`agenda.rs`: bar states, gaps, focus plans, Join's target,
-  due reminders), fetching (`fetch.rs`), config, the socket protocol and
-  the waybar reader. No threads, no UI.
+  placing events in time (`expand.rs`), meeting links and events' Google
+  Calendar pages (`links.rs`), the agenda logic (`agenda.rs`: bar states,
+  gaps, focus plans, Join's target, due reminders), fetching (`fetch.rs`),
+  config, the socket protocol and the waybar reader. No threads, no UI.
 - `timetable`: the daemon (`daemon.rs`), the waybar line (`bar.rs`), Join
   and notifications (`act.rs`) and the CLI (one binary, `timetable`).
 - `timetable-board`: the Linux GTK4 layer-shell drawer. `anim.rs` and
