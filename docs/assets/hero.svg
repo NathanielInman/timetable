@@ -1,97 +1,119 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 660" width="1200" height="660" font-family="JetBrains Mono, DejaVu Sans Mono, Menlo, Consolas, monospace" xml:space="preserve" role="img" aria-label="A floating waybar whose purple clock says free until 15:00, then names the next meeting: Standup in 27m. A click opens the Timetable drawer out of the clock: Chicago, EET and GMT side by side, Standup next with Join on workspace 2 and Copy link, the day strip with its events, dashed free gaps and a red now line, and a focus block sized to the gap before Standup. Starting it turns the clock green, counting down from 25:00. Later the clock goes amber at Standup in 2m, then red with Standup · Join at 15:00, and a middle-click switches to the meeting on workspace 2.">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 660" width="1200" height="660" font-family="JetBrains Mono, DejaVu Sans Mono, Menlo, Consolas, monospace" xml:space="preserve" role="img" aria-label="A floating waybar of frosted pills whose purple clock says free until 15:00, then names the next meeting: Standup in 27m. A click opens the Timetable drawer out of the clock: Chicago, EET and GMT side by side, Standup next with Join on workspace 2 and Copy link, the day strip with every hour ruled, its events, dashed free gaps that say how long they are and a red now line tagged 14:33, the rest of today under it, and a focus block sized to the gap before Standup. The arrow beside the day steps to tomorrow, with an all-day release freeze, an unanswered invite outlined and a maybe striped, and Today comes back. Starting the focus block turns the clock green, counting down from 25:00, and tints its gap on the strip; pointing at Standup outlines it, and its tooltip says a click opens it in Google Calendar. Later the clock goes amber at Standup in 2m, then red with Standup · Join at 15:00, and a middle-click switches to the meeting on workspace 2, where the clock counts the joined meeting down calmly: Standup · 15m left.">
 <style>
 text { white-space: pre; }
-.a { animation-duration: 16s; animation-iteration-count: infinite; animation-timing-function: linear; animation-fill-mode: both; }
+.a { animation-duration: 17.4s; animation-iteration-count: infinite; animation-timing-function: linear; animation-fill-mode: both; }
 .now { animation: now 1s ease-in-out infinite alternate; }
 @keyframes now { to { fill: #6e3b40; } }
 @media (prefers-reduced-motion: reduce) {
   .a, .now { animation: none !important; }
   #cursor, .ripple { display: none; }
 }
-@keyframes k0 { 0.00% { transform: none; } 82.19% { transform: none; } 84.69% { transform: translateX(-1200px); } 93.75% { transform: translateX(-1200px); } 96.25% { transform: none; } 100.00% { transform: none; } }
-@keyframes k1 { 0.00% { transform: translateX(1200px); } 82.19% { transform: translateX(1200px); } 84.69% { transform: none; } 93.75% { transform: none; } 96.25% { transform: translateX(1200px); } 100.00% { transform: translateX(1200px); } }
-@keyframes k2 { 0.00% { transform: none; } 82.19% { transform: none; } 83.75% { transform: translateX(26px); } 93.75% { transform: translateX(26px); } 95.31% { transform: none; } 100.00% { transform: none; } }
-@keyframes k3 { 0.00% { opacity: 1; } 82.81% { opacity: 1; } 83.75% { opacity: 0; } 94.38% { opacity: 0; } 95.31% { opacity: 1; } 100.00% { opacity: 1; } }
-@keyframes k4 { 0.00% { opacity: 0; } 82.81% { opacity: 0; } 83.75% { opacity: 1; } 94.38% { opacity: 1; } 95.31% { opacity: 0; } 100.00% { opacity: 0; } }
-@keyframes k5 { 0.00% { opacity: 1; } 82.81% { opacity: 1; } 83.75% { opacity: 0; } 94.38% { opacity: 0; } 95.31% { opacity: 1; } 100.00% { opacity: 1; } }
-@keyframes k6 { 0.00% { opacity: 0; } 82.81% { opacity: 0; } 83.75% { opacity: 1; } 94.38% { opacity: 1; } 95.31% { opacity: 0; } 100.00% { opacity: 0; } }
-@keyframes k7 { 0.00% { opacity: 1; } 82.50% { opacity: 1; } 83.25% { opacity: 0; } 95.00% { opacity: 0; } 95.75% { opacity: 1; } 100.00% { opacity: 1; } }
-@keyframes k8 { 0.00% { opacity: 0; } 83.44% { opacity: 0; } 84.19% { opacity: 1; } 94.06% { opacity: 1; } 94.81% { opacity: 0; } 100.00% { opacity: 0; } }
-@keyframes k9 { 0.00% { transform: translateX(2.2px); } 8.75% { transform: translateX(2.2px); } 10.00% { transform: translateX(0.0px); } 34.06% { transform: translateX(0.0px); } 35.31% { transform: translateX(25.2px); } 64.62% { transform: translateX(25.2px); } 65.88% { transform: translateX(8.4px); } 75.00% { transform: translateX(8.4px); } 76.25% { transform: translateX(0.0px); } 93.75% { transform: translateX(0.0px); } 95.00% { transform: translateX(2.2px); } 100.00% { transform: translateX(2.2px); } }
-@keyframes k10 { 0.00% { transform: translateX(2.2px); } 8.75% { transform: translateX(2.2px); } 10.00% { transform: translateX(0.0px); } 34.06% { transform: translateX(0.0px); } 35.31% { transform: translateX(25.2px); } 64.62% { transform: translateX(25.2px); } 65.88% { transform: translateX(8.4px); } 75.00% { transform: translateX(8.4px); } 76.25% { transform: translateX(0.0px); } 93.75% { transform: translateX(0.0px); } 95.00% { transform: translateX(2.2px); } 100.00% { transform: translateX(2.2px); } }
-@keyframes k11 { 0.00% { transform: scaleX(0.9921); } 8.75% { transform: scaleX(0.9921); } 10.00% { transform: scaleX(1.0000); } 34.06% { transform: scaleX(1.0000); } 35.31% { transform: scaleX(0.9101); } 64.62% { transform: scaleX(0.9101); } 65.88% { transform: scaleX(0.9700); } 75.00% { transform: scaleX(0.9700); } 76.25% { transform: scaleX(1.0000); } 93.75% { transform: scaleX(1.0000); } 95.00% { transform: scaleX(0.9921); } 100.00% { transform: scaleX(0.9921); } }
-@keyframes k12 { 0.00% { opacity: 0; } 17.38% { opacity: 0; } 18.12% { opacity: 1; } 21.88% { opacity: 1; } 22.62% { opacity: 0; } 80.50% { opacity: 0; } 81.25% { opacity: 1; } 85.62% { opacity: 1; } 86.37% { opacity: 0; } 100.00% { opacity: 0; } }
-@keyframes k13 { 0.00% { opacity: 1; transform: none; } 8.75% { opacity: 1; transform: none; } 10.12% { opacity: 0; transform: translateY(-14px); } 93.75% { opacity: 0; transform: translateY(14px); } 95.12% { opacity: 1; transform: none; } 100.00% { opacity: 1; transform: none; } }
-@keyframes k14 { 0.00% { opacity: 0; transform: translateY(14px); } 8.75% { opacity: 0; transform: translateY(14px); } 10.12% { opacity: 1; transform: none; } 10.12% { opacity: 1; transform: none; } 11.50% { opacity: 0; transform: translateY(-14px); } 100.00% { opacity: 0; transform: translateY(14px); } }
-@keyframes k15 { 0.00% { opacity: 0; transform: translateY(14px); } 10.12% { opacity: 0; transform: translateY(14px); } 11.50% { opacity: 1; transform: none; } 11.50% { opacity: 1; transform: none; } 12.88% { opacity: 0; transform: translateY(-14px); } 100.00% { opacity: 0; transform: translateY(14px); } }
-@keyframes k16 { 0.00% { opacity: 0; transform: translateY(14px); } 11.50% { opacity: 0; transform: translateY(14px); } 12.88% { opacity: 1; transform: none; } 34.06% { opacity: 1; transform: none; } 35.44% { opacity: 0; transform: translateY(-14px); } 100.00% { opacity: 0; transform: translateY(14px); } }
-@keyframes k17 { 0.00% { opacity: 0; transform: translateY(14px); } 34.06% { opacity: 0; transform: translateY(14px); } 35.44% { opacity: 1; transform: none; } 40.00% { opacity: 1; transform: none; } 40.38% { opacity: 0; transform: none; } 100.00% { opacity: 0; transform: translateY(14px); } }
-@keyframes k18 { 0.00% { opacity: 0; transform: none; } 40.00% { opacity: 0; transform: none; } 40.38% { opacity: 1; transform: none; } 46.25% { opacity: 1; transform: none; } 46.62% { opacity: 0; transform: none; } 100.00% { opacity: 0; transform: translateY(14px); } }
-@keyframes k19 { 0.00% { opacity: 0; transform: none; } 46.25% { opacity: 0; transform: none; } 46.62% { opacity: 1; transform: none; } 52.50% { opacity: 1; transform: none; } 52.88% { opacity: 0; transform: none; } 100.00% { opacity: 0; transform: translateY(14px); } }
-@keyframes k20 { 0.00% { opacity: 0; transform: none; } 52.50% { opacity: 0; transform: none; } 52.88% { opacity: 1; transform: none; } 58.75% { opacity: 1; transform: none; } 59.13% { opacity: 0; transform: none; } 100.00% { opacity: 0; transform: translateY(14px); } }
-@keyframes k21 { 0.00% { opacity: 0; transform: none; } 58.75% { opacity: 0; transform: none; } 59.13% { opacity: 1; transform: none; } 61.88% { opacity: 1; transform: none; } 63.25% { opacity: 0; transform: translateY(-14px); } 100.00% { opacity: 0; transform: translateY(14px); } }
-@keyframes k22 { 0.00% { opacity: 0; transform: translateY(14px); } 61.88% { opacity: 0; transform: translateY(14px); } 63.25% { opacity: 1; transform: none; } 63.25% { opacity: 1; transform: none; } 64.62% { opacity: 0; transform: translateY(-14px); } 100.00% { opacity: 0; transform: translateY(14px); } }
-@keyframes k23 { 0.00% { opacity: 0; transform: translateY(14px); } 63.25% { opacity: 0; transform: translateY(14px); } 64.62% { opacity: 1; transform: none; } 64.62% { opacity: 1; transform: none; } 66.00% { opacity: 0; transform: translateY(-14px); } 100.00% { opacity: 0; transform: translateY(14px); } }
-@keyframes k24 { 0.00% { opacity: 0; transform: translateY(14px); } 64.62% { opacity: 0; transform: translateY(14px); } 66.00% { opacity: 1; transform: none; } 75.00% { opacity: 1; transform: none; } 76.38% { opacity: 0; transform: translateY(-14px); } 100.00% { opacity: 0; transform: translateY(14px); } }
-@keyframes k25 { 0.00% { opacity: 0; transform: translateY(14px); } 75.00% { opacity: 0; transform: translateY(14px); } 76.38% { opacity: 1; transform: none; } 93.75% { opacity: 1; transform: none; } 95.12% { opacity: 0; transform: translateY(-14px); } 100.00% { opacity: 0; transform: translateY(14px); } }
-@keyframes k26 { 0.00% { transform: translateY(26px) scale(.06); } 18.56% { transform: translateY(26px) scale(.06); } 19.25% { transform: translateY(14px) scale(.5); } 19.88% { transform: translateY(4px) scale(.9); } 20.50% { transform: translateY(-1px) scale(1.035); } 21.25% { transform: translateY(0) scale(.988); } 22.12% { transform: scale(1.006); } 23.12% { transform: scale(1); } 48.62% { transform: scale(1); } 50.94% { transform: translateY(14px) scale(.4); } 100.00% { transform: translateY(14px) scale(.4); } }
-@keyframes k27 { 0.00% { opacity: 0; } 18.56% { opacity: 0; } 19.38% { opacity: 0.85; } 19.88% { opacity: 1; } 48.62% { opacity: 1; } 50.94% { opacity: 0; } 100.00% { opacity: 0; } }
-@keyframes k28 { 0.00% { opacity: 0; transform: translateY(10px); } 19.25% { opacity: 0; transform: translateY(10px); } 21.75% { opacity: 1; transform: none; } 100.00% { opacity: 1; transform: none; } }
-@keyframes k29 { 0.00% { opacity: 1; } 34.06% { opacity: 1; } 34.81% { opacity: 0; } 100.00% { opacity: 0; } }
-@keyframes k30 { 0.00% { opacity: 0; } 34.81% { opacity: 0; } 35.56% { opacity: 1; } 100.00% { opacity: 1; } }
-@keyframes k31 { 0.00% { opacity: 0; transform: translateY(10px); } 19.75% { opacity: 0; transform: translateY(10px); } 22.25% { opacity: 1; transform: none; } 100.00% { opacity: 1; transform: none; } }
-@keyframes k32 { 0.00% { opacity: 0; transform: translateY(10px); } 20.12% { opacity: 0; transform: translateY(10px); } 22.62% { opacity: 1; transform: none; } 100.00% { opacity: 1; transform: none; } }
-@keyframes k33 { 0.00% { opacity: 0; transform: translateY(10px); } 20.50% { opacity: 0; transform: translateY(10px); } 23.00% { opacity: 1; transform: none; } 100.00% { opacity: 1; transform: none; } }
-@keyframes k34 { 0.00% { opacity: 0; transform: translateY(10px); } 20.88% { opacity: 0; transform: translateY(10px); } 23.38% { opacity: 1; transform: none; } 100.00% { opacity: 1; transform: none; } }
-@keyframes k35 { 0.00% { opacity: 0; transform: translateY(10px); } 21.50% { opacity: 0; transform: translateY(10px); } 24.00% { opacity: 1; transform: none; } 100.00% { opacity: 1; transform: none; } }
-@keyframes k36 { 0.00% { opacity: 0; } 24.56% { opacity: 0; } 26.12% { opacity: 1; } 100.00% { opacity: 1; } }
-@keyframes k37 { 0.00% { opacity: 0; } 24.87% { opacity: 0; } 26.44% { opacity: 1; } 100.00% { opacity: 1; } }
-@keyframes k38 { 0.00% { opacity: 0; } 25.19% { opacity: 0; } 26.75% { opacity: 1; } 100.00% { opacity: 1; } }
-@keyframes k39 { 0.00% { opacity: 0; } 25.50% { opacity: 0; } 27.06% { opacity: 1; } 100.00% { opacity: 1; } }
-@keyframes k40 { 0.00% { opacity: 0; } 34.81% { opacity: 0; } 36.38% { opacity: 1; } 100.00% { opacity: 1; } }
-@keyframes k41 { 0.00% { opacity: 0; } 25.81% { opacity: 0; } 27.38% { opacity: 1; } 100.00% { opacity: 1; } }
-@keyframes k42 { 0.00% { opacity: 0; } 26.12% { opacity: 0; } 27.69% { opacity: 1; } 100.00% { opacity: 1; } }
-@keyframes k43 { 0.00% { opacity: 0; transform: scaleY(.2); } 22.06% { opacity: 0; transform: scaleY(.2); } 23.62% { opacity: 1; transform: none; } 100.00% { opacity: 1; transform: none; } }
-@keyframes k44 { 0.00% { opacity: 0; transform: scaleY(.2); } 22.50% { opacity: 0; transform: scaleY(.2); } 24.06% { opacity: 1; transform: none; } 100.00% { opacity: 1; transform: none; } }
-@keyframes k45 { 0.00% { opacity: 0; transform: scaleY(.2); } 22.94% { opacity: 0; transform: scaleY(.2); } 24.50% { opacity: 1; transform: none; } 100.00% { opacity: 1; transform: none; } }
-@keyframes k46 { 0.00% { opacity: 0; transform: scaleY(.2); } 23.38% { opacity: 0; transform: scaleY(.2); } 24.94% { opacity: 1; transform: none; } 100.00% { opacity: 1; transform: none; } }
-@keyframes k47 { 0.00% { opacity: 0; transform: scaleY(.2); } 23.81% { opacity: 0; transform: scaleY(.2); } 25.38% { opacity: 1; transform: none; } 100.00% { opacity: 1; transform: none; } }
-@keyframes k48 { 0.00% { opacity: 0; transform: translateY(-10px); } 25.50% { opacity: 0; transform: translateY(-10px); } 27.06% { opacity: 1; transform: none; } 100.00% { opacity: 1; transform: none; } }
-@keyframes k49 { 0.00% { opacity: 0; transform: translateY(10px); } 22.50% { opacity: 0; transform: translateY(10px); } 25.00% { opacity: 1; transform: none; } 100.00% { opacity: 1; transform: none; } }
-@keyframes k50 { 0.00% { opacity: 0; transform: translateY(10px); } 23.12% { opacity: 0; transform: translateY(10px); } 25.63% { opacity: 1; transform: none; } 100.00% { opacity: 1; transform: none; } }
-@keyframes k51 { 0.00% { opacity: 1; } 34.06% { opacity: 1; } 34.81% { opacity: 0; } 100.00% { opacity: 0; } }
-@keyframes k52 { 0.00% { opacity: 0; } 34.81% { opacity: 0; } 35.56% { opacity: 1; } 100.00% { opacity: 1; } }
-@keyframes k53 { 0.00% { opacity: 0; } 34.81% { opacity: 0; } 35.19% { opacity: 1; } 40.00% { opacity: 1; } 40.38% { opacity: 0; } 100.00% { opacity: 0; } }
-@keyframes k54 { 0.00% { opacity: 0; } 40.00% { opacity: 0; } 40.38% { opacity: 1; } 46.25% { opacity: 1; } 46.62% { opacity: 0; } 100.00% { opacity: 0; } }
-@keyframes k55 { 0.00% { opacity: 0; } 46.25% { opacity: 0; } 46.62% { opacity: 1; } 52.50% { opacity: 1; } 52.88% { opacity: 0; } 100.00% { opacity: 0; } }
-@keyframes k56 { 0.00% { opacity: 0; } 52.50% { opacity: 0; } 52.88% { opacity: 1; } 100.00% { opacity: 1; } }
-@keyframes k57 { 0.00% { opacity: 0; transform: translateY(10px); } 23.62% { opacity: 0; transform: translateY(10px); } 26.13% { opacity: 1; transform: none; } 100.00% { opacity: 1; transform: none; } }
-@keyframes k58 { 0.00% { opacity: 0; } 18.06% { opacity: 0; } 18.12% { opacity: 0.9; } 20.94% { opacity: 0; } 100.00% { opacity: 0; } }
-@keyframes k59 { 0.00% { transform: scale(.3); } 18.12% { transform: scale(.3); } 20.94% { transform: scale(1.6); } 100.00% { transform: scale(1.6); } }
-@keyframes k60 { 0.00% { opacity: 0; } 33.69% { opacity: 0; } 33.75% { opacity: 0.9; } 36.56% { opacity: 0; } 100.00% { opacity: 0; } }
-@keyframes k61 { 0.00% { transform: scale(.3); } 33.75% { transform: scale(.3); } 36.56% { transform: scale(1.6); } 100.00% { transform: scale(1.6); } }
-@keyframes k62 { 0.00% { opacity: 0; } 48.06% { opacity: 0; } 48.12% { opacity: 0.9; } 50.94% { opacity: 0; } 100.00% { opacity: 0; } }
-@keyframes k63 { 0.00% { transform: scale(.3); } 48.12% { transform: scale(.3); } 50.94% { transform: scale(1.6); } 100.00% { transform: scale(1.6); } }
-@keyframes k64 { 0.00% { opacity: 0; } 81.19% { opacity: 0; } 81.25% { opacity: 0.9; } 84.06% { opacity: 0; } 100.00% { opacity: 0; } }
-@keyframes k65 { 0.00% { transform: scale(.3); } 81.25% { transform: scale(.3); } 84.06% { transform: scale(1.6); } 100.00% { transform: scale(1.6); } }
-@keyframes k66 { 0.00% { transform: translate(637.0px, 376.0px); } 11.88% { transform: translate(637.0px, 376.0px); } 17.19% { transform: translate(938.9px, 633.0px); } 21.25% { transform: translate(938.9px, 633.0px); } 26.88% { transform: translate(1018.9px, 362.0px); } 28.75% { transform: translate(1018.9px, 362.0px); } 32.81% { transform: translate(815.1px, 531.0px); } 41.25% { transform: translate(815.1px, 531.0px); } 47.19% { transform: translate(417.0px, 256.0px); } 75.62% { transform: translate(417.0px, 256.0px); } 80.31% { transform: translate(938.9px, 633.0px); } 85.62% { transform: translate(938.9px, 633.0px); } 95.62% { transform: translate(637.0px, 376.0px); } 100.00% { transform: translate(637.0px, 376.0px); } }
-@keyframes k67 { 0.00% { opacity: 0; } 78.12% { opacity: 0; } 79.06% { opacity: 1; } 84.38% { opacity: 1; } 85.31% { opacity: 0; } 100.00% { opacity: 0; } }</style>
+@keyframes k0 { 0.00% { transform: none; } 81.32% { transform: none; } 83.62% { transform: translateX(-1200px); } 94.25% { transform: translateX(-1200px); } 96.55% { transform: none; } 100.00% { transform: none; } }
+@keyframes k1 { 0.00% { transform: translateX(1200px); } 81.32% { transform: translateX(1200px); } 83.62% { transform: none; } 94.25% { transform: none; } 96.55% { transform: translateX(1200px); } 100.00% { transform: translateX(1200px); } }
+@keyframes k2 { 0.00% { opacity: 1; } 81.90% { opacity: 1; } 82.13% { opacity: 0; } 94.83% { opacity: 0; } 95.06% { opacity: 1; } 100.00% { opacity: 1; } }
+@keyframes k3 { 0.00% { opacity: 0; } 81.90% { opacity: 0; } 82.13% { opacity: 1; } 94.83% { opacity: 1; } 95.06% { opacity: 0; } 100.00% { opacity: 0; } }
+@keyframes k4 { 0.00% { transform: translateX(4.8px); } 8.05% { transform: translateX(4.8px); } 8.10% { transform: translateX(0.0px); } 9.31% { transform: translateX(0.0px); } 9.37% { transform: translateX(0.0px); } 10.57% { transform: translateX(0.0px); } 10.63% { transform: translateX(0.0px); } 40.00% { transform: translateX(0.0px); } 40.06% { transform: translateX(21.6px); } 45.40% { transform: translateX(21.6px); } 45.46% { transform: translateX(21.6px); } 51.15% { transform: translateX(21.6px); } 51.21% { transform: translateX(21.6px); } 56.90% { transform: translateX(21.6px); } 56.95% { transform: translateX(21.6px); } 64.37% { transform: translateX(21.6px); } 64.43% { transform: translateX(21.6px); } 65.63% { transform: translateX(21.6px); } 65.69% { transform: translateX(21.6px); } 66.90% { transform: translateX(21.6px); } 66.95% { transform: translateX(7.2px); } 74.14% { transform: translateX(7.2px); } 74.20% { transform: translateX(0.0px); } 81.90% { transform: translateX(0.0px); } 81.95% { transform: translateX(-28.8px); } 94.25% { transform: translateX(-28.8px); } 94.31% { transform: translateX(4.8px); } 100.00% { transform: translateX(4.8px); } }
+@keyframes k5 { 0.00% { opacity: 1; } 8.10% { opacity: 1; } 8.16% { opacity: 0; } 94.25% { opacity: 0; } 94.31% { opacity: 1; } 100.00% { opacity: 1; } }
+@keyframes k6 { 0.00% { opacity: 0; } 8.05% { opacity: 0; } 8.10% { opacity: 1; } 9.37% { opacity: 1; } 9.43% { opacity: 0; } 100.00% { opacity: 0; } }
+@keyframes k7 { 0.00% { opacity: 0; } 9.31% { opacity: 0; } 9.37% { opacity: 1; } 10.63% { opacity: 1; } 10.69% { opacity: 0; } 100.00% { opacity: 0; } }
+@keyframes k8 { 0.00% { opacity: 0; } 10.57% { opacity: 0; } 10.63% { opacity: 1; } 40.06% { opacity: 1; } 40.11% { opacity: 0; } 100.00% { opacity: 0; } }
+@keyframes k9 { 0.00% { opacity: 0; } 40.00% { opacity: 0; } 40.06% { opacity: 1; } 45.46% { opacity: 1; } 45.52% { opacity: 0; } 100.00% { opacity: 0; } }
+@keyframes k10 { 0.00% { opacity: 0; } 45.40% { opacity: 0; } 45.46% { opacity: 1; } 51.21% { opacity: 1; } 51.26% { opacity: 0; } 100.00% { opacity: 0; } }
+@keyframes k11 { 0.00% { opacity: 0; } 51.15% { opacity: 0; } 51.21% { opacity: 1; } 56.95% { opacity: 1; } 57.01% { opacity: 0; } 100.00% { opacity: 0; } }
+@keyframes k12 { 0.00% { opacity: 0; } 56.90% { opacity: 0; } 56.95% { opacity: 1; } 64.43% { opacity: 1; } 64.48% { opacity: 0; } 100.00% { opacity: 0; } }
+@keyframes k13 { 0.00% { opacity: 0; } 64.37% { opacity: 0; } 64.43% { opacity: 1; } 65.69% { opacity: 1; } 65.75% { opacity: 0; } 100.00% { opacity: 0; } }
+@keyframes k14 { 0.00% { opacity: 0; } 65.63% { opacity: 0; } 65.69% { opacity: 1; } 66.95% { opacity: 1; } 67.01% { opacity: 0; } 100.00% { opacity: 0; } }
+@keyframes k15 { 0.00% { opacity: 0; } 66.90% { opacity: 0; } 66.95% { opacity: 1; } 74.20% { opacity: 1; } 74.25% { opacity: 0; } 100.00% { opacity: 0; } }
+@keyframes k16 { 0.00% { opacity: 0; } 74.14% { opacity: 0; } 74.20% { opacity: 1; } 81.95% { opacity: 1; } 82.01% { opacity: 0; } 100.00% { opacity: 0; } }
+@keyframes k17 { 0.00% { opacity: 0; } 81.90% { opacity: 0; } 81.95% { opacity: 1; } 94.31% { opacity: 1; } 94.37% { opacity: 0; } 100.00% { opacity: 0; } }
+@keyframes k18 { 0.00% { opacity: 0; } 15.98% { opacity: 0; } 16.55% { opacity: 1; } 20.00% { opacity: 1; } 20.57% { opacity: 0; } 100.00% { opacity: 0; } }
+@keyframes k19 { 0.00% { opacity: 0; } 79.77% { opacity: 0; } 80.34% { opacity: 1; } 83.79% { opacity: 1; } 84.37% { opacity: 0; } 100.00% { opacity: 0; } }
+@keyframes k20 { 0.00% { opacity: 1; transform: none; } 8.05% { opacity: 1; transform: none; } 8.85% { opacity: 0; transform: translateY(-14px); } 94.25% { opacity: 0; transform: translateY(14px); } 95.52% { opacity: 1; transform: none; } 100.00% { opacity: 1; transform: none; } }
+@keyframes k21 { 0.00% { opacity: 0; transform: translateY(14px); } 8.05% { opacity: 0; transform: translateY(14px); } 9.31% { opacity: 1; transform: none; } 9.31% { opacity: 1; transform: none; } 10.11% { opacity: 0; transform: translateY(-14px); } 100.00% { opacity: 0; transform: translateY(14px); } }
+@keyframes k22 { 0.00% { opacity: 0; transform: translateY(14px); } 9.31% { opacity: 0; transform: translateY(14px); } 10.57% { opacity: 1; transform: none; } 10.57% { opacity: 1; transform: none; } 11.38% { opacity: 0; transform: translateY(-14px); } 100.00% { opacity: 0; transform: translateY(14px); } }
+@keyframes k23 { 0.00% { opacity: 0; transform: translateY(14px); } 10.57% { opacity: 0; transform: translateY(14px); } 11.84% { opacity: 1; transform: none; } 40.00% { opacity: 1; transform: none; } 40.80% { opacity: 0; transform: translateY(-14px); } 100.00% { opacity: 0; transform: translateY(14px); } }
+@keyframes k24 { 0.00% { opacity: 0; transform: translateY(14px); } 40.00% { opacity: 0; transform: translateY(14px); } 41.26% { opacity: 1; transform: none; } 45.40% { opacity: 1; transform: none; } 45.63% { opacity: 0; transform: none; } 100.00% { opacity: 0; transform: translateY(14px); } }
+@keyframes k25 { 0.00% { opacity: 0; transform: none; } 45.40% { opacity: 0; transform: none; } 45.63% { opacity: 1; transform: none; } 51.15% { opacity: 1; transform: none; } 51.38% { opacity: 0; transform: none; } 100.00% { opacity: 0; transform: translateY(14px); } }
+@keyframes k26 { 0.00% { opacity: 0; transform: none; } 51.15% { opacity: 0; transform: none; } 51.38% { opacity: 1; transform: none; } 56.90% { opacity: 1; transform: none; } 57.13% { opacity: 0; transform: none; } 100.00% { opacity: 0; transform: translateY(14px); } }
+@keyframes k27 { 0.00% { opacity: 0; transform: none; } 56.90% { opacity: 0; transform: none; } 57.13% { opacity: 1; transform: none; } 64.37% { opacity: 1; transform: none; } 65.17% { opacity: 0; transform: translateY(-14px); } 100.00% { opacity: 0; transform: translateY(14px); } }
+@keyframes k28 { 0.00% { opacity: 0; transform: translateY(14px); } 64.37% { opacity: 0; transform: translateY(14px); } 65.63% { opacity: 1; transform: none; } 65.63% { opacity: 1; transform: none; } 66.44% { opacity: 0; transform: translateY(-14px); } 100.00% { opacity: 0; transform: translateY(14px); } }
+@keyframes k29 { 0.00% { opacity: 0; transform: translateY(14px); } 65.63% { opacity: 0; transform: translateY(14px); } 66.90% { opacity: 1; transform: none; } 66.90% { opacity: 1; transform: none; } 67.70% { opacity: 0; transform: translateY(-14px); } 100.00% { opacity: 0; transform: translateY(14px); } }
+@keyframes k30 { 0.00% { opacity: 0; transform: translateY(14px); } 66.90% { opacity: 0; transform: translateY(14px); } 68.16% { opacity: 1; transform: none; } 74.14% { opacity: 1; transform: none; } 74.94% { opacity: 0; transform: translateY(-14px); } 100.00% { opacity: 0; transform: translateY(14px); } }
+@keyframes k31 { 0.00% { opacity: 0; transform: translateY(14px); } 74.14% { opacity: 0; transform: translateY(14px); } 75.40% { opacity: 1; transform: none; } 81.90% { opacity: 1; transform: none; } 82.70% { opacity: 0; transform: translateY(-14px); } 100.00% { opacity: 0; transform: translateY(14px); } }
+@keyframes k32 { 0.00% { opacity: 0; transform: translateY(14px); } 81.90% { opacity: 0; transform: translateY(14px); } 83.16% { opacity: 1; transform: none; } 94.25% { opacity: 1; transform: none; } 95.06% { opacity: 0; transform: translateY(-14px); } 100.00% { opacity: 0; transform: translateY(14px); } }
+@keyframes k33 { 0.00% { transform: translateY(26px) scale(.06); } 17.07% { transform: translateY(26px) scale(.06); } 17.70% { transform: translateY(14px) scale(.5); } 18.28% { transform: translateY(4px) scale(.9); } 18.85% { transform: translateY(-1px) scale(1.035); } 19.54% { transform: translateY(0) scale(.988); } 20.34% { transform: scale(1.006); } 21.26% { transform: scale(1); } 59.37% { transform: scale(1); } 61.49% { transform: translateY(14px) scale(.4); } 100.00% { transform: translateY(14px) scale(.4); } }
+@keyframes k34 { 0.00% { opacity: 0; } 17.07% { opacity: 0; } 17.82% { opacity: 0.85; } 18.28% { opacity: 1; } 59.37% { opacity: 1; } 61.49% { opacity: 0; } 100.00% { opacity: 0; } }
+@keyframes k35 { 0.00% { opacity: 0; } 17.13% { opacity: 0; } 17.30% { opacity: 1; } 26.21% { opacity: 1; } 26.38% { opacity: 0; } 33.68% { opacity: 0; } 33.85% { opacity: 1; } 40.00% { opacity: 1; } 40.17% { opacity: 0; } 100.00% { opacity: 0; } }
+@keyframes k36 { 0.00% { opacity: 0; } 17.13% { opacity: 0; } 17.30% { opacity: 1; } 26.21% { opacity: 1; } 26.38% { opacity: 0; } 33.68% { opacity: 0; } 33.85% { opacity: 1; } 40.00% { opacity: 1; } 40.17% { opacity: 0; } 100.00% { opacity: 0; } }
+@keyframes k37 { 0.00% { opacity: 0; } 17.13% { opacity: 0; } 17.30% { opacity: 1; } 26.21% { opacity: 1; } 26.38% { opacity: 0; } 33.68% { opacity: 0; } 33.85% { opacity: 1; } 40.00% { opacity: 1; } 40.17% { opacity: 0; } 100.00% { opacity: 0; } }
+@keyframes k38 { 0.00% { opacity: 0; } 17.13% { opacity: 0; } 17.30% { opacity: 1; } 26.21% { opacity: 1; } 26.38% { opacity: 0; } 33.68% { opacity: 0; } 33.85% { opacity: 1; } 40.00% { opacity: 1; } 40.17% { opacity: 0; } 100.00% { opacity: 0; } }
+@keyframes k39 { 0.00% { opacity: 0; } 17.13% { opacity: 0; } 17.30% { opacity: 1; } 26.21% { opacity: 1; } 26.38% { opacity: 0; } 33.68% { opacity: 0; } 33.85% { opacity: 1; } 40.00% { opacity: 1; } 40.17% { opacity: 0; } 100.00% { opacity: 0; } }
+@keyframes k40 { 0.00% { opacity: 0; } 17.13% { opacity: 0; } 17.30% { opacity: 1; } 26.21% { opacity: 1; } 26.38% { opacity: 0; } 33.68% { opacity: 0; } 33.85% { opacity: 1; } 40.00% { opacity: 1; } 40.17% { opacity: 0; } 100.00% { opacity: 0; } }
+@keyframes k41 { 0.00% { opacity: 0; } 17.13% { opacity: 0; } 17.30% { opacity: 1; } 26.21% { opacity: 1; } 26.38% { opacity: 0; } 33.68% { opacity: 0; } 33.85% { opacity: 1; } 40.00% { opacity: 1; } 40.17% { opacity: 0; } 100.00% { opacity: 0; } }
+@keyframes k42 { 0.00% { opacity: 0; } 26.21% { opacity: 0; } 26.38% { opacity: 1; } 33.68% { opacity: 1; } 33.85% { opacity: 0; } 100.00% { opacity: 0; } }
+@keyframes k43 { 0.00% { opacity: 0; } 26.21% { opacity: 0; } 26.38% { opacity: 1; } 33.68% { opacity: 1; } 33.85% { opacity: 0; } 100.00% { opacity: 0; } }
+@keyframes k44 { 0.00% { opacity: 0; } 26.21% { opacity: 0; } 26.38% { opacity: 1; } 33.68% { opacity: 1; } 33.85% { opacity: 0; } 100.00% { opacity: 0; } }
+@keyframes k45 { 0.00% { opacity: 0; } 26.21% { opacity: 0; } 26.38% { opacity: 1; } 33.68% { opacity: 1; } 33.85% { opacity: 0; } 100.00% { opacity: 0; } }
+@keyframes k46 { 0.00% { opacity: 0; } 26.21% { opacity: 0; } 26.38% { opacity: 1; } 33.68% { opacity: 1; } 33.85% { opacity: 0; } 100.00% { opacity: 0; } }
+@keyframes k47 { 0.00% { opacity: 0; } 26.21% { opacity: 0; } 26.38% { opacity: 1; } 33.68% { opacity: 1; } 33.85% { opacity: 0; } 100.00% { opacity: 0; } }
+@keyframes k48 { 0.00% { opacity: 0; } 26.21% { opacity: 0; } 26.38% { opacity: 1; } 33.68% { opacity: 1; } 33.85% { opacity: 0; } 100.00% { opacity: 0; } }
+@keyframes k49 { 0.00% { opacity: 0; } 40.00% { opacity: 0; } 40.17% { opacity: 1; } 63.22% { opacity: 1; } 63.39% { opacity: 0; } 100.00% { opacity: 0; } }
+@keyframes k50 { 0.00% { opacity: 0; } 40.00% { opacity: 0; } 40.17% { opacity: 1; } 63.22% { opacity: 1; } 63.39% { opacity: 0; } 100.00% { opacity: 0; } }
+@keyframes k51 { 0.00% { opacity: 0; } 40.00% { opacity: 0; } 40.17% { opacity: 1; } 63.22% { opacity: 1; } 63.39% { opacity: 0; } 100.00% { opacity: 0; } }
+@keyframes k52 { 0.00% { opacity: 0; } 40.00% { opacity: 0; } 40.17% { opacity: 1; } 63.22% { opacity: 1; } 63.39% { opacity: 0; } 100.00% { opacity: 0; } }
+@keyframes k53 { 0.00% { opacity: 0; } 40.00% { opacity: 0; } 40.17% { opacity: 1; } 46.84% { opacity: 1; } 47.01% { opacity: 0; } 56.03% { opacity: 0; } 56.21% { opacity: 1; } 63.22% { opacity: 1; } 63.39% { opacity: 0; } 100.00% { opacity: 0; } }
+@keyframes k54 { 0.00% { opacity: 0; } 40.00% { opacity: 0; } 40.17% { opacity: 1; } 45.40% { opacity: 1; } 45.57% { opacity: 0; } 100.00% { opacity: 0; } }
+@keyframes k55 { 0.00% { opacity: 0; } 40.00% { opacity: 0; } 40.17% { opacity: 1; } 63.22% { opacity: 1; } 63.39% { opacity: 0; } 100.00% { opacity: 0; } }
+@keyframes k56 { 0.00% { opacity: 0; } 45.40% { opacity: 0; } 45.57% { opacity: 1; } 51.15% { opacity: 1; } 51.32% { opacity: 0; } 100.00% { opacity: 0; } }
+@keyframes k57 { 0.00% { opacity: 0; } 46.84% { opacity: 0; } 47.01% { opacity: 1; } 56.03% { opacity: 1; } 56.21% { opacity: 0; } 100.00% { opacity: 0; } }
+@keyframes k58 { 0.00% { opacity: 0; } 51.15% { opacity: 0; } 51.32% { opacity: 1; } 56.90% { opacity: 1; } 57.07% { opacity: 0; } 100.00% { opacity: 0; } }
+@keyframes k59 { 0.00% { opacity: 0; } 56.90% { opacity: 0; } 57.07% { opacity: 1; } 63.22% { opacity: 1; } 63.39% { opacity: 0; } 100.00% { opacity: 0; } }
+@keyframes k60 { 0.00% { opacity: 0; } 49.71% { opacity: 0; } 50.40% { opacity: 1; } 56.03% { opacity: 1; } 56.72% { opacity: 0; } 100.00% { opacity: 0; } }
+@keyframes k61 { 0.00% { opacity: 0; } 16.61% { opacity: 0; } 16.67% { opacity: 0.9; } 19.25% { opacity: 0; } 100.00% { opacity: 0; } }
+@keyframes k62 { 0.00% { transform: scale(.3); } 16.67% { transform: scale(.3); } 19.25% { transform: scale(1.6); } 100.00% { transform: scale(1.6); } }
+@keyframes k63 { 0.00% { opacity: 0; } 25.80% { opacity: 0; } 25.86% { opacity: 0.9; } 28.45% { opacity: 0; } 100.00% { opacity: 0; } }
+@keyframes k64 { 0.00% { transform: scale(.3); } 25.86% { transform: scale(.3); } 28.45% { transform: scale(1.6); } 100.00% { transform: scale(1.6); } }
+@keyframes k65 { 0.00% { opacity: 0; } 33.28% { opacity: 0; } 33.33% { opacity: 0.9; } 35.92% { opacity: 0; } 100.00% { opacity: 0; } }
+@keyframes k66 { 0.00% { transform: scale(.3); } 33.33% { transform: scale(.3); } 35.92% { transform: scale(1.6); } 100.00% { transform: scale(1.6); } }
+@keyframes k67 { 0.00% { opacity: 0; } 39.60% { opacity: 0; } 39.66% { opacity: 0.9; } 42.24% { opacity: 0; } 100.00% { opacity: 0; } }
+@keyframes k68 { 0.00% { transform: scale(.3); } 39.66% { transform: scale(.3); } 42.24% { transform: scale(1.6); } 100.00% { transform: scale(1.6); } }
+@keyframes k69 { 0.00% { opacity: 0; } 58.85% { opacity: 0; } 58.91% { opacity: 0.9; } 61.49% { opacity: 0; } 100.00% { opacity: 0; } }
+@keyframes k70 { 0.00% { transform: scale(.3); } 58.91% { transform: scale(.3); } 61.49% { transform: scale(1.6); } 100.00% { transform: scale(1.6); } }
+@keyframes k71 { 0.00% { opacity: 0; } 80.40% { opacity: 0; } 80.46% { opacity: 0.9; } 83.05% { opacity: 0; } 100.00% { opacity: 0; } }
+@keyframes k72 { 0.00% { transform: scale(.3); } 80.46% { transform: scale(.3); } 83.05% { transform: scale(1.6); } 100.00% { transform: scale(1.6); } }
+@keyframes k73 { 0.00% { transform: translate(637.0px, 376.0px); } 10.92% { transform: translate(637.0px, 376.0px); } 15.80% { transform: translate(963.6px, 633.0px); } 18.97% { transform: translate(963.6px, 633.0px); } 25.00% { transform: translate(522.8px, 321.0px); } 27.87% { transform: translate(522.8px, 321.0px); } 32.47% { transform: translate(868.9px, 302.0px); } 35.06% { transform: translate(868.9px, 302.0px); } 38.79% { transform: translate(564.2px, 531.0px); } 41.95% { transform: translate(564.2px, 531.0px); } 46.55% { transform: translate(970.5px, 344.0px); } 56.32% { transform: translate(970.5px, 344.0px); } 58.05% { transform: translate(297.0px, 246.0px); } 75.29% { transform: translate(297.0px, 246.0px); } 79.60% { transform: translate(963.6px, 633.0px); } 84.48% { transform: translate(963.6px, 633.0px); } 95.98% { transform: translate(637.0px, 376.0px); } 100.00% { transform: translate(637.0px, 376.0px); } }
+@keyframes k74 { 0.00% { opacity: 0; } 77.59% { opacity: 0; } 78.45% { opacity: 1; } 83.33% { opacity: 1; } 84.20% { opacity: 0; } 100.00% { opacity: 0; } }</style>
 <defs>
 <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#14171c"/><stop offset="1" stop-color="#0d0f12"/></linearGradient>
 <radialGradient id="haze1" cx=".85" cy="0" r=".75"><stop offset="0" stop-color="#88c0d0" stop-opacity=".13"/><stop offset="1" stop-color="#88c0d0" stop-opacity="0"/></radialGradient>
 <radialGradient id="haze2" cx=".05" cy="1" r=".6"><stop offset="0" stop-color="#b48ead" stop-opacity=".09"/><stop offset="1" stop-color="#b48ead" stop-opacity="0"/></radialGradient>
-<filter id="shadow" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#000" flood-opacity=".65"/></filter>
-<clipPath id="roll"><rect x="781.8" y="622" width="320.2" height="30"/></clipPath>
+<linearGradient id="cover" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3b2b4a"/><stop offset=".7" stop-color="#b8706a"/><stop offset="1" stop-color="#d08770"/></linearGradient>
+<filter id="tt-shadow" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#000" flood-opacity=".65"/></filter><pattern id="tt-maybe" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="4" height="8" fill="#15171a" fill-opacity=".38"/></pattern>
+<clipPath id="roll"><rect x="600" y="622" width="520" height="30"/></clipPath>
 <clipPath id="screen"><rect width="1200" height="660" rx="18"/></clipPath>
 </defs>
 <g clip-path="url(#screen)">
 <rect width="1200" height="660" fill="url(#wall)"/><rect width="1200" height="660" fill="url(#haze1)"/><rect width="1200" height="660" fill="url(#haze2)"/>
 <g class="a" style="animation-name:k0;animation-timing-function:cubic-bezier(.3,0,.2,1)">
+<rect x="250" y="300" width="470" height="270" rx="12" fill="#1a1d22" stroke="#2a2e35"/>
+<rect x="250" y="300" width="470" height="30" rx="12" fill="#1f2328"/>
+<circle cx="268" cy="315" r="5" fill="#bf616a" fill-opacity=".55"/>
+<circle cx="284" cy="315" r="5" fill="#ebcb8b" fill-opacity=".55"/>
+<circle cx="300" cy="315" r="5" fill="#a3be8c" fill-opacity=".55"/>
+<rect x="320" y="307" width="170" height="23" rx="7" fill="#262a30"/>
+<rect x="266" y="342" width="438" height="22" rx="11" fill="#15171a"/>
+<rect x="272" y="388" width="300" height="9" rx="4" fill="#3b4252" opacity=".8"/>
+<rect x="284" y="414" width="220" height="9" rx="4" fill="#3b4252" opacity=".8"/>
+<rect x="296" y="440" width="340" height="9" rx="4" fill="#3b4252" opacity=".8"/>
+<rect x="272" y="466" width="180" height="9" rx="4" fill="#3b4252" opacity=".8"/>
+<rect x="284" y="492" width="260" height="9" rx="4" fill="#3b4252" opacity=".8"/>
+<rect x="296" y="518" width="140" height="9" rx="4" fill="#3b4252" opacity=".8"/>
 <rect x="36" y="36" width="600" height="360" rx="12" fill="#1a1d22" stroke="#2a2e35"/>
 <rect x="36" y="36" width="600" height="30" rx="12" fill="#1f2328"/>
 <circle cx="54" cy="51" r="5" fill="#bf616a" fill-opacity=".55"/>
 <circle cx="70" cy="51" r="5" fill="#ebcb8b" fill-opacity=".55"/>
 <circle cx="86" cy="51" r="5" fill="#a3be8c" fill-opacity=".55"/>
+<text x="336.0" y="56.0" font-size="12" fill="#7c838e" font-weight="400" text-anchor="middle">~/Sites/cart</text>
 <rect x="58" y="86" width="210" height="9" rx="4" fill="#4c566a"/>
 <rect x="58" y="110" width="300" height="9" rx="4" fill="#5e81ac99"/>
 <rect x="82" y="134" width="260" height="9" rx="4" fill="#434c5e"/>
@@ -103,17 +125,6 @@ text { white-space: pre; }
 <rect x="82" y="302" width="350" height="9" rx="4" fill="#88c0d055"/>
 <rect x="82" y="326" width="200" height="9" rx="4" fill="#434c5e"/>
 <rect x="58" y="350" width="90" height="9" rx="4" fill="#4c566a"/>
-<rect x="220" y="330" width="470" height="250" rx="12" fill="#1a1d22" stroke="#2a2e35"/>
-<rect x="220" y="330" width="470" height="30" rx="12" fill="#1f2328"/>
-<circle cx="238" cy="345" r="5" fill="#bf616a" fill-opacity=".55"/>
-<circle cx="254" cy="345" r="5" fill="#ebcb8b" fill-opacity=".55"/>
-<circle cx="270" cy="345" r="5" fill="#a3be8c" fill-opacity=".55"/>
-<rect x="242" y="380" width="300" height="9" rx="4" fill="#3b4252" opacity=".8"/>
-<rect x="254" y="406" width="220" height="9" rx="4" fill="#3b4252" opacity=".8"/>
-<rect x="266" y="432" width="340" height="9" rx="4" fill="#3b4252" opacity=".8"/>
-<rect x="242" y="458" width="180" height="9" rx="4" fill="#3b4252" opacity=".8"/>
-<rect x="254" y="484" width="260" height="9" rx="4" fill="#3b4252" opacity=".8"/>
-<rect x="266" y="510" width="140" height="9" rx="4" fill="#3b4252" opacity=".8"/>
 </g>
 <g class="a" style="animation-name:k1;animation-timing-function:cubic-bezier(.3,0,.2,1)" transform="translate(1200,0)">
 <rect x="36" y="36" width="760" height="560" rx="12" fill="#1a1d22" stroke="#2a2e35"/>
@@ -121,313 +132,263 @@ text { white-space: pre; }
 <circle cx="54" cy="51" r="5" fill="#bf616a" fill-opacity=".55"/>
 <circle cx="70" cy="51" r="5" fill="#ebcb8b" fill-opacity=".55"/>
 <circle cx="86" cy="51" r="5" fill="#a3be8c" fill-opacity=".55"/>
-<text x="416.0" y="56.0" font-size="12" fill="#7c838e" font-weight="400" text-anchor="middle" >Standup</text>
+<text x="416.0" y="56.0" font-size="12" fill="#7c838e" font-weight="400" text-anchor="middle">Standup</text>
 <rect x="48.0" y="78.0" width="362.0" height="223.0" rx="10" fill="#15171a" stroke="#a3be8c" stroke-width="2"/>
 <circle cx="229.0" cy="181.5" r="34" fill="#5e81ac" fill-opacity=".85"/>
-<text x="229.0" y="190.5" font-size="22" fill="#1d2024" font-weight="700" text-anchor="middle" >AV</text>
-<text x="62.0" y="287.0" font-size="12" fill="#c5c8c6" font-weight="400" text-anchor="start" >Avery</text>
+<text x="229.0" y="190.5" font-size="22" fill="#1d2024" font-weight="700" text-anchor="middle">AV</text>
+<text x="62.0" y="287.0" font-size="12" fill="#c5c8c6" font-weight="400" text-anchor="start">Avery</text>
 <rect x="422.0" y="78.0" width="362.0" height="223.0" rx="10" fill="#15171a" stroke="#2a2e35" stroke-width="1"/>
 <circle cx="603.0" cy="181.5" r="34" fill="#b48ead" fill-opacity=".85"/>
-<text x="603.0" y="190.5" font-size="22" fill="#1d2024" font-weight="700" text-anchor="middle" >JO</text>
-<text x="436.0" y="287.0" font-size="12" fill="#c5c8c6" font-weight="400" text-anchor="start" >Jordan</text>
+<text x="603.0" y="190.5" font-size="22" fill="#1d2024" font-weight="700" text-anchor="middle">JO</text>
+<text x="436.0" y="287.0" font-size="12" fill="#c5c8c6" font-weight="400" text-anchor="start">Jordan</text>
 <rect x="48.0" y="313.0" width="362.0" height="223.0" rx="10" fill="#15171a" stroke="#2a2e35" stroke-width="1"/>
 <circle cx="229.0" cy="416.5" r="34" fill="#a3be8c" fill-opacity=".85"/>
-<text x="229.0" y="425.5" font-size="22" fill="#1d2024" font-weight="700" text-anchor="middle" >SM</text>
-<text x="62.0" y="522.0" font-size="12" fill="#c5c8c6" font-weight="400" text-anchor="start" >Sam</text>
+<text x="229.0" y="425.5" font-size="22" fill="#1d2024" font-weight="700" text-anchor="middle">SM</text>
+<text x="62.0" y="522.0" font-size="12" fill="#c5c8c6" font-weight="400" text-anchor="start">Sam</text>
 <rect x="422.0" y="313.0" width="362.0" height="223.0" rx="10" fill="#15171a" stroke="#2a2e35" stroke-width="1"/>
 <circle cx="603.0" cy="416.5" r="34" fill="#d08770" fill-opacity=".85"/>
-<text x="603.0" y="425.5" font-size="22" fill="#1d2024" font-weight="700" text-anchor="middle" >YO</text>
-<text x="436.0" y="522.0" font-size="12" fill="#c5c8c6" font-weight="400" text-anchor="start" >You</text>
-<rect x="246.0" y="550" width="50.8" height="26" rx="8" fill="#26282c" stroke="#313338"/>
-<text x="271.4" y="567.0" font-size="12" fill="#c5c8c6" font-weight="400" text-anchor="middle" >Mute</text>
-<rect x="334.8" y="550" width="58.0" height="26" rx="8" fill="#26282c" stroke="#313338"/>
-<text x="363.8" y="567.0" font-size="12" fill="#c5c8c6" font-weight="400" text-anchor="middle" >Video</text>
-<rect x="430.8" y="550" width="58.0" height="26" rx="8" fill="#26282c" stroke="#313338"/>
-<text x="459.8" y="567.0" font-size="12" fill="#c5c8c6" font-weight="400" text-anchor="middle" >Share</text>
-<rect x="526.8" y="550" width="58.0" height="26" rx="8" fill="#bf616a"/>
-<text x="555.8" y="567.0" font-size="12" fill="#1d2024" font-weight="700" text-anchor="middle" >Leave</text>
+<text x="603.0" y="425.5" font-size="22" fill="#1d2024" font-weight="700" text-anchor="middle">YO</text>
+<text x="436.0" y="522.0" font-size="12" fill="#c5c8c6" font-weight="400" text-anchor="start">You</text>
+<g><rect x="246.0" y="550.0" width="52.8" height="26" rx="8" fill="#26282c" stroke="#313338"/><text x="272.4" y="567.3" font-size="12" fill="#c5c8c6" font-weight="400" text-anchor="middle">Mute</text></g>
+<g><rect x="336.8" y="550.0" width="60.0" height="26" rx="8" fill="#26282c" stroke="#313338"/><text x="366.8" y="567.3" font-size="12" fill="#c5c8c6" font-weight="400" text-anchor="middle">Video</text></g>
+<g><rect x="434.8" y="550.0" width="60.0" height="26" rx="8" fill="#26282c" stroke="#313338"/><text x="464.8" y="567.3" font-size="12" fill="#c5c8c6" font-weight="400" text-anchor="middle">Share</text></g>
+<g><rect x="532.8" y="550.0" width="60.0" height="26" rx="8" fill="#bf616a" stroke="#bf616a"/><text x="562.8" y="567.3" font-size="12" fill="#15171a" font-weight="700" text-anchor="middle">Leave</text></g>
 <rect x="812" y="36" width="352" height="560" rx="12" fill="#1a1d22" stroke="#2a2e35"/>
 <rect x="812" y="36" width="352" height="30" rx="12" fill="#1f2328"/>
 <circle cx="830" cy="51" r="5" fill="#bf616a" fill-opacity=".55"/>
 <circle cx="846" cy="51" r="5" fill="#ebcb8b" fill-opacity=".55"/>
 <circle cx="862" cy="51" r="5" fill="#a3be8c" fill-opacity=".55"/>
-<text x="988.0" y="56.0" font-size="12" fill="#7c838e" font-weight="400" text-anchor="middle" >#team</text>
+<text x="988.0" y="56.0" font-size="12" fill="#7c838e" font-weight="400" text-anchor="middle">#team</text>
 <circle cx="842" cy="92" r="12" fill="#5e81ac" fill-opacity=".7"/>
-<text x="864.0" y="90.0" font-size="12" fill="#c5c8c6" font-weight="700" text-anchor="start" >Avery</text>
+<text x="864.0" y="90.0" font-size="12" fill="#c5c8c6" font-weight="700" text-anchor="start">Avery</text>
 <rect x="864" y="102" width="230" height="8" rx="4" fill="#3b4252"/>
 <rect x="864" y="118" width="160" height="8" rx="4" fill="#3b4252"/>
 <circle cx="842" cy="184" r="12" fill="#a3be8c" fill-opacity=".7"/>
-<text x="864.0" y="182.0" font-size="12" fill="#c5c8c6" font-weight="700" text-anchor="start" >Sam</text>
+<text x="864.0" y="182.0" font-size="12" fill="#c5c8c6" font-weight="700" text-anchor="start">Sam</text>
 <rect x="864" y="194" width="180" height="8" rx="4" fill="#3b4252"/>
 <rect x="864" y="210" width="110" height="8" rx="4" fill="#3b4252"/>
 <circle cx="842" cy="276" r="12" fill="#b48ead" fill-opacity=".7"/>
-<text x="864.0" y="274.0" font-size="12" fill="#c5c8c6" font-weight="700" text-anchor="start" >Jordan</text>
+<text x="864.0" y="274.0" font-size="12" fill="#c5c8c6" font-weight="700" text-anchor="start">Jordan</text>
 <rect x="864" y="286" width="260" height="8" rx="4" fill="#3b4252"/>
 <rect x="864" y="302" width="190" height="8" rx="4" fill="#3b4252"/>
 <circle cx="842" cy="368" r="12" fill="#5e81ac" fill-opacity=".7"/>
-<text x="864.0" y="366.0" font-size="12" fill="#c5c8c6" font-weight="700" text-anchor="start" >Avery</text>
+<text x="864.0" y="366.0" font-size="12" fill="#c5c8c6" font-weight="700" text-anchor="start">Avery</text>
 <rect x="864" y="378" width="140" height="8" rx="4" fill="#3b4252"/>
 <rect x="864" y="394" width="70" height="8" rx="4" fill="#3b4252"/>
 <circle cx="842" cy="460" r="12" fill="#a3be8c" fill-opacity=".7"/>
-<text x="864.0" y="458.0" font-size="12" fill="#c5c8c6" font-weight="700" text-anchor="start" >Sam</text>
+<text x="864.0" y="458.0" font-size="12" fill="#c5c8c6" font-weight="700" text-anchor="start">Sam</text>
 <rect x="864" y="470" width="210" height="8" rx="4" fill="#3b4252"/>
 <rect x="864" y="486" width="140" height="8" rx="4" fill="#3b4252"/>
 </g>
-<rect x="6.0" y="620.5" width="164.0" height="33" rx="10" fill="#24262a" stroke="#3a404d"/>
-<rect x="10" y="625" width="26" height="24" rx="7" fill="#3c4651" class="a" style="animation-name:k2;"/>
-<g class="a" style="animation-name:k3;" opacity="1">
-<text x="23.0" y="642.0" font-size="14" fill="#d8dee9" font-weight="700" text-anchor="middle" >1</text>
+<g class="a" style="animation-name:k2;" opacity="1">
+<rect x="6.0" y="620.5" width="118.0" height="33" rx="10" fill="rgba(40,42,46,.84)" stroke="rgba(76,86,106,.55)"/>
+<rect x="12.0" y="625" width="61.6" height="24" rx="7" fill="rgba(129,161,193,.26)"/>
+<text x="20.0" y="641.3" font-size="12" fill="#d8dee9" font-weight="400" text-anchor="start" fill-opacity=".55">1</text>
+<g fill="none" stroke="#d8dee9" stroke-width="1.4" stroke-linejoin="round"><path d="M40.4,630.7 L46.699999999999996,637.0 L40.4,643.3 L34.1,637.0 Z"/><path d="M37.8,634.6 L40.4,639.6 L43.0,634.6" stroke-width="1.6"/></g>
+<g fill="none" stroke="#d8dee9" stroke-width="1.4"><circle cx="59.6" cy="637.0" r="5.8"/><circle cx="59.6" cy="637.0" r="2.2" fill="#d8dee9"/><path d="M59.6,634.8 H65.0 M57.7,638.1 L55.0,633.4 M61.5,638.1 L58.800000000000004,642.8"/></g>
+<text x="83.6" y="641.3" font-size="12" fill="#c5c8c6" font-weight="400" text-anchor="start" fill-opacity=".55">2</text>
+<g stroke="#c5c8c6" stroke-width="1.9" stroke-linecap="round"><path d="M102.2,631.4 V642.6 M105.8,631.4 V642.6 M98.4,635.2 H109.6 M98.4,638.8 H109.6"/></g>
+<rect x="130.0" y="620.5" width="138.8" height="33" rx="10" fill="rgba(40,42,46,.84)" stroke="rgba(76,86,106,.55)"/>
+<g fill="none" stroke="#d8dee9" stroke-width="1.4" stroke-linejoin="round"><path d="M149.0,630.7 L155.3,637.0 L149.0,643.3 L142.7,637.0 Z"/><path d="M146.4,634.6 L149.0,639.6 L151.6,634.6" stroke-width="1.6"/></g>
+<text x="169.4" y="641.3" font-size="12" fill="#d8dee9" font-weight="400" text-anchor="start">~/Sites/cart</text>
 </g>
-<g class="a" style="animation-name:k4;" opacity="0">
-<text x="23.0" y="642.0" font-size="14" fill="#c5c8c6" font-weight="400" text-anchor="middle" >1</text>
+<g class="a" style="animation-name:k3;" opacity="0">
+<rect x="6.0" y="620.5" width="137.2" height="33" rx="10" fill="rgba(40,42,46,.84)" stroke="rgba(76,86,106,.55)"/>
+<text x="20.0" y="641.3" font-size="12" fill="#c5c8c6" font-weight="400" text-anchor="start" fill-opacity=".55">1</text>
+<g fill="none" stroke="#c5c8c6" stroke-width="1.4" stroke-linejoin="round"><path d="M40.4,630.7 L46.699999999999996,637.0 L40.4,643.3 L34.1,637.0 Z"/><path d="M37.8,634.6 L40.4,639.6 L43.0,634.6" stroke-width="1.6"/></g>
+<g fill="none" stroke="#c5c8c6" stroke-width="1.4"><circle cx="59.6" cy="637.0" r="5.8"/><circle cx="59.6" cy="637.0" r="2.2" fill="#c5c8c6"/><path d="M59.6,634.8 H65.0 M57.7,638.1 L55.0,633.4 M61.5,638.1 L58.800000000000004,642.8"/></g>
+<rect x="75.6" y="625" width="61.6" height="24" rx="7" fill="rgba(129,161,193,.26)"/>
+<text x="83.6" y="641.3" font-size="12" fill="#d8dee9" font-weight="400" text-anchor="start" fill-opacity=".55">2</text>
+<g stroke="#d8dee9" stroke-width="1.9" stroke-linecap="round"><path d="M102.2,631.4 V642.6 M105.8,631.4 V642.6 M98.4,635.2 H109.6 M98.4,638.8 H109.6"/></g>
+<g fill="#d8dee9"><rect x="116.7" y="632.5" width="9" height="9" rx="2"/><path d="M126.2,636.0 L129.7,633.2 V640.8 L126.2,638.0 Z"/></g>
+<rect x="149.2" y="620.5" width="112.4" height="33" rx="10" fill="rgba(40,42,46,.84)" stroke="rgba(76,86,106,.55)"/>
+<text x="162.2" y="641.3" font-size="12" fill="#d8dee9" font-weight="400" text-anchor="start">Zoom Meeting</text>
 </g>
-<g class="a" style="animation-name:k5;" opacity="1">
-<text x="49.0" y="642.0" font-size="14" fill="#c5c8c6" font-weight="400" text-anchor="middle" >2</text>
+<rect x="1114.0" y="620.5" width="80.0" height="33" rx="10" fill="rgba(40,42,46,.84)" stroke="rgba(76,86,106,.55)"/>
+<g stroke="#e01e5a" stroke-width="1.9" stroke-linecap="round"><path d="M1130.2,631.4 V642.6 M1133.8,631.4 V642.6 M1126.4,635.2 H1137.6 M1126.4,638.8 H1137.6"/></g>
+<g><path d="M1148,640.5 Q1147.6,635.0 1150.4,632.0 Q1154,631.0 1157.6,632.0 Q1160.4,635.0 1160,640.5 Q1157.6,642.6 1156,641.0 H1152 Q1150.4,642.6 1148,640.5 Z" fill="#7289da"/><circle cx="1151.8" cy="637.0" r="1.2" fill="#15171a"/><circle cx="1156.2" cy="637.0" r="1.2" fill="#15171a"/></g>
+<path d="M1172.4,634.0 L1179.6,640.0 L1176,643.0 V631.0 L1179.6,634.0 L1172.4,640.0" fill="none" stroke="#5e81ac" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<g class="a" style="animation-name:k4;">
+<rect x="757.2" y="620.5" width="62.0" height="33" rx="10" fill="rgba(40,42,46,.84)" stroke="rgba(76,86,106,.55)"/>
+<g fill="none" stroke="#616e88" stroke-width="1.5" stroke-linecap="round"><rect x="773.7" y="630.5" width="5" height="8.5" rx="2.5" fill="#616e88" stroke="none"/><path d="M771.4000000000001,636.0 a4.8,4.8 0 0 0 9.6,0 M776.2,640.8 v2.7"/></g>
+<path d="M804.2,632.5 L799.7,637.0 L804.2,641.5" fill="none" stroke="#616e88" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="627.6" y="620.5" width="123.6" height="33" rx="10" fill="rgba(40,42,46,.84)" stroke="rgba(76,86,106,.55)"/>
+<path d="M640.6,634.8 H643.2 L646.6,631.6 V642.4 L643.2,639.2 H640.6 Z" fill="#88c0d0"/><path d="M649.0,634.4 Q651.2,637.0 649.0,639.6 M651.2,632.2 Q655.2,637.0 651.2,641.8" fill="none" stroke="#88c0d0" stroke-width="1.4" stroke-linecap="round"/>
+<text x="659.8" y="641.3" font-size="12" fill="#88c0d0" font-weight="400" text-anchor="start">42%</text>
+<g fill="none" stroke="#616e88" stroke-width="1.4"><rect x="699.6" y="631.0" width="7.6" height="12" rx="3.8"/><path d="M703.4,631.0 v4.4 M699.6,635.4 h7.6"/></g>
+<text x="716.6" y="641.3" font-size="12" fill="#616e88" font-weight="400" text-anchor="start">80%</text>
+<rect x="471.6" y="620.5" width="150.0" height="33" rx="10" fill="rgba(40,42,46,.84)" stroke="rgba(76,86,106,.55)"/>
+<circle cx="490.6" cy="637.0" r="5.5" fill="#a3be8c"/>
+<path d="M513.1,633.5 h3 a2,2 0 1 1 3.5,0 h3 v3 a2,2 0 1 1 0,3.5 v3.5 h-9.5 Z" fill="none" stroke="#88c0d0" stroke-width="1.5" stroke-linejoin="round"/>
+<circle cx="546.6" cy="637.0" r="5.2" fill="none" stroke="#616e88" stroke-width="1.5"/>
+<g fill="none" stroke="#616e88" stroke-width="1.4"><rect x="568.6" y="631.0" width="5" height="4" rx=".8"/><rect x="575.6" y="639.0" width="5" height="4" rx=".8"/><path d="M571.1,635.0 v2.5 M578.1,639.0 v-2.5" stroke-linecap="round"/><path d="M572.1,639.5 l5,-5" stroke-width="1.2"/></g>
+<g fill="#616e88"><path d="M597.6,640.0 V636.2 Q597.6,631.2 602.6,631.2 Q607.6,631.2 607.6,636.2 V640.0 L608.9,641.4 H596.3000000000001 Z"/><circle cx="602.6" cy="643.0" r="1.6"/></g>
+<rect x="307.6" y="620.5" width="158.0" height="33" rx="10" fill="rgba(40,42,46,.84)" stroke="rgba(76,86,106,.55)"/>
+<rect x="318.6" y="628.0" width="18" height="18" rx="3" fill="url(#cover)"/>
+<circle cx="330.6" cy="634.0" r="3.2" fill="#ebcb8b" opacity=".9"/>
+<path d="M318.6,642.0 q4,-3 9,0 t9,0 v4 h-18 Z" fill="#2e2235"/>
+<text x="344.6" y="641.3" font-size="12" fill="#ebcb8b" font-weight="400" text-anchor="start">Kestrel · Tides</text>
+</g>
+<g class="a" style="animation-name:k5;" opacity="0">
+<rect x="830.0" y="620.5" width="278.0" height="33" rx="10" fill="rgba(40,42,46,.84)" stroke="rgba(76,86,106,.55)"/>
 </g>
 <g class="a" style="animation-name:k6;" opacity="0">
-<text x="49.0" y="642.0" font-size="14" fill="#d8dee9" font-weight="700" text-anchor="middle" >2</text>
+<rect x="825.2" y="620.5" width="282.8" height="33" rx="10" fill="rgba(40,42,46,.84)" stroke="rgba(76,86,106,.55)"/>
 </g>
-<text x="75.0" y="642.0" font-size="14" fill="#c5c8c6" font-weight="400" text-anchor="middle" >3</text>
-<text x="101.0" y="642.0" font-size="14" fill="#c5c8c6" font-weight="400" text-anchor="middle" >4</text>
-<text x="127.0" y="642.0" font-size="14" fill="#c5c8c6" font-weight="400" text-anchor="middle" >5</text>
-<text x="153.0" y="642.0" font-size="14" fill="#c5c8c6" font-weight="400" text-anchor="middle" >6</text>
-<g class="a" style="animation-name:k7;" opacity="1">
-<rect x="176.0" y="620.5" width="166.8" height="33" rx="10" fill="#24262a" stroke="#3a404d"/>
-<text x="188.0" y="642.0" font-size="14" fill="#d8dee9" font-weight="400" text-anchor="start" >nvim  src/cart.ts</text>
+<g class="a" style="animation-name:k7;" opacity="0">
+<rect x="825.2" y="620.5" width="282.8" height="33" rx="10" fill="rgba(40,42,46,.84)" stroke="rgba(76,86,106,.55)"/>
 </g>
-<g class="a" style="animation-name:k8;" opacity="0">
-<rect x="176.0" y="620.5" width="124.8" height="33" rx="10" fill="#24262a" stroke="#3a404d"/>
-<text x="188.0" y="642.0" font-size="14" fill="#d8dee9" font-weight="400" text-anchor="start" >Zoom Meeting</text>
+<g class="a" style="animation-name:k8;" opacity="1">
+<rect x="825.2" y="620.5" width="282.8" height="33" rx="10" fill="rgba(40,42,46,.84)" stroke="rgba(76,86,106,.55)"/>
 </g>
-<rect x="1108.0" y="620.5" width="86.0" height="33" rx="10" fill="#24262a" stroke="#3a404d"/>
-<rect x="1122" y="630" width="14" height="14" rx="4" fill="#81a1c1" fill-opacity=".8"/>
-<rect x="1144" y="630" width="14" height="14" rx="4" fill="#b48ead" fill-opacity=".8"/>
-<rect x="1166" y="630" width="14" height="14" rx="4" fill="#5e81ac" fill-opacity=".8"/>
-<g class="a" style="animation-name:k9;">
-<rect x="713.8" y="620.5" width="62.0" height="33" rx="10" fill="#24262a" stroke="#3a404d"/>
-<g fill="none" stroke="#616e88" stroke-width="1.6" stroke-linecap="round"><rect x="730.8" y="629" width="6" height="10" rx="3"/><path d="M727.8,636 a6,6 0 0 0 12,0 M733.8,642 v3"/><path d="M759.8,632 l-5,5 l5,5"/></g>
-<rect x="533.4" y="620.5" width="174.4" height="33" rx="10" fill="#24262a" stroke="#3a404d"/>
-<text x="545.4" y="642.0" font-size="14" fill="#88c0d0" font-weight="400" text-anchor="start" >vol 35%</text>
-<text x="620.2" y="642.0" font-size="14" fill="#616e88" font-weight="400" text-anchor="start" >mouse 80%</text>
-<rect x="395.4" y="620.5" width="132.0" height="33" rx="10" fill="#24262a" stroke="#3a404d"/>
-<circle cx="416.4" cy="637" r="5.5" fill="#a3be8c"/>
-<rect x="441.4" y="628" width="10" height="18" rx="4" fill="none" stroke="#88c0d0" stroke-width="1.4"/>
-<circle cx="446.4" cy="632" r="1.8" fill="#88c0d0"/>
-<circle cx="446.4" cy="637" r="1.8" fill="#88c0d0"/>
-<circle cx="446.4" cy="642" r="1.8" fill="#88c0d0"/>
-<circle cx="476.4" cy="637" r="5.5" fill="none" stroke="#616e88" stroke-width="1.6"/>
-<path d="M501.4,641 h10 l-1.6,-2 v-4 a3.4,3.4 0 0 0 -6.8,0 v4 z M504.9,643 h3" fill="none" stroke="#616e88" stroke-width="1.5" stroke-linejoin="round"/>
+<g class="a" style="animation-name:k9;" opacity="0">
+<rect x="846.8" y="620.5" width="261.2" height="33" rx="10" fill="rgba(40,42,46,.84)" stroke="rgba(76,86,106,.55)"/>
 </g>
-<rect x="1062" y="620.5" width="40" height="33" rx="10" fill="#24262a" stroke="#3a404d"/>
-<rect x="781.8" y="620.5" width="40" height="33" rx="10" fill="#24262a" stroke="#3a404d" class="a" style="animation-name:k10;" transform="translate(0.0,0)"/>
-<g class="a" style="animation-name:k11;transform-box:fill-box;transform-origin:right center" transform="translate(1082.0,0) scale(1.0000,1) translate(-1082.0,0)">
-<rect x="801.8" y="621" width="280.2" height="32" fill="#24262a"/>
-<rect x="801.8" y="620" width="280.2" height="1" fill="#3a404d"/>
-<rect x="801.8" y="653" width="280.2" height="1" fill="#3a404d"/>
+<g class="a" style="animation-name:k10;" opacity="0">
+<rect x="846.8" y="620.5" width="261.2" height="33" rx="10" fill="rgba(40,42,46,.84)" stroke="rgba(76,86,106,.55)"/>
 </g>
-<rect x="784.8" y="624" width="314.2" height="26" rx="7" fill="#88c0d0" fill-opacity=".18" class="a" style="animation-name:k12;" opacity="0"/>
-<g clip-path="url(#roll)">
+<g class="a" style="animation-name:k11;" opacity="0">
+<rect x="846.8" y="620.5" width="261.2" height="33" rx="10" fill="rgba(40,42,46,.84)" stroke="rgba(76,86,106,.55)"/>
+</g>
+<g class="a" style="animation-name:k12;" opacity="0">
+<rect x="846.8" y="620.5" width="261.2" height="33" rx="10" fill="rgba(40,42,46,.84)" stroke="rgba(76,86,106,.55)"/>
+</g>
 <g class="a" style="animation-name:k13;" opacity="0">
-<text x="796.0" y="642" font-size="14" fill="#b48ead"><tspan>free until 15:00</tspan><tspan fill="#b48ead">  Tue Nov 10  13:47</tspan></text>
+<rect x="846.8" y="620.5" width="261.2" height="33" rx="10" fill="rgba(40,42,46,.84)" stroke="rgba(76,86,106,.55)"/>
 </g>
 <g class="a" style="animation-name:k14;" opacity="0">
-<g fill="none" stroke="#88c0d0" stroke-width="1.6"><rect x="794.8" y="632.5" width="12" height="11" rx="2"/><path d="M794.8,636.5 h12 M797.8,631 v3 M803.8,631 v3"/></g>
-<text x="812.8" y="642" font-size="14" fill="#88c0d0"><tspan>Standup in 55m</tspan><tspan fill="#b48ead">  Tue Nov 10  14:05</tspan></text>
+<rect x="846.8" y="620.5" width="261.2" height="33" rx="10" fill="rgba(40,42,46,.84)" stroke="rgba(76,86,106,.55)"/>
 </g>
 <g class="a" style="animation-name:k15;" opacity="0">
-<g fill="none" stroke="#88c0d0" stroke-width="1.6"><rect x="794.8" y="632.5" width="12" height="11" rx="2"/><path d="M794.8,636.5 h12 M797.8,631 v3 M803.8,631 v3"/></g>
-<text x="812.8" y="642" font-size="14" fill="#88c0d0"><tspan>Standup in 41m</tspan><tspan fill="#b48ead">  Tue Nov 10  14:19</tspan></text>
+<rect x="832.4" y="620.5" width="275.6" height="33" rx="10" fill="rgba(40,42,46,.84)" stroke="rgba(76,86,106,.55)"/>
 </g>
-<g class="a" style="animation-name:k16;" opacity="1">
-<g fill="none" stroke="#88c0d0" stroke-width="1.6"><rect x="794.8" y="632.5" width="12" height="11" rx="2"/><path d="M794.8,636.5 h12 M797.8,631 v3 M803.8,631 v3"/></g>
-<text x="812.8" y="642" font-size="14" fill="#88c0d0"><tspan>Standup in 27m</tspan><tspan fill="#b48ead">  Tue Nov 10  14:33</tspan></text>
+<g class="a" style="animation-name:k16;" opacity="0">
+<rect x="825.2" y="620.5" width="282.8" height="33" rx="10" fill="rgba(40,42,46,.84)" stroke="rgba(76,86,106,.55)"/>
 </g>
 <g class="a" style="animation-name:k17;" opacity="0">
-<g fill="none" stroke="#a3be8c" stroke-width="1.6"><circle cx="826.0" cy="638.5" r="5.6"/><path d="M826.0,638.5 v-3.4 M824.0,631 h4"/></g>
-<text x="838.0" y="642" font-size="14" fill="#a3be8c"><tspan>Focus 25:00</tspan><tspan fill="#b48ead">  Tue Nov 10  14:33</tspan></text>
+<rect x="796.4" y="620.5" width="311.6" height="33" rx="10" fill="rgba(40,42,46,.84)" stroke="rgba(76,86,106,.55)"/>
 </g>
-<g class="a" style="animation-name:k18;" opacity="0">
-<g fill="none" stroke="#a3be8c" stroke-width="1.6"><circle cx="826.0" cy="638.5" r="5.6"/><path d="M826.0,638.5 v-3.4 M824.0,631 h4"/></g>
-<text x="838.0" y="642" font-size="14" fill="#a3be8c"><tspan>Focus 24:59</tspan><tspan fill="#b48ead">  Tue Nov 10  14:33</tspan></text>
-</g>
-<g class="a" style="animation-name:k19;" opacity="0">
-<g fill="none" stroke="#a3be8c" stroke-width="1.6"><circle cx="826.0" cy="638.5" r="5.6"/><path d="M826.0,638.5 v-3.4 M824.0,631 h4"/></g>
-<text x="838.0" y="642" font-size="14" fill="#a3be8c"><tspan>Focus 24:58</tspan><tspan fill="#b48ead">  Tue Nov 10  14:33</tspan></text>
-</g>
+<rect x="826.2" y="621.5" width="280.8" height="31" rx="9" fill="rgba(129,161,193,.18)" class="a" style="animation-name:k18;" opacity="0"/>
+<rect x="826.2" y="621.5" width="280.8" height="31" rx="9" fill="rgba(129,161,193,.18)" class="a" style="animation-name:k19;" opacity="0"/>
+<g clip-path="url(#roll)">
 <g class="a" style="animation-name:k20;" opacity="0">
-<g fill="none" stroke="#a3be8c" stroke-width="1.6"><circle cx="826.0" cy="638.5" r="5.6"/><path d="M826.0,638.5 v-3.4 M824.0,631 h4"/></g>
-<text x="838.0" y="642" font-size="14" fill="#a3be8c"><tspan>Focus 24:57</tspan><tspan fill="#b48ead">  Tue Nov 10  14:33</tspan></text>
+<text x="843.0" y="641.3" font-size="12" fill="#b48ead"><tspan>free until 15:00</tspan><tspan fill="#b48ead">  Tue Nov 10  13:47</tspan></text>
 </g>
 <g class="a" style="animation-name:k21;" opacity="0">
-<g fill="none" stroke="#a3be8c" stroke-width="1.6"><circle cx="826.0" cy="638.5" r="5.6"/><path d="M826.0,638.5 v-3.4 M824.0,631 h4"/></g>
-<text x="838.0" y="642" font-size="14" fill="#a3be8c"><tspan>Focus 24:56</tspan><tspan fill="#b48ead">  Tue Nov 10  14:33</tspan></text>
+<g><g fill="none" stroke="#88c0d0" stroke-width="1.5" stroke-linecap="round"><rect x="838.7" y="632.5" width="11" height="10" rx="1.8"/><path d="M838.7,636.0 h11 M841.4000000000001,630.5 v3 M847.0,630.5 v3"/></g></g>
+<text x="857.4" y="641.3" font-size="12" fill="#88c0d0"><tspan>Standup in 55m</tspan><tspan fill="#b48ead">  Tue Nov 10  14:05</tspan></text>
 </g>
 <g class="a" style="animation-name:k22;" opacity="0">
-<g fill="none" stroke="#a3be8c" stroke-width="1.6"><circle cx="826.0" cy="638.5" r="5.6"/><path d="M826.0,638.5 v-3.4 M824.0,631 h4"/></g>
-<text x="838.0" y="642" font-size="14" fill="#a3be8c"><tspan>Focus 16:12</tspan><tspan fill="#b48ead">  Tue Nov 10  14:41</tspan></text>
+<g><g fill="none" stroke="#88c0d0" stroke-width="1.5" stroke-linecap="round"><rect x="838.7" y="632.5" width="11" height="10" rx="1.8"/><path d="M838.7,636.0 h11 M841.4000000000001,630.5 v3 M847.0,630.5 v3"/></g></g>
+<text x="857.4" y="641.3" font-size="12" fill="#88c0d0"><tspan>Standup in 41m</tspan><tspan fill="#b48ead">  Tue Nov 10  14:19</tspan></text>
 </g>
-<g class="a" style="animation-name:k23;" opacity="0">
-<g fill="none" stroke="#a3be8c" stroke-width="1.6"><circle cx="826.0" cy="638.5" r="5.6"/><path d="M826.0,638.5 v-3.4 M824.0,631 h4"/></g>
-<text x="838.0" y="642" font-size="14" fill="#a3be8c"><tspan>Focus 07:30</tspan><tspan fill="#b48ead">  Tue Nov 10  14:50</tspan></text>
+<g class="a" style="animation-name:k23;" opacity="1">
+<g><g fill="none" stroke="#88c0d0" stroke-width="1.5" stroke-linecap="round"><rect x="838.7" y="632.5" width="11" height="10" rx="1.8"/><path d="M838.7,636.0 h11 M841.4000000000001,630.5 v3 M847.0,630.5 v3"/></g></g>
+<text x="857.4" y="641.3" font-size="12" fill="#88c0d0"><tspan>Standup in 27m</tspan><tspan fill="#b48ead">  Tue Nov 10  14:33</tspan></text>
 </g>
 <g class="a" style="animation-name:k24;" opacity="0">
-<g fill="none" stroke="#ebcb8b" stroke-width="1.6"><rect x="803.2" y="632.5" width="12" height="11" rx="2"/><path d="M803.2,636.5 h12 M806.2,631 v3 M812.2,631 v3"/></g>
-<text x="821.2" y="642" font-size="14" fill="#ebcb8b"><tspan>Standup in 2m</tspan><tspan fill="#b48ead">  Tue Nov 10  14:58</tspan></text>
+<g><g fill="none" stroke="#a3be8c" stroke-width="1.5" stroke-linecap="round"><circle cx="865.8" cy="638.0" r="5.3"/><path d="M865.8,638.0 v-3 M863.8,631.0 h4"/></g></g>
+<text x="879.0" y="641.3" font-size="12" fill="#a3be8c"><tspan>Focus 25:00</tspan><tspan fill="#b48ead">  Tue Nov 10  14:33</tspan></text>
 </g>
 <g class="a" style="animation-name:k25;" opacity="0">
-<g class="now" fill="#bf616a" stroke="none"><rect x="793.8" y="633.5" width="10" height="9" rx="2"/><path d="M804.3,638 l4,-3.5 v7 z"/></g>
-<text x="812.8" y="642" font-size="14" fill="#bf616a"><tspan class="now">Standup · Join</tspan><tspan fill="#b48ead">  Tue Nov 10  15:00</tspan></text>
+<g><g fill="none" stroke="#a3be8c" stroke-width="1.5" stroke-linecap="round"><circle cx="865.8" cy="638.0" r="5.3"/><path d="M865.8,638.0 v-3 M863.8,631.0 h4"/></g></g>
+<text x="879.0" y="641.3" font-size="12" fill="#a3be8c"><tspan>Focus 24:59</tspan><tspan fill="#b48ead">  Tue Nov 10  14:33</tspan></text>
 </g>
+<g class="a" style="animation-name:k26;" opacity="0">
+<g><g fill="none" stroke="#a3be8c" stroke-width="1.5" stroke-linecap="round"><circle cx="865.8" cy="638.0" r="5.3"/><path d="M865.8,638.0 v-3 M863.8,631.0 h4"/></g></g>
+<text x="879.0" y="641.3" font-size="12" fill="#a3be8c"><tspan>Focus 24:58</tspan><tspan fill="#b48ead">  Tue Nov 10  14:33</tspan></text>
 </g>
-<g class="a" style="animation-name:k26,k27;transform-origin:941.9px 637.0px"><g transform="translate(721.9,66.0)">
-<rect width="440" height="546" rx="16" fill="#1e2024" stroke="#41464e" filter="url(#shadow)"/>
-<g class="a" style="animation-name:k28;">
-<g class="a" style="animation-name:k29;" opacity="1">
-<circle cx="19" cy="31" r="4.5" fill="#88c0d0"/>
-<rect x="355.2" y="21" width="70.8" height="20" rx="10" fill="#88c0d0" fill-opacity=".15"/>
-<text x="390.6" y="35.0" font-size="11" fill="#88c0d0" font-weight="700" text-anchor="middle" >next 27m</text>
+<g class="a" style="animation-name:k27;" opacity="0">
+<g><g fill="none" stroke="#a3be8c" stroke-width="1.5" stroke-linecap="round"><circle cx="865.8" cy="638.0" r="5.3"/><path d="M865.8,638.0 v-3 M863.8,631.0 h4"/></g></g>
+<text x="879.0" y="641.3" font-size="12" fill="#a3be8c"><tspan>Focus 24:57</tspan><tspan fill="#b48ead">  Tue Nov 10  14:33</tspan></text>
+</g>
+<g class="a" style="animation-name:k28;" opacity="0">
+<g><g fill="none" stroke="#a3be8c" stroke-width="1.5" stroke-linecap="round"><circle cx="865.8" cy="638.0" r="5.3"/><path d="M865.8,638.0 v-3 M863.8,631.0 h4"/></g></g>
+<text x="879.0" y="641.3" font-size="12" fill="#a3be8c"><tspan>Focus 16:12</tspan><tspan fill="#b48ead">  Tue Nov 10  14:41</tspan></text>
+</g>
+<g class="a" style="animation-name:k29;" opacity="0">
+<g><g fill="none" stroke="#a3be8c" stroke-width="1.5" stroke-linecap="round"><circle cx="865.8" cy="638.0" r="5.3"/><path d="M865.8,638.0 v-3 M863.8,631.0 h4"/></g></g>
+<text x="879.0" y="641.3" font-size="12" fill="#a3be8c"><tspan>Focus 07:30</tspan><tspan fill="#b48ead">  Tue Nov 10  14:50</tspan></text>
 </g>
 <g class="a" style="animation-name:k30;" opacity="0">
-<circle cx="19" cy="31" r="4.5" fill="#a3be8c"/>
-<rect x="375.0" y="21" width="51.0" height="20" rx="10" fill="#a3be8c" fill-opacity=".15"/>
-<text x="400.5" y="35.0" font-size="11" fill="#a3be8c" font-weight="700" text-anchor="middle" >focus</text>
+<g><g fill="none" stroke="#ebcb8b" stroke-width="1.5" stroke-linecap="round"><rect x="845.9" y="632.5" width="11" height="10" rx="1.8"/><path d="M845.9,636.0 h11 M848.6,630.5 v3 M854.1999999999999,630.5 v3"/></g></g>
+<text x="864.6" y="641.3" font-size="12" fill="#ebcb8b"><tspan>Standup in 2m</tspan><tspan fill="#b48ead">  Tue Nov 10  14:58</tspan></text>
 </g>
-<text x="34.0" y="28.0" font-size="12" fill="#c5c8c6" font-weight="700" text-anchor="start" letter-spacing="2">TIMETABLE</text>
-<text x="34.0" y="45.0" font-size="11" fill="#7c838e" font-weight="400" text-anchor="start" >Tue Nov 10 · 5 events · refreshed 2 min ago</text>
+<g class="a" style="animation-name:k31;" opacity="0">
+<g class="now"><g fill="#bf616a"><rect x="837.7" y="632.5" width="9" height="9" rx="2"/><path d="M847.2,636.0 L850.7,633.2 V640.8 L847.2,638.0 Z"/></g></g>
+<text x="857.4" y="641.3" font-size="12" fill="#bf616a"><tspan class="now">Standup · Join</tspan><tspan fill="#b48ead">  Tue Nov 10  15:00</tspan></text>
 </g>
-<g class="a" style="animation-name:k31;">
-<rect x="14.0" y="57" width="133.3" height="54" rx="10" fill="#26282c" stroke="#313338"/>
-<text x="24.0" y="75.0" font-size="10" fill="#7c838e" font-weight="700" text-anchor="start" letter-spacing="1">CHICAGO</text>
-<text x="137.3" y="75.0" font-size="10" fill="#7c838e" font-weight="700" text-anchor="end" letter-spacing="1">CST</text>
-<text x="24.0" y="101.0" font-size="20" fill="#b48ead" font-weight="700" text-anchor="start" >14:33</text>
+<g class="a" style="animation-name:k32;" opacity="0">
+<g><g fill="#88c0d0"><circle cx="815.4" cy="634.5" r="2.4"/><path d="M811.4,642.0 a4,3.6 0 0 1 8,0 Z"/><circle cx="810.4" cy="636.0" r="1.8" opacity=".75"/><circle cx="820.4" cy="636.0" r="1.8" opacity=".75"/><path d="M807.4,642.0 a3,2.8 0 0 1 4.5,-2.4 M823.4,642.0 a3,2.8 0 0 0 -4.5,-2.4" fill="none" stroke="#88c0d0" stroke-width="1.4" opacity=".75"/></g></g>
+<text x="828.6" y="641.3" font-size="12" fill="#88c0d0"><tspan>Standup · 15m left</tspan><tspan fill="#b48ead">  Tue Nov 10  15:00</tspan></text>
 </g>
-<g class="a" style="animation-name:k32;">
-<rect x="153.3" y="57" width="133.3" height="54" rx="10" fill="#26282c" stroke="#313338"/>
-<text x="163.3" y="75.0" font-size="10" fill="#7c838e" font-weight="700" text-anchor="start" letter-spacing="1">EET</text>
-<text x="276.7" y="75.0" font-size="10" fill="#7c838e" font-weight="700" text-anchor="end" letter-spacing="1">+8h</text>
-<text x="163.3" y="101.0" font-size="20" fill="#c5c8c6" font-weight="700" text-anchor="start" >22:33</text>
 </g>
-<g class="a" style="animation-name:k33;">
-<rect x="292.7" y="57" width="133.3" height="54" rx="10" fill="#26282c" stroke="#313338"/>
-<text x="302.7" y="75.0" font-size="10" fill="#7c838e" font-weight="700" text-anchor="start" letter-spacing="1">GMT</text>
-<text x="416.0" y="75.0" font-size="10" fill="#7c838e" font-weight="700" text-anchor="end" letter-spacing="1">+6h</text>
-<text x="302.7" y="101.0" font-size="20" fill="#c5c8c6" font-weight="700" text-anchor="start" >20:33</text>
-</g>
-<g class="a" style="animation-name:k34;">
-<rect x="14.0" y="122" width="412.0" height="106" rx="10" fill="#26282c" stroke="#313338"/>
-<text x="24.0" y="141.0" font-size="10" fill="#7c838e" font-weight="700" text-anchor="start" letter-spacing="1">NEXT</text>
-<text x="416.0" y="141.0" font-size="10" fill="#7c838e" font-weight="700" text-anchor="end" letter-spacing="1">ZOOM</text>
-<text x="24.0" y="163.0" font-size="15" fill="#c5c8c6" font-weight="700" text-anchor="start" >Standup</text>
-<text x="24.0" y="182.0" font-size="11.5" fill="#7c838e" font-weight="400" text-anchor="start" >15:00 to 15:15 · in 27m</text>
-<rect x="24.0" y="192" width="158.8" height="26" rx="8" fill="#26282c" stroke="#313338"/>
-<text x="103.4" y="209.0" font-size="12" fill="#c5c8c6" font-weight="400" text-anchor="middle" >Join on workspace 2</text>
-<rect x="188.8" y="192" width="86.8" height="26" rx="8" fill="#26282c" stroke="#313338"/>
-<text x="232.2" y="209.0" font-size="12" fill="#c5c8c6" font-weight="400" text-anchor="middle" >Copy link</text>
-</g>
-<g class="a" style="animation-name:k35;">
-<text x="14.0" y="249.0" font-size="10" fill="#7c838e" font-weight="700" text-anchor="start" letter-spacing="1">TODAY</text>
-<text x="426.0" y="249.0" font-size="10" fill="#7c838e" font-weight="700" text-anchor="end" letter-spacing="1">08:00 TO 18:00 · 6H 45M FREE</text>
-<rect x="14" y="256" width="412" height="58" rx="8" fill="#15171a"/>
-<text x="15.0" y="305.0" font-size="9" fill="#7c838e" font-weight="400" text-anchor="start" >8</text>
-<text x="93.4" y="305.0" font-size="9" fill="#7c838e" font-weight="400" text-anchor="start" >10</text>
-<text x="175.8" y="305.0" font-size="9" fill="#7c838e" font-weight="400" text-anchor="start" >12</text>
-<text x="258.2" y="305.0" font-size="9" fill="#7c838e" font-weight="400" text-anchor="start" >14</text>
-<text x="340.6" y="305.0" font-size="9" fill="#7c838e" font-weight="400" text-anchor="start" >16</text>
-<text x="414.0" y="305.0" font-size="9" fill="#7c838e" font-weight="400" text-anchor="start" >18</text>
-</g>
+<g class="a" style="animation-name:k33,k34;transform-origin:966.6px 637.0px">
+<g class="a" style="animation-name:k35;" opacity="1">
+<g transform="translate(470.0,76.0)"><rect width="720" height="536" rx="16" fill="#1e2024" stroke="#41464e" filter="url(#tt-shadow)"/></g></g>
 <g class="a" style="animation-name:k36;" opacity="1">
-<rect x="15.0" y="262" width="59.8" height="28" rx="4" fill="none" stroke="#7c838e" stroke-opacity=".7" stroke-dasharray="3 2"/>
-</g>
+<g transform="translate(470.0,76.0)"><circle cx="19" cy="29" r="4.5" fill="#88c0d0"/><text x="34.0" y="27.0" font-size="12" fill="#c5c8c6" font-weight="700" text-anchor="start" letter-spacing="2">TIMETABLE</text><text x="34.0" y="42.0" font-size="11" fill="#7c838e" font-weight="400" text-anchor="start">Tue Nov 10 · 6 events · refreshed 2 min ago</text><rect x="635.2" y="20" width="70.8" height="19" rx="9.5" fill="#88c0d0" fill-opacity=".15"/><text x="670.6" y="33.5" font-size="11" fill="#88c0d0" font-weight="700" text-anchor="middle">next 27m</text></g></g>
 <g class="a" style="animation-name:k37;" opacity="1">
-<rect x="97.4" y="262" width="39.2" height="28" rx="4" fill="none" stroke="#7c838e" stroke-opacity=".7" stroke-dasharray="3 2"/>
-</g>
+<g transform="translate(470.0,76.0)"><rect x="14.0" y="56.0" width="226.7" height="54" rx="10" fill="#26282c" stroke="#313338"/><text x="24.0" y="75.0" font-size="10" fill="#7c838e" font-weight="700" text-anchor="start" letter-spacing="1">CHICAGO</text><text x="230.7" y="75.0" font-size="10" fill="#7c838e" font-weight="700" text-anchor="end" letter-spacing="1">CST</text><text x="24.0" y="101.0" font-size="20" fill="#b48ead" font-weight="700" text-anchor="start">14:33</text><rect x="246.7" y="56.0" width="226.7" height="54" rx="10" fill="#26282c" stroke="#313338"/><text x="256.7" y="75.0" font-size="10" fill="#7c838e" font-weight="700" text-anchor="start" letter-spacing="1">EET</text><text x="463.3" y="75.0" font-size="10" fill="#7c838e" font-weight="700" text-anchor="end" letter-spacing="1">+8h</text><text x="256.7" y="101.0" font-size="20" fill="#c5c8c6" font-weight="700" text-anchor="start">22:33</text><rect x="479.3" y="56.0" width="226.7" height="54" rx="10" fill="#26282c" stroke="#313338"/><text x="489.3" y="75.0" font-size="10" fill="#7c838e" font-weight="700" text-anchor="start" letter-spacing="1">GMT</text><text x="696.0" y="75.0" font-size="10" fill="#7c838e" font-weight="700" text-anchor="end" letter-spacing="1">+6h</text><text x="489.3" y="101.0" font-size="20" fill="#c5c8c6" font-weight="700" text-anchor="start">20:33</text></g></g>
 <g class="a" style="animation-name:k38;" opacity="1">
-<rect x="179.8" y="262" width="39.2" height="28" rx="4" fill="none" stroke="#7c838e" stroke-opacity=".7" stroke-dasharray="3 2"/>
-</g>
+<g transform="translate(470.0,76.0)"><rect x="14.0" y="122.0" width="692.0" height="104" rx="10" fill="#26282c" stroke="#313338"/><text x="24.0" y="142.0" font-size="10" fill="#7c838e" font-weight="700" text-anchor="start" letter-spacing="1">NEXT</text><text x="696.0" y="142.0" font-size="10" fill="#7c838e" font-weight="700" text-anchor="end" letter-spacing="1">ZOOM</text><text x="24.0" y="164.0" font-size="15" fill="#c5c8c6" font-weight="700" text-anchor="start">Standup</text><text x="24.0" y="182.0" font-size="11.5" fill="#7c838e" font-weight="400" text-anchor="start">15:00 to 15:15 · in 27m</text><g><rect x="24.0" y="191.0" width="160.8" height="26" rx="8" fill="#26282c" stroke="#313338"/><text x="104.4" y="208.3" font-size="12" fill="#c5c8c6" font-weight="400" text-anchor="middle">Join on workspace 2</text></g><g><rect x="190.8" y="191.0" width="88.8" height="26" rx="8" fill="#26282c" stroke="#313338"/><text x="235.2" y="208.3" font-size="12" fill="#c5c8c6" font-weight="400" text-anchor="middle">Copy link</text></g></g></g>
 <g class="a" style="animation-name:k39;" opacity="1">
-<rect x="241.6" y="262" width="59.8" height="28" rx="4" fill="none" stroke="#7c838e" stroke-opacity=".7" stroke-dasharray="3 2"/>
-</g>
-<g class="a" style="animation-name:k40;" opacity="0">
-<rect x="241.6" y="262" width="59.8" height="28" rx="4" fill="#a3be8c" fill-opacity=".1" stroke="#a3be8c" stroke-dasharray="3 2"/>
-</g>
+<g transform="translate(470.0,76.0)"><g><rect x="14.0" y="238.0" width="25.2" height="22" rx="8" fill="#26282c" stroke="#313338"/><text x="26.6" y="253.3" font-size="12" fill="#c5c8c6" font-weight="400" text-anchor="middle">‹</text></g><g><rect x="43.2" y="238.0" width="25.2" height="22" rx="8" fill="#26282c" stroke="#313338"/><text x="55.8" y="253.3" font-size="12" fill="#c5c8c6" font-weight="400" text-anchor="middle">›</text></g><text x="74.4" y="253.0" font-size="10" fill="#7c838e" font-weight="700" text-anchor="start" letter-spacing="1">TODAY</text><g><rect x="635.6" y="238.0" width="70.4" height="22" rx="8" fill="#26282c" stroke="#313338"/><text x="670.8" y="252.8" font-size="10.5" fill="#c5c8c6" font-weight="400" text-anchor="middle">Timeline</text></g><text x="629.6" y="253.0" font-size="10" fill="#7c838e" font-weight="700" text-anchor="end" letter-spacing="1">08:00 TO 18:00 · 2H 12M FREE LEFT</text><rect x="14" y="266" width="692" height="57" rx="8" fill="#15171a"/><rect x="13.5" y="279" width="1" height="28" fill="#7c838e" fill-opacity=".14"/><text x="14.0" y="318.0" font-size="9" fill="#7c838e" font-weight="400" text-anchor="middle">8</text><rect x="82.7" y="279" width="1" height="28" fill="#7c838e" fill-opacity=".14"/><text x="83.2" y="318.0" font-size="9" fill="#7c838e" font-weight="400" text-anchor="middle">9</text><rect x="151.9" y="279" width="1" height="28" fill="#7c838e" fill-opacity=".14"/><text x="152.4" y="318.0" font-size="9" fill="#7c838e" font-weight="400" text-anchor="middle">10</text><rect x="221.1" y="279" width="1" height="28" fill="#7c838e" fill-opacity=".14"/><text x="221.6" y="318.0" font-size="9" fill="#7c838e" font-weight="400" text-anchor="middle">11</text><rect x="290.3" y="279" width="1" height="28" fill="#7c838e" fill-opacity=".14"/><text x="290.8" y="318.0" font-size="9" fill="#7c838e" font-weight="400" text-anchor="middle">12</text><rect x="359.5" y="279" width="1" height="28" fill="#7c838e" fill-opacity=".14"/><text x="360.0" y="318.0" font-size="9" fill="#7c838e" font-weight="400" text-anchor="middle">13</text><rect x="428.7" y="279" width="1" height="28" fill="#7c838e" fill-opacity=".14"/><text x="429.2" y="318.0" font-size="9" fill="#7c838e" font-weight="400" text-anchor="middle">14</text><rect x="497.9" y="279" width="1" height="28" fill="#7c838e" fill-opacity=".14"/><text x="498.4" y="318.0" font-size="9" fill="#7c838e" font-weight="400" text-anchor="middle">15</text><rect x="567.1" y="279" width="1" height="28" fill="#7c838e" fill-opacity=".14"/><text x="567.6" y="318.0" font-size="9" fill="#7c838e" font-weight="400" text-anchor="middle">16</text><rect x="636.3" y="279" width="1" height="28" fill="#7c838e" fill-opacity=".14"/><text x="636.8" y="318.0" font-size="9" fill="#7c838e" font-weight="400" text-anchor="middle">17</text><rect x="705.5" y="279" width="1" height="28" fill="#7c838e" fill-opacity=".14"/><text x="706.0" y="318.0" font-size="9" fill="#7c838e" font-weight="400" text-anchor="middle">18</text><rect x="468.3" y="281.5" width="29.1" height="23" rx="4" fill="none" stroke="#7c838e" stroke-opacity=".7" stroke-dasharray="3 2"/><text x="473.3" y="296.5" font-size="9.5" fill="#a3be8c" font-weight="400" text-anchor="start" fill-opacity=".85">27…</text><rect x="516.7" y="281.5" width="49.9" height="23" rx="4" fill="none" stroke="#7c838e" stroke-opacity=".7" stroke-dasharray="3 2"/><text x="521.7" y="296.5" font-size="9.5" fill="#a3be8c" font-weight="400" text-anchor="start" fill-opacity=".85">45m f…</text><rect x="637.8" y="281.5" width="67.2" height="23" rx="4" fill="none" stroke="#7c838e" stroke-opacity=".7" stroke-dasharray="3 2"/><text x="642.8" y="296.5" font-size="9.5" fill="#a3be8c" font-weight="400" text-anchor="start" fill-opacity=".85">1h 00m fr…</text><rect x="117.8" y="281.0" width="33.6" height="24.0" rx="4" fill="#88c0d0" fill-opacity=".14"/><text x="122.8" y="296.5" font-size="10" fill="#7c838e" font-weight="400" text-anchor="start">Pl…</text><rect x="221.6" y="281.0" width="68.2" height="24.0" rx="4" fill="#88c0d0" fill-opacity=".14"/><text x="226.6" y="296.5" font-size="10" fill="#7c838e" font-weight="400" text-anchor="start">Design s…</text><rect x="290.8" y="281.0" width="68.2" height="24.0" rx="4" fill="#a3be8c" fill-opacity=".08"/><text x="295.8" y="296.5" font-size="10" fill="#7c838e" font-weight="400" text-anchor="start">Lunch</text><rect x="360.0" y="281.0" width="33.6" height="24.0" rx="4" fill="#88c0d0" fill-opacity=".14"/><text x="365.0" y="296.5" font-size="10" fill="#7c838e" font-weight="400" text-anchor="start">Co…</text><rect x="498.4" y="281.0" width="16.3" height="24.0" rx="4" fill="#ebcb8b" fill-opacity="1"/><rect x="567.6" y="281.0" width="68.2" height="24.0" rx="4" fill="#88c0d0" fill-opacity=".32"/><text x="572.6" y="296.5" font-size="10" fill="#c5c8c6" font-weight="400" text-anchor="start">Sprint r…</text><rect x="466.3" y="278" width="2" height="30" fill="#bf616a"/><rect x="450.8" y="266" width="33.0" height="13" rx="3" fill="#bf616a"/><text x="467.3" y="276.0" font-size="9" fill="#15171a" font-weight="700" text-anchor="middle">14:33</text><text x="14.0" y="342.5" font-size="13" fill="#555b64" font-weight="400" text-anchor="start">13:00 to 13:30</text><text x="133.2" y="342.5" font-size="13" fill="#555b64" font-weight="400" text-anchor="start">Code review</text><text x="706.0" y="342.5" font-size="11" fill="#7c838e" font-weight="400" text-anchor="end">Google Meet</text><text x="14.0" y="361.5" font-size="13" fill="#7c838e" font-weight="400" text-anchor="start">15:00 to 15:15</text><text x="133.2" y="361.5" font-size="13" fill="#c5c8c6" font-weight="400" text-anchor="start">Standup</text><text x="706.0" y="361.5" font-size="11" fill="#7c838e" font-weight="400" text-anchor="end">Zoom</text><text x="14.0" y="380.5" font-size="13" fill="#7c838e" font-weight="400" text-anchor="start">16:00 to 17:00</text><text x="133.2" y="380.5" font-size="13" fill="#c5c8c6" font-weight="400" text-anchor="start">Sprint review</text><text x="706.0" y="380.5" font-size="11" fill="#7c838e" font-weight="400" text-anchor="end">Google Meet</text></g></g>
+<g class="a" style="animation-name:k40;" opacity="1">
+<g transform="translate(470.0,76.0)"><rect x="14.0" y="396.0" width="692.0" height="86" rx="10" fill="#26282c" stroke="#313338"/><text x="24.0" y="416.0" font-size="10" fill="#7c838e" font-weight="700" text-anchor="start" letter-spacing="1">FOCUS</text><text x="696.0" y="416.0" font-size="10" fill="#7c838e" font-weight="700" text-anchor="end" letter-spacing="1">25 MIN</text><text x="24.0" y="437.0" font-size="13" fill="#c5c8c6" font-weight="400" text-anchor="start">Free until 15:00: 25 min of focus, warned at 14:58.</text><g><rect x="24.0" y="446.0" width="146.4" height="26" rx="8" fill="#26282c" stroke="#313338"/><text x="97.2" y="463.3" font-size="12" fill="#c5c8c6" font-weight="400" text-anchor="middle">Start focus block</text></g></g></g>
 <g class="a" style="animation-name:k41;" opacity="1">
-<rect x="313.7" y="262" width="28.9" height="28" rx="4" fill="none" stroke="#7c838e" stroke-opacity=".7" stroke-dasharray="3 2"/>
-</g>
-<g class="a" style="animation-name:k42;" opacity="1">
-<rect x="385.8" y="262" width="39.2" height="28" rx="4" fill="none" stroke="#7c838e" stroke-opacity=".7" stroke-dasharray="3 2"/>
-</g>
-<g class="a" style="animation-name:k43;transform-box:fill-box;transform-origin:center">
-<rect x="75.8" y="262" width="19.6" height="28" rx="4" fill="#88c0d0" fill-opacity=".14"/>
-</g>
-<g class="a" style="animation-name:k44;transform-box:fill-box;transform-origin:center">
-<rect x="137.6" y="262" width="40.2" height="28" rx="4" fill="#88c0d0" fill-opacity=".14"/>
-<text x="141.6" y="280.0" font-size="9.5" fill="#7c838e" font-weight="400" text-anchor="start" >Desi…</text>
-</g>
-<g class="a" style="animation-name:k45;transform-box:fill-box;transform-origin:center">
-<rect x="220.0" y="262" width="19.6" height="28" rx="4" fill="#88c0d0" fill-opacity=".14"/>
-</g>
-<g class="a" style="animation-name:k46;transform-box:fill-box;transform-origin:center">
-<rect x="302.4" y="262" width="9.3" height="28" rx="4" fill="#ebcb8b" fill-opacity="1"/>
-</g>
-<g class="a" style="animation-name:k47;transform-box:fill-box;transform-origin:center">
-<rect x="343.6" y="262" width="40.2" height="28" rx="4" fill="#88c0d0" fill-opacity=".32"/>
-<text x="347.6" y="280.0" font-size="9.5" fill="#c5c8c6" font-weight="400" text-anchor="start" >Spri…</text>
-</g>
-<rect x="282.9" y="258" width="2" height="36" fill="#bf616a" class="a" style="animation-name:k48;"/>
-<g class="a" style="animation-name:k49;">
-<text x="14.0" y="332.0" font-size="12" fill="#555b64" font-weight="400" text-anchor="start" >13:00 to 13:30</text>
-<text x="124.8" y="332.0" font-size="12" fill="#555b64" font-weight="400" text-anchor="start" >Code review</text>
-<text x="426.0" y="332.0" font-size="11" fill="#7c838e" font-weight="400" text-anchor="end" ></text>
-<text x="14.0" y="351.0" font-size="12" fill="#7c838e" font-weight="400" text-anchor="start" >15:00 to 15:15</text>
-<text x="124.8" y="351.0" font-size="12" fill="#c5c8c6" font-weight="400" text-anchor="start" >Standup</text>
-<text x="426.0" y="351.0" font-size="11" fill="#7c838e" font-weight="400" text-anchor="end" >Zoom</text>
-<text x="14.0" y="370.0" font-size="12" fill="#7c838e" font-weight="400" text-anchor="start" >16:00 to 17:00</text>
-<text x="124.8" y="370.0" font-size="12" fill="#c5c8c6" font-weight="400" text-anchor="start" >Sprint review</text>
-<text x="426.0" y="370.0" font-size="11" fill="#7c838e" font-weight="400" text-anchor="end" >Google Meet</text>
-</g>
-<g class="a" style="animation-name:k50;">
-<g class="a" style="animation-name:k51;" opacity="1">
-<rect x="14.0" y="386" width="412.0" height="108" rx="10" fill="#26282c" stroke="#313338"/>
-<text x="24.0" y="405.0" font-size="10" fill="#7c838e" font-weight="700" text-anchor="start" letter-spacing="1">FOCUS</text>
-<text x="416.0" y="405.0" font-size="10" fill="#7c838e" font-weight="700" text-anchor="end" letter-spacing="1">25 MIN</text>
-<text x="24.0" y="426.0" font-size="12.5" fill="#c5c8c6" font-weight="400" text-anchor="start" >Free until 15:00: 25 min of focus, warned at</text>
-<text x="24.0" y="443.0" font-size="12.5" fill="#c5c8c6" font-weight="400" text-anchor="start" >14:58.</text>
-<rect x="24.0" y="456" width="144.4" height="26" rx="8" fill="#26282c" stroke="#313338"/>
-<text x="96.2" y="473.0" font-size="12" fill="#c5c8c6" font-weight="400" text-anchor="middle" >Start focus block</text>
-</g>
+<g transform="translate(470.0,76.0)"><text x="14.0" y="505.0" font-size="10.5" fill="#7c838e" font-weight="400" text-anchor="start">Esc close · j join · e edit · f focus · v view · ← → days · r refresh · right-click the clock for</text><text x="14.0" y="519.0" font-size="10.5" fill="#7c838e" font-weight="400" text-anchor="start">gnome-calendar</text></g></g>
+<g class="a" style="animation-name:k42;" opacity="0">
+<g transform="translate(470.0,57.0)"><rect width="720" height="555" rx="16" fill="#1e2024" stroke="#41464e" filter="url(#tt-shadow)"/></g></g>
+<g class="a" style="animation-name:k43;" opacity="0">
+<g transform="translate(470.0,57.0)"><circle cx="19" cy="29" r="4.5" fill="#88c0d0"/><text x="34.0" y="27.0" font-size="12" fill="#c5c8c6" font-weight="700" text-anchor="start" letter-spacing="2">TIMETABLE</text><text x="34.0" y="42.0" font-size="11" fill="#7c838e" font-weight="400" text-anchor="start">Tue Nov 10 · 6 events · refreshed 2 min ago</text><rect x="635.2" y="20" width="70.8" height="19" rx="9.5" fill="#88c0d0" fill-opacity=".15"/><text x="670.6" y="33.5" font-size="11" fill="#88c0d0" font-weight="700" text-anchor="middle">next 27m</text></g></g>
+<g class="a" style="animation-name:k44;" opacity="0">
+<g transform="translate(470.0,57.0)"><rect x="14.0" y="56.0" width="226.7" height="54" rx="10" fill="#26282c" stroke="#313338"/><text x="24.0" y="75.0" font-size="10" fill="#7c838e" font-weight="700" text-anchor="start" letter-spacing="1">CHICAGO</text><text x="230.7" y="75.0" font-size="10" fill="#7c838e" font-weight="700" text-anchor="end" letter-spacing="1">CST</text><text x="24.0" y="101.0" font-size="20" fill="#b48ead" font-weight="700" text-anchor="start">14:33</text><rect x="246.7" y="56.0" width="226.7" height="54" rx="10" fill="#26282c" stroke="#313338"/><text x="256.7" y="75.0" font-size="10" fill="#7c838e" font-weight="700" text-anchor="start" letter-spacing="1">EET</text><text x="463.3" y="75.0" font-size="10" fill="#7c838e" font-weight="700" text-anchor="end" letter-spacing="1">+8h</text><text x="256.7" y="101.0" font-size="20" fill="#c5c8c6" font-weight="700" text-anchor="start">22:33</text><rect x="479.3" y="56.0" width="226.7" height="54" rx="10" fill="#26282c" stroke="#313338"/><text x="489.3" y="75.0" font-size="10" fill="#7c838e" font-weight="700" text-anchor="start" letter-spacing="1">GMT</text><text x="696.0" y="75.0" font-size="10" fill="#7c838e" font-weight="700" text-anchor="end" letter-spacing="1">+6h</text><text x="489.3" y="101.0" font-size="20" fill="#c5c8c6" font-weight="700" text-anchor="start">20:33</text></g></g>
+<g class="a" style="animation-name:k45;" opacity="0">
+<g transform="translate(470.0,57.0)"><rect x="14.0" y="122.0" width="692.0" height="104" rx="10" fill="#26282c" stroke="#313338"/><text x="24.0" y="142.0" font-size="10" fill="#7c838e" font-weight="700" text-anchor="start" letter-spacing="1">NEXT</text><text x="696.0" y="142.0" font-size="10" fill="#7c838e" font-weight="700" text-anchor="end" letter-spacing="1">ZOOM</text><text x="24.0" y="164.0" font-size="15" fill="#c5c8c6" font-weight="700" text-anchor="start">Standup</text><text x="24.0" y="182.0" font-size="11.5" fill="#7c838e" font-weight="400" text-anchor="start">15:00 to 15:15 · in 27m</text><g><rect x="24.0" y="191.0" width="160.8" height="26" rx="8" fill="#26282c" stroke="#313338"/><text x="104.4" y="208.3" font-size="12" fill="#c5c8c6" font-weight="400" text-anchor="middle">Join on workspace 2</text></g><g><rect x="190.8" y="191.0" width="88.8" height="26" rx="8" fill="#26282c" stroke="#313338"/><text x="235.2" y="208.3" font-size="12" fill="#c5c8c6" font-weight="400" text-anchor="middle">Copy link</text></g></g></g>
+<g class="a" style="animation-name:k46;" opacity="0">
+<g transform="translate(470.0,57.0)"><g><rect x="14.0" y="238.0" width="25.2" height="22" rx="8" fill="#26282c" stroke="#313338"/><text x="26.6" y="253.3" font-size="12" fill="#c5c8c6" font-weight="400" text-anchor="middle">‹</text></g><g><rect x="43.2" y="238.0" width="25.2" height="22" rx="8" fill="#26282c" stroke="#313338"/><text x="55.8" y="253.3" font-size="12" fill="#c5c8c6" font-weight="400" text-anchor="middle">›</text></g><text x="74.4" y="253.0" font-size="10" fill="#7c838e" font-weight="700" text-anchor="start" letter-spacing="1">TOMORROW</text><g><rect x="635.6" y="238.0" width="70.4" height="22" rx="8" fill="#26282c" stroke="#313338"/><text x="670.8" y="252.8" font-size="10.5" fill="#c5c8c6" font-weight="400" text-anchor="middle">Timeline</text></g><text x="629.6" y="253.0" font-size="10" fill="#7c838e" font-weight="700" text-anchor="end" letter-spacing="1">08:00 TO 18:00 · 8H 00M FREE</text><g><rect x="376.1" y="238.0" width="51.5" height="22" rx="8" fill="#26282c" stroke="#313338"/><text x="401.9" y="252.8" font-size="10.5" fill="#c5c8c6" font-weight="400" text-anchor="middle">Today</text></g><rect x="14" y="266" width="692" height="57" rx="8" fill="#15171a"/><rect x="13.5" y="279" width="1" height="28" fill="#7c838e" fill-opacity=".14"/><text x="14.0" y="318.0" font-size="9" fill="#7c838e" font-weight="400" text-anchor="middle">8</text><rect x="82.7" y="279" width="1" height="28" fill="#7c838e" fill-opacity=".14"/><text x="83.2" y="318.0" font-size="9" fill="#7c838e" font-weight="400" text-anchor="middle">9</text><rect x="151.9" y="279" width="1" height="28" fill="#7c838e" fill-opacity=".14"/><text x="152.4" y="318.0" font-size="9" fill="#7c838e" font-weight="400" text-anchor="middle">10</text><rect x="221.1" y="279" width="1" height="28" fill="#7c838e" fill-opacity=".14"/><text x="221.6" y="318.0" font-size="9" fill="#7c838e" font-weight="400" text-anchor="middle">11</text><rect x="290.3" y="279" width="1" height="28" fill="#7c838e" fill-opacity=".14"/><text x="290.8" y="318.0" font-size="9" fill="#7c838e" font-weight="400" text-anchor="middle">12</text><rect x="359.5" y="279" width="1" height="28" fill="#7c838e" fill-opacity=".14"/><text x="360.0" y="318.0" font-size="9" fill="#7c838e" font-weight="400" text-anchor="middle">13</text><rect x="428.7" y="279" width="1" height="28" fill="#7c838e" fill-opacity=".14"/><text x="429.2" y="318.0" font-size="9" fill="#7c838e" font-weight="400" text-anchor="middle">14</text><rect x="497.9" y="279" width="1" height="28" fill="#7c838e" fill-opacity=".14"/><text x="498.4" y="318.0" font-size="9" fill="#7c838e" font-weight="400" text-anchor="middle">15</text><rect x="567.1" y="279" width="1" height="28" fill="#7c838e" fill-opacity=".14"/><text x="567.6" y="318.0" font-size="9" fill="#7c838e" font-weight="400" text-anchor="middle">16</text><rect x="636.3" y="279" width="1" height="28" fill="#7c838e" fill-opacity=".14"/><text x="636.8" y="318.0" font-size="9" fill="#7c838e" font-weight="400" text-anchor="middle">17</text><rect x="705.5" y="279" width="1" height="28" fill="#7c838e" fill-opacity=".14"/><text x="706.0" y="318.0" font-size="9" fill="#7c838e" font-weight="400" text-anchor="middle">18</text><rect x="15.0" y="281.5" width="136.4" height="23" rx="4" fill="none" stroke="#7c838e" stroke-opacity=".7" stroke-dasharray="3 2"/><text x="20.0" y="296.5" font-size="9.5" fill="#a3be8c" font-weight="400" text-anchor="start" fill-opacity=".85">2h 00m free</text><rect x="222.6" y="281.5" width="274.8" height="23" rx="4" fill="none" stroke="#7c838e" stroke-opacity=".7" stroke-dasharray="3 2"/><text x="227.6" y="296.5" font-size="9.5" fill="#a3be8c" font-weight="400" text-anchor="start" fill-opacity=".85">4h 00m free</text><rect x="516.7" y="281.5" width="49.9" height="23" rx="4" fill="none" stroke="#7c838e" stroke-opacity=".7" stroke-dasharray="3 2"/><text x="521.7" y="296.5" font-size="9.5" fill="#a3be8c" font-weight="400" text-anchor="start" fill-opacity=".85">45m f…</text><rect x="620.5" y="281.5" width="84.5" height="23" rx="4" fill="none" stroke="#7c838e" stroke-opacity=".7" stroke-dasharray="3 2"/><text x="625.5" y="296.5" font-size="9.5" fill="#a3be8c" font-weight="400" text-anchor="start" fill-opacity=".85">1h 15m free</text><rect x="152.4" y="281.0" width="68.2" height="24.0" rx="4" fill="#88c0d0" fill-opacity=".32"/><rect x="152.9" y="281.5" width="67.2" height="23.0" rx="4" fill="none" stroke="#c5c8c6" stroke-opacity=".75" stroke-dasharray="3 2"/><text x="157.4" y="296.5" font-size="10" fill="#c5c8c6" font-weight="400" text-anchor="start" font-style="italic">Roadmap…</text><rect x="498.4" y="281.0" width="16.3" height="24.0" rx="4" fill="#88c0d0" fill-opacity=".32"/><rect x="567.6" y="281.0" width="50.9" height="24.0" rx="4" fill="#88c0d0" fill-opacity=".32"/><rect x="567.6" y="281.0" width="50.9" height="24.0" rx="4" fill="url(#tt-maybe)"/><text x="572.6" y="296.5" font-size="10" fill="#c5c8c6" font-weight="400" text-anchor="start" font-style="italic">Vendo…</text><text x="14.0" y="342.5" font-size="13" fill="#7c838e" font-weight="400" text-anchor="start">All day: Release freeze</text><text x="14.0" y="361.5" font-size="13" fill="#7c838e" font-weight="400" text-anchor="start">10:00 to 11:00</text><text x="133.2" y="361.5" font-size="13" fill="#7c838e" font-weight="400" text-anchor="start" font-style="italic">Roadmap review</text><text x="706.0" y="361.5" font-size="11" fill="#7c838e" font-weight="400" text-anchor="end">not answered · Google Meet</text><text x="14.0" y="380.5" font-size="13" fill="#7c838e" font-weight="400" text-anchor="start">15:00 to 15:15</text><text x="133.2" y="380.5" font-size="13" fill="#c5c8c6" font-weight="400" text-anchor="start">Standup</text><text x="706.0" y="380.5" font-size="11" fill="#7c838e" font-weight="400" text-anchor="end">Zoom</text><text x="14.0" y="399.5" font-size="13" fill="#7c838e" font-weight="400" text-anchor="start">16:00 to 16:45</text><text x="133.2" y="399.5" font-size="13" fill="#c5c8c6" font-weight="400" text-anchor="start" font-style="italic">Vendor demo</text><text x="706.0" y="399.5" font-size="11" fill="#7c838e" font-weight="400" text-anchor="end">maybe · Zoom</text></g></g>
+<g class="a" style="animation-name:k47;" opacity="0">
+<g transform="translate(470.0,57.0)"><rect x="14.0" y="415.0" width="692.0" height="86" rx="10" fill="#26282c" stroke="#313338"/><text x="24.0" y="435.0" font-size="10" fill="#7c838e" font-weight="700" text-anchor="start" letter-spacing="1">FOCUS</text><text x="696.0" y="435.0" font-size="10" fill="#7c838e" font-weight="700" text-anchor="end" letter-spacing="1">25 MIN</text><text x="24.0" y="456.0" font-size="13" fill="#c5c8c6" font-weight="400" text-anchor="start">Free until 15:00: 25 min of focus, warned at 14:58.</text><g><rect x="24.0" y="465.0" width="146.4" height="26" rx="8" fill="#26282c" stroke="#313338"/><text x="97.2" y="482.3" font-size="12" fill="#c5c8c6" font-weight="400" text-anchor="middle">Start focus block</text></g></g></g>
+<g class="a" style="animation-name:k48;" opacity="0">
+<g transform="translate(470.0,57.0)"><text x="14.0" y="524.0" font-size="10.5" fill="#7c838e" font-weight="400" text-anchor="start">Esc close · j join · e edit · f focus · v view · ← → days · r refresh · right-click the clock for</text><text x="14.0" y="538.0" font-size="10.5" fill="#7c838e" font-weight="400" text-anchor="start">gnome-calendar</text></g></g>
+<g class="a" style="animation-name:k49;" opacity="0">
+<g transform="translate(470.0,50.0)"><rect width="720" height="562" rx="16" fill="#1e2024" stroke="#41464e" filter="url(#tt-shadow)"/></g></g>
+<g class="a" style="animation-name:k50;" opacity="0">
+<g transform="translate(470.0,50.0)"><circle cx="19" cy="29" r="4.5" fill="#a3be8c"/><text x="34.0" y="27.0" font-size="12" fill="#c5c8c6" font-weight="700" text-anchor="start" letter-spacing="2">TIMETABLE</text><text x="34.0" y="42.0" font-size="11" fill="#7c838e" font-weight="400" text-anchor="start">Tue Nov 10 · 6 events · refreshed 2 min ago</text><rect x="655.0" y="20" width="51.0" height="19" rx="9.5" fill="#a3be8c" fill-opacity=".15"/><text x="680.5" y="33.5" font-size="11" fill="#a3be8c" font-weight="700" text-anchor="middle">focus</text></g></g>
+<g class="a" style="animation-name:k51;" opacity="0">
+<g transform="translate(470.0,50.0)"><rect x="14.0" y="56.0" width="226.7" height="54" rx="10" fill="#26282c" stroke="#313338"/><text x="24.0" y="75.0" font-size="10" fill="#7c838e" font-weight="700" text-anchor="start" letter-spacing="1">CHICAGO</text><text x="230.7" y="75.0" font-size="10" fill="#7c838e" font-weight="700" text-anchor="end" letter-spacing="1">CST</text><text x="24.0" y="101.0" font-size="20" fill="#b48ead" font-weight="700" text-anchor="start">14:33</text><rect x="246.7" y="56.0" width="226.7" height="54" rx="10" fill="#26282c" stroke="#313338"/><text x="256.7" y="75.0" font-size="10" fill="#7c838e" font-weight="700" text-anchor="start" letter-spacing="1">EET</text><text x="463.3" y="75.0" font-size="10" fill="#7c838e" font-weight="700" text-anchor="end" letter-spacing="1">+8h</text><text x="256.7" y="101.0" font-size="20" fill="#c5c8c6" font-weight="700" text-anchor="start">22:33</text><rect x="479.3" y="56.0" width="226.7" height="54" rx="10" fill="#26282c" stroke="#313338"/><text x="489.3" y="75.0" font-size="10" fill="#7c838e" font-weight="700" text-anchor="start" letter-spacing="1">GMT</text><text x="696.0" y="75.0" font-size="10" fill="#7c838e" font-weight="700" text-anchor="end" letter-spacing="1">+6h</text><text x="489.3" y="101.0" font-size="20" fill="#c5c8c6" font-weight="700" text-anchor="start">20:33</text></g></g>
 <g class="a" style="animation-name:k52;" opacity="0">
-<rect x="14.0" y="386" width="412.0" height="108" rx="10" fill="#a3be8c" fill-opacity=".07" stroke="#a3be8c" stroke-opacity=".45"/>
-<text x="24.0" y="405.0" font-size="10" fill="#a3be8c" font-weight="700" text-anchor="start" letter-spacing="1">FOCUS</text>
-<text x="416.0" y="405.0" font-size="10" fill="#7c838e" font-weight="700" text-anchor="end" letter-spacing="1">UNTIL 14:58</text>
-<g class="a" style="animation-name:k53;" opacity="1">
-<text x="24.0" y="430.0" font-size="20" fill="#a3be8c" font-weight="700" text-anchor="start" >25:00</text>
-</g>
+<g transform="translate(470.0,50.0)"><rect x="14.0" y="122.0" width="692.0" height="104" rx="10" fill="#26282c" stroke="#313338"/><text x="24.0" y="142.0" font-size="10" fill="#7c838e" font-weight="700" text-anchor="start" letter-spacing="1">NEXT</text><text x="696.0" y="142.0" font-size="10" fill="#7c838e" font-weight="700" text-anchor="end" letter-spacing="1">ZOOM</text><text x="24.0" y="164.0" font-size="15" fill="#c5c8c6" font-weight="700" text-anchor="start">Standup</text><text x="24.0" y="182.0" font-size="11.5" fill="#7c838e" font-weight="400" text-anchor="start">15:00 to 15:15 · in 27m</text><g><rect x="24.0" y="191.0" width="160.8" height="26" rx="8" fill="#26282c" stroke="#313338"/><text x="104.4" y="208.3" font-size="12" fill="#c5c8c6" font-weight="400" text-anchor="middle">Join on workspace 2</text></g><g><rect x="190.8" y="191.0" width="88.8" height="26" rx="8" fill="#26282c" stroke="#313338"/><text x="235.2" y="208.3" font-size="12" fill="#c5c8c6" font-weight="400" text-anchor="middle">Copy link</text></g></g></g>
+<g class="a" style="animation-name:k53;" opacity="0">
+<g transform="translate(470.0,50.0)"><g><rect x="14.0" y="238.0" width="25.2" height="22" rx="8" fill="#26282c" stroke="#313338"/><text x="26.6" y="253.3" font-size="12" fill="#c5c8c6" font-weight="400" text-anchor="middle">‹</text></g><g><rect x="43.2" y="238.0" width="25.2" height="22" rx="8" fill="#26282c" stroke="#313338"/><text x="55.8" y="253.3" font-size="12" fill="#c5c8c6" font-weight="400" text-anchor="middle">›</text></g><text x="74.4" y="253.0" font-size="10" fill="#7c838e" font-weight="700" text-anchor="start" letter-spacing="1">TODAY</text><g><rect x="635.6" y="238.0" width="70.4" height="22" rx="8" fill="#26282c" stroke="#313338"/><text x="670.8" y="252.8" font-size="10.5" fill="#c5c8c6" font-weight="400" text-anchor="middle">Timeline</text></g><text x="629.6" y="253.0" font-size="10" fill="#7c838e" font-weight="700" text-anchor="end" letter-spacing="1">08:00 TO 18:00 · 2H 12M FREE LEFT</text><rect x="14" y="266" width="692" height="57" rx="8" fill="#15171a"/><rect x="13.5" y="279" width="1" height="28" fill="#7c838e" fill-opacity=".14"/><text x="14.0" y="318.0" font-size="9" fill="#7c838e" font-weight="400" text-anchor="middle">8</text><rect x="82.7" y="279" width="1" height="28" fill="#7c838e" fill-opacity=".14"/><text x="83.2" y="318.0" font-size="9" fill="#7c838e" font-weight="400" text-anchor="middle">9</text><rect x="151.9" y="279" width="1" height="28" fill="#7c838e" fill-opacity=".14"/><text x="152.4" y="318.0" font-size="9" fill="#7c838e" font-weight="400" text-anchor="middle">10</text><rect x="221.1" y="279" width="1" height="28" fill="#7c838e" fill-opacity=".14"/><text x="221.6" y="318.0" font-size="9" fill="#7c838e" font-weight="400" text-anchor="middle">11</text><rect x="290.3" y="279" width="1" height="28" fill="#7c838e" fill-opacity=".14"/><text x="290.8" y="318.0" font-size="9" fill="#7c838e" font-weight="400" text-anchor="middle">12</text><rect x="359.5" y="279" width="1" height="28" fill="#7c838e" fill-opacity=".14"/><text x="360.0" y="318.0" font-size="9" fill="#7c838e" font-weight="400" text-anchor="middle">13</text><rect x="428.7" y="279" width="1" height="28" fill="#7c838e" fill-opacity=".14"/><text x="429.2" y="318.0" font-size="9" fill="#7c838e" font-weight="400" text-anchor="middle">14</text><rect x="497.9" y="279" width="1" height="28" fill="#7c838e" fill-opacity=".14"/><text x="498.4" y="318.0" font-size="9" fill="#7c838e" font-weight="400" text-anchor="middle">15</text><rect x="567.1" y="279" width="1" height="28" fill="#7c838e" fill-opacity=".14"/><text x="567.6" y="318.0" font-size="9" fill="#7c838e" font-weight="400" text-anchor="middle">16</text><rect x="636.3" y="279" width="1" height="28" fill="#7c838e" fill-opacity=".14"/><text x="636.8" y="318.0" font-size="9" fill="#7c838e" font-weight="400" text-anchor="middle">17</text><rect x="705.5" y="279" width="1" height="28" fill="#7c838e" fill-opacity=".14"/><text x="706.0" y="318.0" font-size="9" fill="#7c838e" font-weight="400" text-anchor="middle">18</text><rect x="468.3" y="281.5" width="29.1" height="23" rx="4" fill="#a3be8c" fill-opacity=".1" stroke="#a3be8c" stroke-dasharray="3 2"/><text x="473.3" y="296.5" font-size="9.5" fill="#a3be8c" font-weight="400" text-anchor="start" fill-opacity=".85">27…</text><rect x="516.7" y="281.5" width="49.9" height="23" rx="4" fill="none" stroke="#7c838e" stroke-opacity=".7" stroke-dasharray="3 2"/><text x="521.7" y="296.5" font-size="9.5" fill="#a3be8c" font-weight="400" text-anchor="start" fill-opacity=".85">45m f…</text><rect x="637.8" y="281.5" width="67.2" height="23" rx="4" fill="none" stroke="#7c838e" stroke-opacity=".7" stroke-dasharray="3 2"/><text x="642.8" y="296.5" font-size="9.5" fill="#a3be8c" font-weight="400" text-anchor="start" fill-opacity=".85">1h 00m fr…</text><rect x="117.8" y="281.0" width="33.6" height="24.0" rx="4" fill="#88c0d0" fill-opacity=".14"/><text x="122.8" y="296.5" font-size="10" fill="#7c838e" font-weight="400" text-anchor="start">Pl…</text><rect x="221.6" y="281.0" width="68.2" height="24.0" rx="4" fill="#88c0d0" fill-opacity=".14"/><text x="226.6" y="296.5" font-size="10" fill="#7c838e" font-weight="400" text-anchor="start">Design s…</text><rect x="290.8" y="281.0" width="68.2" height="24.0" rx="4" fill="#a3be8c" fill-opacity=".08"/><text x="295.8" y="296.5" font-size="10" fill="#7c838e" font-weight="400" text-anchor="start">Lunch</text><rect x="360.0" y="281.0" width="33.6" height="24.0" rx="4" fill="#88c0d0" fill-opacity=".14"/><text x="365.0" y="296.5" font-size="10" fill="#7c838e" font-weight="400" text-anchor="start">Co…</text><rect x="498.4" y="281.0" width="16.3" height="24.0" rx="4" fill="#ebcb8b" fill-opacity="1"/><rect x="567.6" y="281.0" width="68.2" height="24.0" rx="4" fill="#88c0d0" fill-opacity=".32"/><text x="572.6" y="296.5" font-size="10" fill="#c5c8c6" font-weight="400" text-anchor="start">Sprint r…</text><rect x="466.3" y="278" width="2" height="30" fill="#bf616a"/><rect x="450.8" y="266" width="33.0" height="13" rx="3" fill="#bf616a"/><text x="467.3" y="276.0" font-size="9" fill="#15171a" font-weight="700" text-anchor="middle">14:33</text><text x="14.0" y="342.5" font-size="13" fill="#555b64" font-weight="400" text-anchor="start">13:00 to 13:30</text><text x="133.2" y="342.5" font-size="13" fill="#555b64" font-weight="400" text-anchor="start">Code review</text><text x="706.0" y="342.5" font-size="11" fill="#7c838e" font-weight="400" text-anchor="end">Google Meet</text><text x="14.0" y="361.5" font-size="13" fill="#7c838e" font-weight="400" text-anchor="start">15:00 to 15:15</text><text x="133.2" y="361.5" font-size="13" fill="#c5c8c6" font-weight="400" text-anchor="start">Standup</text><text x="706.0" y="361.5" font-size="11" fill="#7c838e" font-weight="400" text-anchor="end">Zoom</text><text x="14.0" y="380.5" font-size="13" fill="#7c838e" font-weight="400" text-anchor="start">16:00 to 17:00</text><text x="133.2" y="380.5" font-size="13" fill="#c5c8c6" font-weight="400" text-anchor="start">Sprint review</text><text x="706.0" y="380.5" font-size="11" fill="#7c838e" font-weight="400" text-anchor="end">Google Meet</text></g></g>
 <g class="a" style="animation-name:k54;" opacity="0">
-<text x="24.0" y="430.0" font-size="20" fill="#a3be8c" font-weight="700" text-anchor="start" >24:59</text>
-</g>
+<g transform="translate(470.0,50.0)"><rect x="14.0" y="396.0" width="692.0" height="112" rx="10" fill="#a3be8c" fill-opacity="0.06" stroke="#a3be8c" stroke-opacity="0.45"/><text x="24.0" y="416.0" font-size="10" fill="#a3be8c" font-weight="700" text-anchor="start" letter-spacing="1">FOCUS</text><text x="696.0" y="416.0" font-size="10" fill="#7c838e" font-weight="700" text-anchor="end" letter-spacing="1">UNTIL 14:58</text><text x="24.0" y="443.0" font-size="20" fill="#a3be8c" font-weight="700" text-anchor="start">25:00</text><text x="24.0" y="463.0" font-size="13" fill="#c5c8c6" font-weight="400" text-anchor="start">Started at 14:33. Ends 2 min before Standup.</text><g><rect x="24.0" y="472.0" width="52.8" height="26" rx="8" fill="#bf616a" stroke="#bf616a"/><text x="50.4" y="489.3" font-size="12" fill="#15171a" font-weight="700" text-anchor="middle">Stop</text></g></g></g>
 <g class="a" style="animation-name:k55;" opacity="0">
-<text x="24.0" y="430.0" font-size="20" fill="#a3be8c" font-weight="700" text-anchor="start" >24:58</text>
-</g>
+<g transform="translate(470.0,50.0)"><text x="14.0" y="531.0" font-size="10.5" fill="#7c838e" font-weight="400" text-anchor="start">Esc close · j join · e edit · f focus · v view · ← → days · r refresh · right-click the clock for</text><text x="14.0" y="545.0" font-size="10.5" fill="#7c838e" font-weight="400" text-anchor="start">gnome-calendar</text></g></g>
 <g class="a" style="animation-name:k56;" opacity="0">
-<text x="24.0" y="430.0" font-size="20" fill="#a3be8c" font-weight="700" text-anchor="start" >24:57</text>
+<g transform="translate(470.0,50.0)"><rect x="14.0" y="396.0" width="692.0" height="112" rx="10" fill="#a3be8c" fill-opacity="0.06" stroke="#a3be8c" stroke-opacity="0.45"/><text x="24.0" y="416.0" font-size="10" fill="#a3be8c" font-weight="700" text-anchor="start" letter-spacing="1">FOCUS</text><text x="696.0" y="416.0" font-size="10" fill="#7c838e" font-weight="700" text-anchor="end" letter-spacing="1">UNTIL 14:58</text><text x="24.0" y="443.0" font-size="20" fill="#a3be8c" font-weight="700" text-anchor="start">24:59</text><text x="24.0" y="463.0" font-size="13" fill="#c5c8c6" font-weight="400" text-anchor="start">Started at 14:33. Ends 2 min before Standup.</text><g><rect x="24.0" y="472.0" width="52.8" height="26" rx="8" fill="#bf616a" stroke="#bf616a"/><text x="50.4" y="489.3" font-size="12" fill="#15171a" font-weight="700" text-anchor="middle">Stop</text></g></g></g>
+<g class="a" style="animation-name:k57;" opacity="0">
+<g transform="translate(470.0,50.0)"><g><rect x="14.0" y="238.0" width="25.2" height="22" rx="8" fill="#26282c" stroke="#313338"/><text x="26.6" y="253.3" font-size="12" fill="#c5c8c6" font-weight="400" text-anchor="middle">‹</text></g><g><rect x="43.2" y="238.0" width="25.2" height="22" rx="8" fill="#26282c" stroke="#313338"/><text x="55.8" y="253.3" font-size="12" fill="#c5c8c6" font-weight="400" text-anchor="middle">›</text></g><text x="74.4" y="253.0" font-size="10" fill="#7c838e" font-weight="700" text-anchor="start" letter-spacing="1">TODAY</text><g><rect x="635.6" y="238.0" width="70.4" height="22" rx="8" fill="#26282c" stroke="#313338"/><text x="670.8" y="252.8" font-size="10.5" fill="#c5c8c6" font-weight="400" text-anchor="middle">Timeline</text></g><text x="629.6" y="253.0" font-size="10" fill="#7c838e" font-weight="700" text-anchor="end" letter-spacing="1">08:00 TO 18:00 · 2H 12M FREE LEFT</text><rect x="14" y="266" width="692" height="57" rx="8" fill="#15171a"/><rect x="13.5" y="279" width="1" height="28" fill="#7c838e" fill-opacity=".14"/><text x="14.0" y="318.0" font-size="9" fill="#7c838e" font-weight="400" text-anchor="middle">8</text><rect x="82.7" y="279" width="1" height="28" fill="#7c838e" fill-opacity=".14"/><text x="83.2" y="318.0" font-size="9" fill="#7c838e" font-weight="400" text-anchor="middle">9</text><rect x="151.9" y="279" width="1" height="28" fill="#7c838e" fill-opacity=".14"/><text x="152.4" y="318.0" font-size="9" fill="#7c838e" font-weight="400" text-anchor="middle">10</text><rect x="221.1" y="279" width="1" height="28" fill="#7c838e" fill-opacity=".14"/><text x="221.6" y="318.0" font-size="9" fill="#7c838e" font-weight="400" text-anchor="middle">11</text><rect x="290.3" y="279" width="1" height="28" fill="#7c838e" fill-opacity=".14"/><text x="290.8" y="318.0" font-size="9" fill="#7c838e" font-weight="400" text-anchor="middle">12</text><rect x="359.5" y="279" width="1" height="28" fill="#7c838e" fill-opacity=".14"/><text x="360.0" y="318.0" font-size="9" fill="#7c838e" font-weight="400" text-anchor="middle">13</text><rect x="428.7" y="279" width="1" height="28" fill="#7c838e" fill-opacity=".14"/><text x="429.2" y="318.0" font-size="9" fill="#7c838e" font-weight="400" text-anchor="middle">14</text><rect x="497.9" y="279" width="1" height="28" fill="#7c838e" fill-opacity=".14"/><text x="498.4" y="318.0" font-size="9" fill="#7c838e" font-weight="400" text-anchor="middle">15</text><rect x="567.1" y="279" width="1" height="28" fill="#7c838e" fill-opacity=".14"/><text x="567.6" y="318.0" font-size="9" fill="#7c838e" font-weight="400" text-anchor="middle">16</text><rect x="636.3" y="279" width="1" height="28" fill="#7c838e" fill-opacity=".14"/><text x="636.8" y="318.0" font-size="9" fill="#7c838e" font-weight="400" text-anchor="middle">17</text><rect x="705.5" y="279" width="1" height="28" fill="#7c838e" fill-opacity=".14"/><text x="706.0" y="318.0" font-size="9" fill="#7c838e" font-weight="400" text-anchor="middle">18</text><rect x="468.3" y="281.5" width="29.1" height="23" rx="4" fill="#a3be8c" fill-opacity=".1" stroke="#a3be8c" stroke-dasharray="3 2"/><text x="473.3" y="296.5" font-size="9.5" fill="#a3be8c" font-weight="400" text-anchor="start" fill-opacity=".85">27…</text><rect x="516.7" y="281.5" width="49.9" height="23" rx="4" fill="none" stroke="#7c838e" stroke-opacity=".7" stroke-dasharray="3 2"/><text x="521.7" y="296.5" font-size="9.5" fill="#a3be8c" font-weight="400" text-anchor="start" fill-opacity=".85">45m f…</text><rect x="637.8" y="281.5" width="67.2" height="23" rx="4" fill="none" stroke="#7c838e" stroke-opacity=".7" stroke-dasharray="3 2"/><text x="642.8" y="296.5" font-size="9.5" fill="#a3be8c" font-weight="400" text-anchor="start" fill-opacity=".85">1h 00m fr…</text><rect x="117.8" y="281.0" width="33.6" height="24.0" rx="4" fill="#88c0d0" fill-opacity=".14"/><text x="122.8" y="296.5" font-size="10" fill="#7c838e" font-weight="400" text-anchor="start">Pl…</text><rect x="221.6" y="281.0" width="68.2" height="24.0" rx="4" fill="#88c0d0" fill-opacity=".14"/><text x="226.6" y="296.5" font-size="10" fill="#7c838e" font-weight="400" text-anchor="start">Design s…</text><rect x="290.8" y="281.0" width="68.2" height="24.0" rx="4" fill="#a3be8c" fill-opacity=".08"/><text x="295.8" y="296.5" font-size="10" fill="#7c838e" font-weight="400" text-anchor="start">Lunch</text><rect x="360.0" y="281.0" width="33.6" height="24.0" rx="4" fill="#88c0d0" fill-opacity=".14"/><text x="365.0" y="296.5" font-size="10" fill="#7c838e" font-weight="400" text-anchor="start">Co…</text><rect x="498.4" y="281.0" width="16.3" height="24.0" rx="4" fill="#ebcb8b" fill-opacity="1"/><rect x="498.9" y="281.5" width="15.3" height="23.0" rx="4" fill="none" stroke="#c5c8c6" stroke-opacity=".55"/><rect x="567.6" y="281.0" width="68.2" height="24.0" rx="4" fill="#88c0d0" fill-opacity=".32"/><text x="572.6" y="296.5" font-size="10" fill="#c5c8c6" font-weight="400" text-anchor="start">Sprint r…</text><rect x="466.3" y="278" width="2" height="30" fill="#bf616a"/><rect x="450.8" y="266" width="33.0" height="13" rx="3" fill="#bf616a"/><text x="467.3" y="276.0" font-size="9" fill="#15171a" font-weight="700" text-anchor="middle">14:33</text><text x="14.0" y="342.5" font-size="13" fill="#555b64" font-weight="400" text-anchor="start">13:00 to 13:30</text><text x="133.2" y="342.5" font-size="13" fill="#555b64" font-weight="400" text-anchor="start">Code review</text><text x="706.0" y="342.5" font-size="11" fill="#7c838e" font-weight="400" text-anchor="end">Google Meet</text><text x="14.0" y="361.5" font-size="13" fill="#7c838e" font-weight="400" text-anchor="start">15:00 to 15:15</text><text x="133.2" y="361.5" font-size="13" fill="#c5c8c6" font-weight="400" text-anchor="start">Standup</text><text x="706.0" y="361.5" font-size="11" fill="#7c838e" font-weight="400" text-anchor="end">Zoom</text><text x="14.0" y="380.5" font-size="13" fill="#7c838e" font-weight="400" text-anchor="start">16:00 to 17:00</text><text x="133.2" y="380.5" font-size="13" fill="#c5c8c6" font-weight="400" text-anchor="start">Sprint review</text><text x="706.0" y="380.5" font-size="11" fill="#7c838e" font-weight="400" text-anchor="end">Google Meet</text></g></g>
+<g class="a" style="animation-name:k58;" opacity="0">
+<g transform="translate(470.0,50.0)"><rect x="14.0" y="396.0" width="692.0" height="112" rx="10" fill="#a3be8c" fill-opacity="0.06" stroke="#a3be8c" stroke-opacity="0.45"/><text x="24.0" y="416.0" font-size="10" fill="#a3be8c" font-weight="700" text-anchor="start" letter-spacing="1">FOCUS</text><text x="696.0" y="416.0" font-size="10" fill="#7c838e" font-weight="700" text-anchor="end" letter-spacing="1">UNTIL 14:58</text><text x="24.0" y="443.0" font-size="20" fill="#a3be8c" font-weight="700" text-anchor="start">24:58</text><text x="24.0" y="463.0" font-size="13" fill="#c5c8c6" font-weight="400" text-anchor="start">Started at 14:33. Ends 2 min before Standup.</text><g><rect x="24.0" y="472.0" width="52.8" height="26" rx="8" fill="#bf616a" stroke="#bf616a"/><text x="50.4" y="489.3" font-size="12" fill="#15171a" font-weight="700" text-anchor="middle">Stop</text></g></g></g>
+<g class="a" style="animation-name:k59;" opacity="0">
+<g transform="translate(470.0,50.0)"><rect x="14.0" y="396.0" width="692.0" height="112" rx="10" fill="#a3be8c" fill-opacity="0.06" stroke="#a3be8c" stroke-opacity="0.45"/><text x="24.0" y="416.0" font-size="10" fill="#a3be8c" font-weight="700" text-anchor="start" letter-spacing="1">FOCUS</text><text x="696.0" y="416.0" font-size="10" fill="#7c838e" font-weight="700" text-anchor="end" letter-spacing="1">UNTIL 14:58</text><text x="24.0" y="443.0" font-size="20" fill="#a3be8c" font-weight="700" text-anchor="start">24:57</text><text x="24.0" y="463.0" font-size="13" fill="#c5c8c6" font-weight="400" text-anchor="start">Started at 14:33. Ends 2 min before Standup.</text><g><rect x="24.0" y="472.0" width="52.8" height="26" rx="8" fill="#bf616a" stroke="#bf616a"/><text x="50.4" y="489.3" font-size="12" fill="#15171a" font-weight="700" text-anchor="middle">Stop</text></g></g></g>
 </g>
-<text x="24.0" y="448.0" font-size="12.5" fill="#c5c8c6" font-weight="400" text-anchor="start" >Started at 14:33. Ends 2 min before Standup.</text>
-<rect x="24.0" y="458" width="50.8" height="26" rx="8" fill="#bf616a"/>
-<text x="49.4" y="475.0" font-size="12" fill="#15171a" font-weight="700" text-anchor="middle" >Stop</text>
+<g class="a" style="animation-name:k60;" opacity="0">
+<rect x="937.0" y="374.0" width="251.0" height="44" rx="10" fill="#26282c" stroke="#3a404d"/>
+<text x="947.0" y="392.0" font-size="11" fill="#c5c8c6" font-weight="400" text-anchor="start">15:00 to 15:15  Standup</text>
+<text x="947.0" y="408.0" font-size="11" fill="#c5c8c6" font-weight="400" text-anchor="start">Click to open it in Google Calendar</text>
 </g>
-</g>
-<g class="a" style="animation-name:k57;">
-<text x="14.0" y="515.0" font-size="10.5" fill="#7c838e" font-weight="400" text-anchor="start" >Esc close · j join · f focus · r refresh ·</text>
-<text x="14.0" y="529.0" font-size="10.5" fill="#7c838e" font-weight="400" text-anchor="start" >right-click the clock for the calendar</text>
-</g>
-</g></g>
-<circle class="a ripple" style="animation-name:k58,k59;transform-box:fill-box;transform-origin:center" cx="941.9" cy="637.0" r="18" fill="none" stroke="#88c0d0" stroke-width="2.5" opacity="0"/>
-<circle class="a ripple" style="animation-name:k60,k61;transform-box:fill-box;transform-origin:center" cx="818.1" cy="535.0" r="18" fill="none" stroke="#88c0d0" stroke-width="2.5" opacity="0"/>
-<circle class="a ripple" style="animation-name:k62,k63;transform-box:fill-box;transform-origin:center" cx="420.0" cy="260.0" r="18" fill="none" stroke="#88c0d0" stroke-width="2.5" opacity="0"/>
-<circle class="a ripple" style="animation-name:k64,k65;transform-box:fill-box;transform-origin:center" cx="941.9" cy="637.0" r="18" fill="none" stroke="#bf616a" stroke-width="2.5" opacity="0"/>
-<g id="cursor" class="a" style="animation-name:k66;animation-timing-function:cubic-bezier(.45,0,.25,1);transform:translate(637.0px, 376.0px)">
+<circle class="a ripple" style="animation-name:k61,k62;transform-box:fill-box;transform-origin:center" cx="966.6" cy="637.0" r="18" fill="none" stroke="#88c0d0" stroke-width="2.5" opacity="0"/>
+<circle class="a ripple" style="animation-name:k63,k64;transform-box:fill-box;transform-origin:center" cx="525.8" cy="325.0" r="18" fill="none" stroke="#88c0d0" stroke-width="2.5" opacity="0"/>
+<circle class="a ripple" style="animation-name:k65,k66;transform-box:fill-box;transform-origin:center" cx="871.9" cy="306.0" r="18" fill="none" stroke="#88c0d0" stroke-width="2.5" opacity="0"/>
+<circle class="a ripple" style="animation-name:k67,k68;transform-box:fill-box;transform-origin:center" cx="567.2" cy="535.0" r="18" fill="none" stroke="#88c0d0" stroke-width="2.5" opacity="0"/>
+<circle class="a ripple" style="animation-name:k69,k70;transform-box:fill-box;transform-origin:center" cx="300.0" cy="250.0" r="18" fill="none" stroke="#88c0d0" stroke-width="2.5" opacity="0"/>
+<circle class="a ripple" style="animation-name:k71,k72;transform-box:fill-box;transform-origin:center" cx="966.6" cy="637.0" r="18" fill="none" stroke="#bf616a" stroke-width="2.5" opacity="0"/>
+<g id="cursor" class="a" style="animation-name:k73;animation-timing-function:cubic-bezier(.45,0,.25,1);transform:translate(637.0px, 376.0px)">
 <path d="M0,0 L0,22 L6,17 L10,26 L14,24 L10,15 L18,15 Z" fill="#eceff4" stroke="#1d2024" stroke-width="1.4" stroke-linejoin="round"/>
-<g class="a" style="animation-name:k67;" opacity="0"><rect x="-58" y="-34" width="96" height="22" rx="6" fill="#1e2024" stroke="#41464e"/>
-<text x="-10.0" y="-19.0" font-size="11.5" fill="#c5c8c6" font-weight="400" text-anchor="middle" >middle-click</text>
+<g class="a" style="animation-name:k74;" opacity="0"><rect x="-58" y="-34" width="96" height="22" rx="6" fill="#1e2024" stroke="#41464e"/>
+<text x="-10.0" y="-19.0" font-size="11.5" fill="#c5c8c6" font-weight="400" text-anchor="middle">middle-click</text>
 </g></g>
 </g></svg>
