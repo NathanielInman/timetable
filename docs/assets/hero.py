@@ -545,6 +545,11 @@ def drawer_spots(b, w=DRAWER_W):
     return _render(b, w)[2]
 
 
+# ---- end of the panel ----
+# dot-files' bar hero (docs/bar/apps.py) runs everything above this line
+# to draw the panel in its own tour, so keep the panel's code above it and
+# the story below it.
+
 # ================================================================ the scene
 
 W, H = 1200, 660
