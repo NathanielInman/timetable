@@ -26,6 +26,8 @@ use timetable_core::protocol::{Event as BoardEvent, FocusAction, Request};
 use timetable_core::text::{ago, countdown, minutes};
 
 pub enum Msg {
+    /// Another app's drawer opened: close this one.
+    OtherDrawerOpened,
     Event(BoardEvent),
     /// A watched stylesheet or the config changed.
     Restyle,
@@ -692,6 +694,7 @@ impl Drawer {
 
     pub fn handle(self: &Rc<Self>, msg: Msg) {
         match msg {
+            Msg::OtherDrawerOpened => self.hide(),
             Msg::Event(BoardEvent::Snapshot { snapshot }) => {
                 *self.snap.borrow_mut() = Some(*snapshot);
                 self.day_sig.borrow_mut().clear();
@@ -754,6 +757,7 @@ impl Drawer {
         self.window.set_visible(true);
         self.window.present();
         if !was_visible {
+            bar_anchor::drawers::opened("timetable");
             self.spring.play_in(0);
             send_quiet(Request::BoardVisible { visible: true });
         }
