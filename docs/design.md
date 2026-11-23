@@ -42,7 +42,7 @@ flowchart LR
 
 | Crate | Role |
 |---|---|
-| `bar-anchor` | Hyprland anchoring and panel placement. The same `Anchor` JSON as Roundhouse, Switchyard and Tannoy. |
+| [`bar-anchor`](https://github.com/NathanielInman/bar-anchor) | Anchoring and panel placement, shared by the waybar apps and pinned by tag in the root `Cargo.toml`. |
 | `timetable-core` | The model, the iCal reader, recurrence, links, agenda logic, fetching, config, protocol and the waybar reader. Pure where it can be. |
 | `timetable` | The `timetable` binary: daemon, CLI, waybar module, Join and notifications. |
 | `timetable-board` | The Linux drawer: GTK4 on `gtk4-layer-shell`, overlay layer, namespace `timetable`, keyboard exclusive while open. |
